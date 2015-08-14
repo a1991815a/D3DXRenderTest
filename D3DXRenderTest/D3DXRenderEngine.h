@@ -6,6 +6,7 @@
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 #include "D3DXProgram.h"
+#include "D3DXVertex.h"
 
 class D3DXRenderEngine: public RenderEngine{
 private:
@@ -86,7 +87,7 @@ private:
 		DWORD _render_index,
 		IDirect3DSurface9* _surface);												//设置渲染目标
 	friend IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index);				//得到当前渲染表面
-
+	friend IDirect3DDevice9* dxGetDevice();											//得到设备接口
 };
 
 #endif

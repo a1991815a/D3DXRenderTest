@@ -101,5 +101,10 @@ IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index)
 	return render_surface;
 }
 
+IDirect3DDevice9* dxGetDevice()
+{
+	return _d3d_render_engine->m_device;
+}
+
 #endif // !_OPENGL
 

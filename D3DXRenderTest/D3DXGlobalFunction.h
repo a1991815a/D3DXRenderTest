@@ -5,12 +5,11 @@
 #include "D3DXVertex.h"
 
 #ifndef _OPENGL
-
 class D3DXRenderEngine;
 
-enum ShaderTypes {
-	D3D_VERTEX_SHADER,
-	D3D_PIXEL_SHADER
+struct D3DXRenderEngineObject {
+public:
+	static D3DXRenderEngine* d3dx_engine;
 };
 
 void dxSetOrginalMatrix(const D3DXMATRIX* _matrix);						//原点转换矩阵
@@ -32,7 +31,7 @@ void dxVertexArray(
 	const Vertex* _vertex, 
 	size_t _offset, 
 	size_t _count, 
-	IDirect3DVertexBuffer9* _buf);	//传输顶点数据
+	IDirect3DVertexBuffer9* _buf);										//传输顶点数据
 void dxDrawPrimitive(
 	D3DPRIMITIVETYPE _type,
 	UINT _offset,
@@ -43,7 +42,7 @@ void dxSetRenderTarget(
 	DWORD _render_index, 
 	IDirect3DSurface9* _surface);										//设置渲染目标
 IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index);				//得到当前渲染表面
-
+IDirect3DDevice9* dxGetDevice();										//得到dx设备接口
 
 #endif
 

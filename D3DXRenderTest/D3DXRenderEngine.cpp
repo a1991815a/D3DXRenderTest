@@ -5,6 +5,8 @@
 #include "D3DXVertex.h"
 #include "D3DXGlobalFunction.h"
 
+#pragma warning(disable: 4244)
+
 extern void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite);
 
 D3DXRenderEngine::D3DXRenderEngine()
@@ -34,6 +36,7 @@ void D3DXRenderEngine::setLookAtMatrix(float pos_x, float pos_y, float pos_z, fl
 
 void D3DXRenderEngine::init()
 {
+	D3DXRenderEngineObject::d3dx_engine = this;
 	HRESULT result = D3D_OK;
 	m_d3pp = Direct3DCreate9(D3D_SDK_VERSION);
 	GBASSERT(m_d3pp != nullptr);
@@ -62,7 +65,7 @@ void D3DXRenderEngine::init()
 	D3DXMatrixTranslation(&m_tMatrix, 
 		-(win32_utils->getWidth() >> 1), 
 		-(win32_utils->getHeight() >> 1),
-		0
+		0.0f
 		);
 	setOrthoMatrix(win32_utils->getWidth(), win32_utils->getHeight(), 0, 1);
 	setLookAtMatrix(
@@ -74,10 +77,10 @@ void D3DXRenderEngine::init()
 	dxCompileShader(DEFAULT_VSHADER, VS_2_0, &m_defProgram);
 	dxCompileShader(DEFAULT_FSHADER, PS_2_0, &m_defProgram);
 
-	m_defProgram.initVTable("v_tMatrix", "tMatrix");
-	m_defProgram.initVTable("v_mMatrix", "mMatrix");
-	m_defProgram.initVTable("v_vMatrix", "vMatrix");
-	m_defProgram.initVTable("v_pMatrix", "pMatrix");
+	m_defProgram.initVTable("tMatrix");
+	m_defProgram.initVTable("mMatrix");
+	m_defProgram.initVTable("vMatrix");
+	m_defProgram.initVTable("pMatrix");
 }
 
 void D3DXRenderEngine::render()
@@ -120,11 +123,10 @@ void D3DXRenderEngine::LinkProgram()
 
 void D3DXRenderEngine::setTransformMatrix(const D3DXMATRIX* matrix)
 {
-	auto vTable = m_defProgram.getVTable();
 	if(matrix != nullptr)
-		vTable->SetMatrix(m_device, m_defProgram.getHandle("v_mMatrix"), matrix);
+		m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", matrix);
 	else
-		vTable->SetMatrix(m_device, m_defProgram.getHandle("v_mMatrix"), &Identify_Matrix);
+		m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", &Identify_Matrix);
 }
 
 void D3DXRenderEngine::setProgram(D3DXProgram* program)
@@ -143,10 +145,10 @@ void D3DXRenderEngine::setRenderState(D3DRENDERSTATETYPE State, DWORD val)
 
 void D3DXRenderEngine::inputMatrix()
 {
-	auto vTable = m_curProgram->getVTable();
-	vTable->SetMatrix(m_device, m_curProgram->getHandle("v_mMatrix"), &Identify_Matrix);
-	vTable->SetMatrix(m_device, m_curProgram->getHandle("v_tMatrix"), &m_tMatrix);
-	vTable->SetMatrixTranspose(m_device, m_curProgram->getHandle("v_vMatrix"), &m_vMatrix);
-	vTable->SetMatrixTranspose(m_device, m_curProgram->getHandle("v_pMatrix"), &m_pMatrix);
+	m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", &Identify_Matrix);
+	m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "tMatrix", &m_tMatrix);
+	m_curProgram->SetMatrixTranspose(D3D_VERTEX_SHADER, "vMatrix", &m_vMatrix);
+	m_curProgram->SetMatrixTranspose(D3D_VERTEX_SHADER, "pMatrix", &m_pMatrix);
 }
 
+#pragma warning(default: 4244)
