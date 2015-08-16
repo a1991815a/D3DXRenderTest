@@ -29,14 +29,29 @@ public:
 		getter, setter
 	*/
 	inline const Vertex* getVertex() const { return m_vertex; }
-	inline void setVertex(Vertex* val) { m_vertex = val; }
+
+/*	inline void setVertex(Vertex* val) { m_vertex = val; }
+	不需要在外部初始化该属性
+*/
 	inline const size_t getCount() const { return m_count; }
-	inline void setCount(size_t val) { m_count = val; }
+
+/*	inline void setCount(size_t val) { m_count = val; }
+	不需要在外部初始化该属性
+*/
 	inline const size_t getVCount() const { return m_vCount; }
-	inline void setVCount(size_t val) { m_vCount = val; }
+
+/*	inline void setVCount(size_t val) { m_vCount = val; }
+	不需要在外部初始化该属性
+*/
 	inline const IDirect3DVertexBuffer9* getBuf() const { return m_buf; }
-	inline void setBuf(IDirect3DVertexBuffer9* val) { m_buf = val; }
+	
 	inline const D3DPRIMITIVETYPE getType() const { return m_type; }
-	inline void setType(D3DPRIMITIVETYPE val) { m_type = val; }
+
+/*	inline void setType(D3DPRIMITIVETYPE val) { m_type = val; }
+	不需要在外部初始化该属性
+*/
+
+protected:
+	inline void setBuf(IDirect3DVertexBuffer9* val) { m_buf = val; }
 };
 #endif

@@ -9,5 +9,6 @@ private:
 public:
 	gbLine();
 	~gbLine();
+
 };
 #endif

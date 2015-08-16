@@ -42,8 +42,8 @@ int WINAPI WinMain(
 
 
 void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite) {
-	_renderEngine->toD3DXRenderEngine()->LinkProgram();
-	_renderEngine->toD3DXRenderEngine()->setTransformMatrix(nullptr);
+	dxLinkProgram(nullptr);
+	setTransformMatrix(nullptr);
 	line->setData(pp, 0, 2);
 	line->assemble();
 	line->draw();

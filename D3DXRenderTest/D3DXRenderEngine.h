@@ -24,6 +24,7 @@ private:
 	D3DXProgram*			m_curProgram;			//当前使用的着色器程序
 public:
 	D3DXRenderEngine();
+	~D3DXRenderEngine();
 
 	void setOrthoMatrix(float _width, float _height, float _near, float _far);
 	void setLookAtMatrix(
@@ -59,7 +60,7 @@ private:
 	友元全局函数
 */
 	friend void dxSetOrginalMatrix(const D3DXMATRIX* _matrix);						//原点转换矩阵
-	friend void dxSetTransforMatrix(const D3DXMATRIX* _matrix);						//model-to-world转换矩阵设置
+	friend void setTransformMatrix(const D3DXMATRIX* _matrix);						//model-to-world转换矩阵设置
 	friend void dxSetViewMatrix(
 		float _width, float _height,
 		float _near, float _far);													//裁剪矩阵
@@ -86,8 +87,11 @@ private:
 	friend void dxSetRenderTarget(
 		DWORD _render_index,
 		IDirect3DSurface9* _surface);												//设置渲染目标
-	friend IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index);				//得到当前渲染表面
+	friend IDirect3DSurface9* dxGetRenderTarget(DWORD _render_index);				//得到当前渲染表面
 	friend IDirect3DDevice9* dxGetDevice();											//得到设备接口
+	friend ID3DXSprite* dxGetSprite();												//得到精灵
+	friend void dxSetFont(ID3DXFont* font);											//设置当前字体
+	friend ID3DXFont* dxGetFont();													//得到当前字体
 };
 
 #endif

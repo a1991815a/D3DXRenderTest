@@ -80,6 +80,9 @@
     <ClCompile Include="gbLine.cpp">
       <Filter>渲染器\图元组装</Filter>
     </ClCompile>
+    <ClCompile Include="D3DXGlobalFunction.cpp">
+      <Filter>渲染器\D3DX全局函数</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win32Utils.h">

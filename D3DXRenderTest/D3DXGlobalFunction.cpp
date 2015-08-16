@@ -2,6 +2,7 @@
 #include "D3DXRenderEngine.h"
 #include "D3DXRenderEngine.h"
 #include "D3DXProgram.h"
+#include "GBAssert.h"
 
 #ifndef _OPENGL
 
@@ -14,9 +15,9 @@ void dxSetOrginalMatrix(const D3DXMATRIX* _matrix)
 	_d3d_render_engine->m_tMatrix = *_matrix;
 }
 
-void dxSetTransforMatrix(const D3DXMATRIX* _matrix)
+void setTransformMatrix(const D3DXMATRIX* _matrix)
 {
-	
+	_d3d_render_engine->setTransformMatrix(_matrix);
 }
 
 void dxSetViewMatrix(
@@ -54,6 +55,7 @@ void dxCompileShader(
 void dxLinkProgram(D3DXProgram* _program)
 {
 	_d3d_render_engine->setProgram(_program);
+	_d3d_render_engine->LinkProgram();
 }
 
 void dxSetVertexDeclaration(IDirect3DVertexDeclaration9* decl)
@@ -67,13 +69,18 @@ void dxVertexArray(
 	size_t _count, 
 	IDirect3DVertexBuffer9* _buf)
 {
+	HRESULT result = D3D_OK;
 	void* data_ptr = nullptr;
 	D3DVERTEXBUFFER_DESC buf_desc;
 	_buf->GetDesc(&buf_desc);
-	_buf->Lock(_offset, _vertex->getSize() * _count, &data_ptr, 0);
+	result = _buf->Lock(_offset, _vertex->getSize() * _count, (void**)&data_ptr, 0);
+	GBASSERT(result == D3D_OK);
 	memcpy_s(data_ptr, buf_desc.Size, _vertex, _vertex->getSize() * _count);
 	_buf->Unlock();
-	_d3d_render_engine->m_device->SetStreamSource(0, _buf, _offset, _vertex->getSize());
+	result = _d3d_render_engine->m_device->SetVertexDeclaration(_vertex->getVertexDecl());
+	GBASSERT(result == D3D_OK);
+	result = _d3d_render_engine->m_device->SetStreamSource(0, _buf, _offset, _vertex->getSize());
+	GBASSERT(result == D3D_OK);
 }
 
 void dxDrawPrimitive(D3DPRIMITIVETYPE _type, UINT _offset, UINT _count)
@@ -94,7 +101,7 @@ void dxSetRenderTarget(
 	_d3d_render_engine->m_device->SetRenderTarget(_render_index, _surface);
 }
 
-IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index)
+IDirect3DSurface9* dxGetRenderTarget(DWORD _render_index)
 {
 	IDirect3DSurface9* render_surface = nullptr;
 	_d3d_render_engine->m_device->GetRenderTarget(_render_index, &render_surface);
@@ -104,6 +111,56 @@ IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index)
 IDirect3DDevice9* dxGetDevice()
 {
 	return _d3d_render_engine->m_device;
+}
+
+ID3DXSprite* dxGetSprite()
+{
+	return _d3d_render_engine->m_sprite;
+}
+
+ID3DXFont* dxCreateFont(size_t Width, int Height, size_t Weight, size_t MipmapLevel, bool Italic, DWORD Charset, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, const char* FontName)
+{
+	ID3DXFont* font = nullptr;
+	HRESULT result = D3DXCreateFontA(
+		dxGetDevice(),
+		Height,
+		Width,
+		Weight,
+		MipmapLevel,
+		Italic,
+		Charset,
+		OutputPrecision,
+		Quality,
+		PitchAndFamily,
+		FontName,
+		&font
+		);
+
+	GBASSERT(result == D3D_OK);
+	return font;
+}
+
+void dxDrawText(
+	const std::string& text, 
+	int x, int y, 
+	DWORD Format,
+	D3DCOLOR Color)
+{
+	D3DXFONT_DESCA desc;
+	ID3DXFont* font = dxGetFont();
+	font->GetDescA(&desc);
+	RECT rect = { x, y, x+desc.Width*text.size(), y+desc.Height };
+	dxGetFont()->DrawTextA(dxGetSprite(), text.c_str(), text.size(), &rect, Format, Color);
+}
+
+void dxSetFont(ID3DXFont* font)
+{
+	_d3d_render_engine->m_font = font;
+}
+
+ID3DXFont* dxGetFont()
+{
+	return _d3d_render_engine->m_font;
 }
 
 #endif // !_OPENGL

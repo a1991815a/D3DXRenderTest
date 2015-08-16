@@ -13,7 +13,8 @@ public:
 };
 
 void dxSetOrginalMatrix(const D3DXMATRIX* _matrix);						//原点转换矩阵
-void dxSetTransforMatrix(const D3DXMATRIX* _matrix);					//model-to-world转换矩阵设置
+
+void setTransformMatrix(const D3DXMATRIX* _matrix);						//model-to-world转换矩阵设置
 void dxSetViewMatrix(
 	float _width, float _height, 
 	float _near, float _far);											//裁剪矩阵
@@ -41,8 +42,30 @@ void dxSetRenderState(D3DRENDERSTATETYPE _State, DWORD _val);			//设置渲染状态
 void dxSetRenderTarget(
 	DWORD _render_index, 
 	IDirect3DSurface9* _surface);										//设置渲染目标
-IDirect3DSurface9* dxGetRenderSurface(DWORD _render_index);				//得到当前渲染表面
+IDirect3DSurface9* dxGetRenderTarget(DWORD _render_index);				//得到当前渲染表面
 IDirect3DDevice9* dxGetDevice();										//得到dx设备接口
+ID3DXSprite* dxGetSprite();												//得到精灵
+ID3DXFont* dxGetFont();													//得到当前字体
+void dxSetFont(ID3DXFont* font);										//设置当前字体
+void dxDrawText(const std::string& text, 
+	int x, int y, 
+	DWORD Format,
+	D3DCOLOR Color
+	);																	//绘制文字
+ID3DXFont* dxCreateFont(
+	size_t Width,
+	int Height,
+	size_t Weight,
+	size_t MipmapLevel,
+	bool Italic,
+	DWORD Charset,
+	DWORD OutputPrecision,
+	DWORD Quality,
+	DWORD PitchAndFamily,
+	const char* FontName
+	);																	//创建字体
+
+
 
 #endif
 

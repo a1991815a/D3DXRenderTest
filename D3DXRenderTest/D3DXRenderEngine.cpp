@@ -17,6 +17,12 @@ D3DXRenderEngine::D3DXRenderEngine()
 	D3DXMatrixIdentity(&m_vMatrix);
 	D3DXMatrixIdentity(&m_pMatrix);
 	D3DXMatrixIdentity(&Identify_Matrix);
+	D3DXRenderEngineObject::d3dx_engine = this;
+}
+
+D3DXRenderEngine::~D3DXRenderEngine()
+{
+	D3DXRenderEngineObject::d3dx_engine = nullptr;
 }
 
 void D3DXRenderEngine::setOrthoMatrix(float _width, float _height, float _near, float _far)
@@ -36,7 +42,6 @@ void D3DXRenderEngine::setLookAtMatrix(float pos_x, float pos_y, float pos_z, fl
 
 void D3DXRenderEngine::init()
 {
-	D3DXRenderEngineObject::d3dx_engine = this;
 	HRESULT result = D3D_OK;
 	m_d3pp = Direct3DCreate9(D3D_SDK_VERSION);
 	GBASSERT(m_d3pp != nullptr);
@@ -145,7 +150,7 @@ void D3DXRenderEngine::setRenderState(D3DRENDERSTATETYPE State, DWORD val)
 
 void D3DXRenderEngine::inputMatrix()
 {
-	m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", &Identify_Matrix);
+// 	m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", &Identify_Matrix);
 	m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "tMatrix", &m_tMatrix);
 	m_curProgram->SetMatrixTranspose(D3D_VERTEX_SHADER, "vMatrix", &m_vMatrix);
 	m_curProgram->SetMatrixTranspose(D3D_VERTEX_SHADER, "pMatrix", &m_pMatrix);
