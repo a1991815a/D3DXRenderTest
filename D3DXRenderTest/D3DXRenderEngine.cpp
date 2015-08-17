@@ -40,7 +40,7 @@ void D3DXRenderEngine::setLookAtMatrix(float pos_x, float pos_y, float pos_z, fl
 		);
 }
 
-void D3DXRenderEngine::init()
+bool D3DXRenderEngine::init()
 {
 	HRESULT result = D3D_OK;
 	m_d3pp = Direct3DCreate9(D3D_SDK_VERSION);
@@ -88,6 +88,8 @@ void D3DXRenderEngine::init()
 	m_defProgram.initVTable("mMatrix");
 	m_defProgram.initVTable("vMatrix");
 	m_defProgram.initVTable("pMatrix");
+
+	return true;
 }
 
 void D3DXRenderEngine::render()

@@ -3,12 +3,25 @@
 
 bool Application::init()
 {
-	auto itor = m_gameStepList.begin();
-	for (; itor != m_gameStepList.end(); ++itor)
+	m_frame = 1000 / 60;
 	{
-		bool result = (*itor)->init();
-		GBASSERT(result);
+		auto itor = m_gameInnerLoop.begin();
+		for (; itor != m_gameInnerLoop.end(); ++itor)
+		{
+			bool result = (*itor)->init();
+			GBASSERT(result);
+		}
 	}
+
+	{
+		auto itor = m_gameExternLoop.begin();
+		for (; itor != m_gameExternLoop.end(); ++itor)
+		{
+			bool result = (*itor)->init();
+			GBASSERT(result);
+		}
+	}
+	render_engine->init();
 	return true;
 }
 
@@ -21,19 +34,25 @@ void Application::loop()
 			::TranslateMessage(&msg);
 			::DispatchMessageA(&msg);
 		}
-		else
+		else if(m_globalTimer.getDelta() > m_frame)
 		{
-			auto itor = m_gameStepList.begin();
-			for (; itor != m_gameStepList.end(); ++itor)
+			auto itor = m_gameInnerLoop.begin();
+			for (; itor != m_gameInnerLoop.end(); ++itor)
 				(*itor)->loop();
-			Sleep(1);
+			render_engine->loop();
+			m_globalTimer.reset();
 		}
+		else
+			Sleep(1);
+		auto itor = m_gameExternLoop.begin();
+		for (; itor != m_gameExternLoop.end(); ++itor)
+			(*itor)->loop();
 	}
 }
 
 void Application::destroy()
 {
-	auto itor = m_gameStepList.rbegin();
-	for (; itor != m_gameStepList.rend(); ++itor)
+	auto itor = m_gameInnerLoop.rbegin();
+	for (; itor != m_gameInnerLoop.rend(); ++itor)
 		(*itor)->destroy();
 }

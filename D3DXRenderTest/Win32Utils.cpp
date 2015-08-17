@@ -1,5 +1,6 @@
 #include "Win32Utils.h"
 #include "GBAssert.h"
+#include "MessageManager.h"
 
 Win32Utils* Win32Utils::m_instance = nullptr;
 
@@ -79,7 +80,21 @@ LRESULT CALLBACK Win32Utils::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	switch (message)
 	{
 	case WM_CREATE:
-
+		break;
+	case WM_KEYDOWN:
+		_dispatchMessage->sendKeyMessage((char)wParam, ET_KEY_DOWN);
+		break;
+	case WM_KEYUP:
+		_dispatchMessage->sendKeyMessage((char)wParam, ET_KEY_UP);
+		break;
+	case WM_LBUTTONDOWN:
+		_dispatchMessage->sendMouseMessage((float)LOWORD(lParam), (float)HIWORD(lParam), ET_MOUSE_LDOWN);
+		break;
+	case WM_LBUTTONUP:
+		_dispatchMessage->sendMouseMessage((float)LOWORD(lParam), (float)HIWORD(lParam), ET_MOUSE_LUP);
+		break;
+	case WM_MOUSEMOVE:
+		_dispatchMessage->sendMouseMessage((float)LOWORD(lParam), (float)HIWORD(lParam), ET_MOUSE_MOVE);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

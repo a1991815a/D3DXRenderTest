@@ -5,5 +5,7 @@
 #include "GameStep.h"
 
 class GameApplication: public Application{
+public:
+	virtual bool init() override;
 };
 #endif

@@ -10,10 +10,10 @@ bool MouseListener::trigger( Event* event )
 {
 	switch(event->getParam())
 	{
-	case ET_MOUSE_DOWN:
+	case ET_MOUSE_LDOWN:
 		if(OnMouseDown)
 			return OnMouseDown(event);
-	case ET_MOUSE_UP:
+	case ET_MOUSE_LUP:
 		if(OnMouseUp)
 			return OnMouseUp(event);
 	case ET_MOUSE_MOVE:

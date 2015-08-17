@@ -8,6 +8,9 @@
 #include "D3DXProgram.h"
 #include "gbPoint.h"
 #include "gbRect.h"
+#include "TimerManager.h"
+#include "MessageManager.h"
+#include "KeyListener.h"
 
 
 gbLine* line = nullptr;
@@ -48,6 +51,10 @@ int WINAPI WinMain(
 	_In_ int nShowCmd)
 {
 	Application* application = new GameApplication();
+	application->pushInnerLoop(MessageManager::getInstance());
+	application->pushExternLoop(TimerManager::getInstance());
+
+
 	application->setRenderEngine(new D3DXRenderEngine());
 	AppdeleGate::getInstance()->setCurrentApp(application);
 	AppdeleGate::getInstance()->init();
@@ -61,7 +68,17 @@ int WINAPI WinMain(
 
 	D3DXMatrixTranslation(&mMatrix, 50, 150, 0);
 	
-	return AppdeleGate::getInstance()->getCurrentApp()->run();
+	KeyListener* listener = new KeyListener();
+	listener->OnKeyDown = [](Event* e) {
+		OutputDebugStringA("°´ÏÂ°´¼ü \n");
+		return true;
+	};
+	_dispatchMessage->addEventListener(listener);
+
+
+
+	AppdeleGate::getInstance()->getCurrentApp()->run();
+	return 0;
 }
 
 

@@ -48,7 +48,7 @@ public:
 
 
 private:
-	virtual void init() override;
+	virtual bool init() override;
 
 	inline virtual void loop() override{
 		this->render();

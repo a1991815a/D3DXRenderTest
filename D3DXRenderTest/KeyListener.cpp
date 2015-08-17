@@ -2,7 +2,9 @@
 
 KeyListener::KeyListener( int priority)
 	:Listener(ET_KEY, priority), OnKeyDown(nullptr), OnKeyUp(nullptr)
-{}
+{
+
+}
 
 bool KeyListener::trigger( Event* event )
 {

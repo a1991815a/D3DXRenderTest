@@ -72,9 +72,6 @@
     <Filter Include="回调函数">
       <UniqueIdentifier>{030cfbba-29d5-40ee-b8ac-1fbd987a3ed3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="游戏循环步骤接口">
-      <UniqueIdentifier>{840b9c92-c71e-4dd1-9f7d-435049cf035f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="有限状态机">
       <UniqueIdentifier>{31a23a80-8496-4529-b421-398ee152d48a}</UniqueIdentifier>
     </Filter>
@@ -83,6 +80,9 @@
     </Filter>
     <Filter Include="单例\时间管理器\计时器">
       <UniqueIdentifier>{f55e0483-1650-43bc-b560-2d209e4c5cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例\游戏循环步骤接口">
+      <UniqueIdentifier>{840b9c92-c71e-4dd1-9f7d-435049cf035f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +134,14 @@
     <ClCompile Include="Timer.cpp">
       <Filter>单例\时间管理器\计时器</Filter>
     </ClCompile>
-    <ClCompile Include="TimerManager.cpp">
-      <Filter>单例\时间管理器\计时器</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>入口\接口</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>单例\时间管理器</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomListener.cpp">
+      <Filter>单例\消息分发\监听器模型</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,7 +210,7 @@
       <Filter>回调函数</Filter>
     </ClInclude>
     <ClInclude Include="GameStep.h">
-      <Filter>游戏循环步骤接口</Filter>
+      <Filter>单例\游戏循环步骤接口</Filter>
     </ClInclude>
     <ClInclude Include="KeyListener.h">
       <Filter>单例\消息分发\监听器模型</Filter>
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>单例\时间管理器\计时器</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomListener.h">
+      <Filter>单例\消息分发\监听器模型</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
