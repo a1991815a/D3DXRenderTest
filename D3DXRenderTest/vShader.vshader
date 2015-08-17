@@ -5,11 +5,15 @@ float4x4 pMatrix;
 
 struct VS_INPUT{
 	float3 inPosition : POSITION;
+	float4 inColor : COLOR;
+	float3 inNormal : NORMAL;
+	float inPSize : PSIZE;
 };
 
 struct VS_OUTPUT{
 	float4 outPosition : POSITION;
 	float4 outColor : COLOR;
+	float outPSize : PSIZE;
 };
 
 VS_OUTPUT vmain(VS_INPUT input){
@@ -21,6 +25,6 @@ VS_OUTPUT vmain(VS_INPUT input){
 	coord = mul(coord, pMatrix);
 	output.outPosition = coord;
 	output.outColor = float4(1.0f, 0.0f, 0.0f, 1.0f);
-
+	output.outPSize = input.inPSize;
 	return output;
 }

@@ -63,7 +63,7 @@ void D3DXRenderEngine::init()
 	result = D3DXCreateSprite(m_device, &m_sprite);
 	GBASSERT(result == D3D_OK);
 
-	Vertex::init(m_device);
+	Vertex::init();
 
 	auto win32_utils = Win32Utils::getInstance();
 
@@ -82,6 +82,8 @@ void D3DXRenderEngine::init()
 	dxCompileShader(DEFAULT_VSHADER, VS_2_0, &m_defProgram);
 	dxCompileShader(DEFAULT_FSHADER, PS_2_0, &m_defProgram);
 
+	dxLinkProgram(m_curProgram);
+
 	m_defProgram.initVTable("tMatrix");
 	m_defProgram.initVTable("mMatrix");
 	m_defProgram.initVTable("vMatrix");
@@ -90,6 +92,7 @@ void D3DXRenderEngine::init()
 
 void D3DXRenderEngine::render()
 {
+	
 	m_device->Clear(0, nullptr, D3DCLEAR_TARGET, 0xff000000, 1.0f, 0);
 	m_device->BeginScene();
 	m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
@@ -116,14 +119,15 @@ void D3DXRenderEngine::LinkProgram()
 	IDirect3DVertexShader9* vShader = m_curProgram->getVShader();
 	IDirect3DPixelShader9* fShader = m_curProgram->getFShader();
 
+	HRESULT result = D3D_OK;
 	if(vShader)
-		m_device->SetVertexShader(vShader);
+		result = m_device->SetVertexShader(vShader);
 	else
-		m_device->SetVertexShader(m_defProgram.getVShader());
+		result = m_device->SetVertexShader(m_defProgram.getVShader());
 	if(fShader)
-		m_device->SetPixelShader(fShader);
+		result = m_device->SetPixelShader(fShader);
 	else
-		m_device->SetPixelShader(m_defProgram.getFShader());
+		result = m_device->SetPixelShader(m_defProgram.getFShader());
 }
 
 void D3DXRenderEngine::setTransformMatrix(const D3DXMATRIX* matrix)

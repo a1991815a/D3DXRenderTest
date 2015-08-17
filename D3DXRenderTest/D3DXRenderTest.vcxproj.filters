@@ -51,6 +51,39 @@
     <Filter Include="渲染器\D3DX全局函数">
       <UniqueIdentifier>{1a0ba4e3-b61e-4dad-ae0b-36aa55d8f4de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="渲染器\图元组装\点精灵图元">
+      <UniqueIdentifier>{a485bbc3-dc73-49d7-b36f-a05ea3e66021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="数据">
+      <UniqueIdentifier>{1aefa8eb-6a53-4a72-832b-bac24d76d62c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例">
+      <UniqueIdentifier>{5d120cad-3f75-4662-bfec-541bf31b9c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例\消息分发">
+      <UniqueIdentifier>{a64cc169-16a8-4649-b1bb-a661080dc3f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例\消息分发\消息模型">
+      <UniqueIdentifier>{84cda960-565e-4bff-af97-15b908b25d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例\消息分发\监听器模型">
+      <UniqueIdentifier>{385bd817-bad1-416a-a539-90fe03e68d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="回调函数">
+      <UniqueIdentifier>{030cfbba-29d5-40ee-b8ac-1fbd987a3ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏循环步骤接口">
+      <UniqueIdentifier>{840b9c92-c71e-4dd1-9f7d-435049cf035f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="有限状态机">
+      <UniqueIdentifier>{31a23a80-8496-4529-b421-398ee152d48a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例\时间管理器">
+      <UniqueIdentifier>{6559bc20-121a-4b67-8ad9-7dae3c412076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="单例\时间管理器\计时器">
+      <UniqueIdentifier>{f55e0483-1650-43bc-b560-2d209e4c5cb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -82,6 +115,30 @@
     </ClCompile>
     <ClCompile Include="D3DXGlobalFunction.cpp">
       <Filter>渲染器\D3DX全局函数</Filter>
+    </ClCompile>
+    <ClCompile Include="gbPoint.cpp">
+      <Filter>渲染器\图元组装\点精灵图元</Filter>
+    </ClCompile>
+    <ClCompile Include="gbRect.cpp">
+      <Filter>渲染器\图元组装</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyListener.cpp">
+      <Filter>单例\消息分发\监听器模型</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseListener.cpp">
+      <Filter>单例\消息分发\监听器模型</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageManager.cpp">
+      <Filter>单例\消息分发</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>单例\时间管理器\计时器</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>单例\时间管理器\计时器</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>入口\接口</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +184,48 @@
     </ClInclude>
     <ClInclude Include="D3DXGlobalFunction.h">
       <Filter>渲染器\D3DX全局函数</Filter>
+    </ClInclude>
+    <ClInclude Include="gbPoint.h">
+      <Filter>渲染器\图元组装\点精灵图元</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>数据</Filter>
+    </ClInclude>
+    <ClInclude Include="gbRect.h">
+      <Filter>渲染器\图元组装</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleInstance.h">
+      <Filter>单例</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>单例\消息分发\消息模型</Filter>
+    </ClInclude>
+    <ClInclude Include="Listener.h">
+      <Filter>单例\消息分发\监听器模型</Filter>
+    </ClInclude>
+    <ClInclude Include="GBCALLBACK.h">
+      <Filter>回调函数</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStep.h">
+      <Filter>游戏循环步骤接口</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyListener.h">
+      <Filter>单例\消息分发\监听器模型</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseListener.h">
+      <Filter>单例\消息分发\监听器模型</Filter>
+    </ClInclude>
+    <ClInclude Include="LimitStateMachine.h">
+      <Filter>有限状态机</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageManager.h">
+      <Filter>单例\消息分发</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>单例\时间管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>单例\时间管理器\计时器</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

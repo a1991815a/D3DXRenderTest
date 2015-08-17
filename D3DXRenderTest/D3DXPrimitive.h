@@ -45,13 +45,46 @@ public:
 */
 	inline const IDirect3DVertexBuffer9* getBuf() const { return m_buf; }
 	
-	inline const D3DPRIMITIVETYPE getType() const { return m_type; }
+	inline D3DPRIMITIVETYPE getType() const { return m_type; }
 
-/*	inline void setType(D3DPRIMITIVETYPE val) { m_type = val; }
-	不需要在外部初始化该属性
+/*	
+	inline void setType(D3DPRIMITIVETYPE val) { m_type = val; }
+	:不需要在外部初始化该属性
 */
+	const Vec3 getPosition(size_t offset) const {
+		return getVertex(offset)->position;
+	};
+	void setPosition(size_t offset, const Vec3& toPos) {
+		getVertex(offset)->position = toPos;
+	};
+	inline void setColor(size_t offset, real r, real g, real b, real a) {
+		Vertex* vertex = getVertex(offset);
+		vertex->color.r = r;
+		vertex->color.g = g;
+		vertex->color.b = b;
+		vertex->color.a = a;
+	};
+	inline void setColor(size_t offset, const Color4f& color) {
+		getVertex(offset)->color = color;
+	};
+	inline const Color4f& getColor(size_t offset) const {
+		return getVertex(offset)->color;
+	};
+	inline const Vec3& getNormal(size_t offset) const {
+		return getVertex(offset)->normal;
+	};
+	inline void setNormal(size_t offset, const Vec3& normal) {
+		getVertex(offset)->normal = normal;
+	}
+
 
 protected:
 	inline void setBuf(IDirect3DVertexBuffer9* val) { m_buf = val; }
+	inline const Vertex* getVertex(size_t offset) const {
+		return m_vertex->getNextVertex(offset);
+	};
+	inline Vertex* getVertex(size_t offset) {
+		return m_vertex->getNextVertex(offset);
+	};
 };
 #endif

@@ -4,11 +4,10 @@
 
 class gbLine: public D3DXPrimitive{
 private:
-
+	
 
 public:
 	gbLine();
 	~gbLine();
-
 };
 #endif

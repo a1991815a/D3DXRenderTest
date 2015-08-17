@@ -6,9 +6,13 @@
 #include "D3DXVertex.h"
 #include "gbLine.h"
 #include "D3DXProgram.h"
+#include "gbPoint.h"
+#include "gbRect.h"
 
 
 gbLine* line = nullptr;
+gbPointArray* gb_pa = nullptr;
+gbRect* gb_rect = nullptr;
 D3DXProgram program;
 
 ID3DXConstantTable* vTable = nullptr;
@@ -16,9 +20,25 @@ ID3DXConstantTable* fTable = nullptr;
 
 D3DXMATRIX mMatrix;
 
-Vertex_pos pp[2] = {
-	Vertex_pos(50, 50, 0.0f),
-	Vertex_pos(120, 250, 0.0f)
+Vertex pp[2] = {
+	Vertex(50, 50, 0.0f),
+	Vertex(120, 250, 0.0f)
+};
+
+Vertex_Point ppp[5] = {
+	Vertex_Point(Vec3(100, 100, 0), Color4f(), Vec3(), 50.0f),
+	Vertex_Point(Vec3(100, 200, 0), Color4f(), Vec3(), 50.0f),
+	Vertex_Point(Vec3(100, 300, 0), Color4f(), Vec3(), 50.0f),
+	Vertex_Point(Vec3(100, 400, 0), Color4f(), Vec3(), 50.0f),
+	Vertex_Point(Vec3(100, 500, 0), Color4f(), Vec3(), 50.0f),
+};
+
+Vertex re[6] = {
+	Vertex(50, 50, 0),
+	Vertex(250, 50, 0),
+	Vertex(250, 250, 0),
+	Vertex(50, 250, 0),
+	Vertex(50, 50, 0)
 };
 
 int WINAPI WinMain(
@@ -33,9 +53,14 @@ int WINAPI WinMain(
 	AppdeleGate::getInstance()->init();
 
 	line = new gbLine();
+	gb_pa = new gbPointArray(5);
+	gb_rect = new gbRect();
+	line->setData(pp, 0, 2);
+	gb_pa->setData(ppp, 0, 5);
+	gb_rect->setData(re, 0, 5);
 
 	D3DXMatrixTranslation(&mMatrix, 50, 150, 0);
-
+	
 	return AppdeleGate::getInstance()->getCurrentApp()->run();
 }
 
@@ -43,8 +68,20 @@ int WINAPI WinMain(
 
 void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite) {
 	dxLinkProgram(nullptr);
-	setTransformMatrix(nullptr);
-	line->setData(pp, 0, 2);
+	setTransformMatrix(&mMatrix);
+	
 	line->assemble();
 	line->draw();
+
+
+	dxLinkProgram(nullptr);
+	setTransformMatrix(nullptr);
+	gb_rect->assemble();
+	gb_rect->draw();
+
+// 	dxLinkProgram(nullptr);
+// 	setTransformMatrix(nullptr);
+// 	gb_pa->assemble();
+// 	gb_pa->draw();
+// 	gb_pa->setPSize(1, gb_pa->getPSize(1) - 0.1f);
 }

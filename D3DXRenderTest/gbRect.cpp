@@ -1,9 +1,8 @@
-#include "gbLine.h"
-#include "AppdeleGate.h"
+#include "gbRect.h"
 #include "D3DXGlobalFunction.h"
 
-gbLine::gbLine()
-	:D3DXPrimitive(new Vertex[2], 1, 2, nullptr, D3DPT_LINELIST)
+gbRect::gbRect()
+	:D3DXPrimitive(new Vertex[5], 4, 5, nullptr, D3DPT_LINESTRIP)
 {
 	IDirect3DVertexBuffer9* buf = nullptr;
 	dxGetDevice()->CreateVertexBuffer(
@@ -15,9 +14,4 @@ gbLine::gbLine()
 		nullptr
 		);
 	setBuf(buf);
-}
-
-gbLine::~gbLine()
-{
-
 }

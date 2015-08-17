@@ -27,7 +27,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -69,10 +69,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(WindowsSdkDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(WindowsSdkDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -129,14 +129,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppdeleGate.cpp" />
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="D3DXGlobalFunction.cpp" />
     <ClCompile Include="D3DXPrimitive.cpp" />
     <ClCompile Include="D3DXProgram.cpp" />
     <ClCompile Include="D3DXRenderEngine.cpp" />
     <ClCompile Include="D3DXVertex.cpp" />
+    <ClCompile Include="MessageManager.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="gbLine.cpp" />
+    <ClCompile Include="gbPoint.cpp" />
+    <ClCompile Include="gbRect.cpp" />
+    <ClCompile Include="KeyListener.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MouseListener.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Win32Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,12 +156,26 @@
     <ClInclude Include="D3DXProgram.h" />
     <ClInclude Include="D3DXRenderEngine.h" />
     <ClInclude Include="D3DXVertex.h" />
+    <ClInclude Include="MessageManager.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="GameApplication.h" />
+    <ClInclude Include="GameStep.h" />
     <ClInclude Include="GBAssert.h" />
+    <ClInclude Include="GBCALLBACK.h" />
     <ClInclude Include="gbLine.h" />
+    <ClInclude Include="gbPoint.h" />
+    <ClInclude Include="gbRect.h" />
+    <ClInclude Include="KeyListener.h" />
+    <ClInclude Include="LimitStateMachine.h" />
+    <ClInclude Include="Listener.h" />
     <ClInclude Include="MacroHeader.h" />
+    <ClInclude Include="MouseListener.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="RenderEngine.h" />
+    <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerManager.h" />
     <ClInclude Include="Win32Utils.h" />
   </ItemGroup>
   <ItemGroup>

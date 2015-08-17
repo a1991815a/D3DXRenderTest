@@ -2,10 +2,11 @@
 #define __RENDERENGINE__
 #include <d3d9.h>
 #include <d3dx9.h>
+#include "GameStep.h"
 
 class D3DXRenderEngine;
 
-class RenderEngine{
+class RenderEngine: public GameStep{
 private:
 	void** m_context;					//上下文指针,
 public:
@@ -14,9 +15,6 @@ public:
 	{};
 
 	virtual ~RenderEngine(){};
-	virtual void init() = 0;
-	virtual void render() = 0;
-	virtual void destroy() = 0;
 
 	D3DXRenderEngine* toD3DXRenderEngine(){
 		return (D3DXRenderEngine*)this;

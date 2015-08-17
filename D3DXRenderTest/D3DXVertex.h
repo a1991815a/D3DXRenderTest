@@ -4,75 +4,93 @@
 
 class Vertex{
 public:
-	virtual ~Vertex(){};
-	virtual DWORD getFVF() const = 0;
-	virtual IDirect3DVertexDeclaration9* getVertexDecl() const = 0;
-	virtual size_t getSize() const = 0;
-	static void init(IDirect3DDevice9* device);
-	static void destroy();
-};
-
-class Vertex_pos: public Vertex{
-	friend class Vertex;
-public:
-	Vertex_pos();
-	Vertex_pos(real x, real y, real z);
-
 	Vec3 position;
-
-	virtual DWORD getFVF() const override;
-
-	virtual IDirect3DVertexDeclaration9* getVertexDecl() const override;
-
-	virtual size_t getSize() const override;
-private:
-	static DWORD m_FVF;
-	static IDirect3DVertexDeclaration9* m_decl;
-};
-
-class Vertex_pos_normal: public Vertex_pos{
-	friend class Vertex;
-public:
-	Vec3 normal;
-
-	virtual DWORD getFVF() const override;
-
-	virtual IDirect3DVertexDeclaration9* getVertexDecl() const override;
-
-	virtual size_t getSize() const override;
-private:
-	static DWORD m_FVF;
-	static IDirect3DVertexDeclaration9* m_decl;
-};
-
-class Vertex_pos_color: public Vertex_pos{
-	friend class Vertex;
-public:
 	Color4f color;
-
-	virtual DWORD getFVF() const override;
-
-	virtual IDirect3DVertexDeclaration9* getVertexDecl() const override;
-
-	virtual size_t getSize() const override;
-private:
-	static DWORD m_FVF;
-	static IDirect3DVertexDeclaration9* m_decl;
-};
-
-class Vertex_pos_color_normal: public Vertex_pos_color{
-	friend class Vertex;
-public:
 	Vec3 normal;
-
-	virtual DWORD getFVF() const override;
-
-	virtual IDirect3DVertexDeclaration9* getVertexDecl() const override;
-
-	virtual size_t getSize() const override;
 private:
-	static DWORD m_FVF;
-	static IDirect3DVertexDeclaration9* m_decl;
+	static DWORD							m_fvf;
+	static IDirect3DVertexDeclaration9*		m_decl;
+
+public:
+	Vertex()
+		:position(), color(), normal()
+	{};
+	Vertex(real x, real y, real z)
+		:position(x, y, z) 
+	{};
+	Vertex(const Vec3& pos)
+		:position(pos)
+	{};
+	Vertex(const Vec3& pos, const Color4f& color)
+		:position(pos), color(color)
+	{};
+	Vertex(const Vec3& pos, const Color4f& color, const Vec3& normal)
+		:position(pos), color(color), normal(normal)
+	{};
+
+	virtual ~Vertex(){};
+
+	virtual DWORD getFVF() const
+	{
+		return Vertex::m_fvf;
+	};
+	virtual IDirect3DVertexDeclaration9* getVertexDecl() const {
+		return Vertex::m_decl;
+	};
+	virtual size_t getSize() const {
+		return sizeof(Vertex);
+	};
+
+	static void init();
+	static void destroy();
+
+	Vertex* getNextVertex(size_t i) {
+		char* p = (char*)this;
+		p += this->getSize() * i;
+		return (Vertex*)p;
+	};
+
+
 };
+
+class Vertex_Point : public Vertex{
+	friend class Vertex;
+private:
+	static DWORD							m_fvf;
+	static IDirect3DVertexDeclaration9*		m_decl;
+public:
+	float psize;
+public:
+	Vertex_Point()
+		:Vertex()
+	{};
+	Vertex_Point(real x, real y, real z)
+		:Vertex(x, y, z)
+	{};
+	Vertex_Point(const Vec3& pos)
+		:Vertex(pos)
+	{};
+	Vertex_Point(const Vec3& pos, const Color4f& color)
+		:Vertex(pos, color)
+	{};
+	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& normal)
+		:Vertex(pos, color, normal)
+	{};
+	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& normal, float psize)
+		:Vertex(pos, color, normal), psize(psize)
+	{};
+
+	virtual DWORD getFVF() const override
+	{
+		return Vertex_Point::m_fvf;
+	};
+	virtual IDirect3DVertexDeclaration9* getVertexDecl() const override {
+		return Vertex_Point::m_decl;
+	};
+	virtual size_t getSize() const override {
+		return sizeof(Vertex_Point);
+	};
+};
+
 
 #endif

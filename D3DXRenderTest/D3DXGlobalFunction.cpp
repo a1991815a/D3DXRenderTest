@@ -73,7 +73,7 @@ void dxVertexArray(
 	void* data_ptr = nullptr;
 	D3DVERTEXBUFFER_DESC buf_desc;
 	_buf->GetDesc(&buf_desc);
-	result = _buf->Lock(_offset, _vertex->getSize() * _count, (void**)&data_ptr, 0);
+	result = _buf->Lock(_offset, buf_desc.Size, (void**)&data_ptr, 0);
 	GBASSERT(result == D3D_OK);
 	memcpy_s(data_ptr, buf_desc.Size, _vertex, _vertex->getSize() * _count);
 	_buf->Unlock();

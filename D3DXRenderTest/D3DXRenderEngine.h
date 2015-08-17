@@ -50,10 +50,13 @@ public:
 private:
 	virtual void init() override;
 
-	virtual void render() override;
+	inline virtual void loop() override{
+		this->render();
+	};
 
 	virtual void destroy() override;
 
+	void render();
 
 
 /*
