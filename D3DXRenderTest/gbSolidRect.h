@@ -1,14 +1,14 @@
-#ifndef __GBRECT__
-#define __GBRECT__
+#ifndef __GBSOLIDRECT__
+#define __GBSOLIDRECT__
 #include "D3DXPrimitive.h"
 #include "Rect.h"
-#include "Vec.h"
 
-class gbRect: public D3DXPrimitive{
+class gbSolidRect: public D3DXPrimitive{
 private:
 	Rect m_rect;
 public:
-	gbRect();
+	gbSolidRect();
+	~gbSolidRect();
 
 	Vec2 getPosition() const{
 		return Vec2(m_rect.x, m_rect.y);

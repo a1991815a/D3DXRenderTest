@@ -1,5 +1,6 @@
 #include "MessageManager.h"
 #include "GBAssert.h"
+#include "MemoryPool/gbMemoryPool.h"
 
 MessageManager::MessageManager()
 {
@@ -20,7 +21,7 @@ void MessageManager::removeEventListener( Listener* listener )
 	{
 		if(lNode.listener == (*itor).listener)
 		{
-			delete (*itor).listener;
+			gbDealloc((*itor).listener);
 			m_listenerList.erase(itor);
 			break;
 		}
@@ -33,7 +34,8 @@ void MessageManager::sendMessage(
 	unsigned long m_param, 
 	void* m_data /*= nullptr */)
 {
-	Event* event = new Event();
+	Event* event = nullptr;
+	gbAlloc(event);
 	event->m_eventType = m_eventType;
 	event->m_param = m_param;
 	event->m_data = m_data;
@@ -46,18 +48,27 @@ void MessageManager::sendKeyMessage(char key, KeyEventTypes key_type)
 	switch (key_type)
 	{
 	case ET_KEY_DOWN:
+		for (
+		auto itor = m_keyList.begin();
+		itor != m_keyList.end(); 
+		++itor)
+			if (*itor == key)
+				return;
 		m_keyList.push_back(key);
 		break;
 	case ET_KEY_UP:
 	{
-		for (auto itor = m_keyList.begin();
-		itor != m_keyList.end(); ++itor)
+		for (
+		auto itor = m_keyList.begin();
+		itor != m_keyList.end(); 
+		++itor)
 			if (*itor == key)
 			{
 				m_keyList.erase(itor);
 				break;
 			};
-		Event* event = new Event();
+		Event* event = nullptr;
+		gbAlloc(event);
 		event->m_data = nullptr;
 		event->m_eventKey = key;
 		event->m_eventLocation = &m_location;
@@ -77,7 +88,8 @@ void MessageManager::sendMouseMessage(float x, float y, MouseEventTypes mouse_ty
 	{
 	case ET_MOUSE_LDOWN:
 	{
-		Event* event = new Event();
+		Event* event = nullptr;
+		gbAlloc(event);
 		event->m_data = nullptr;
 		event->m_eventLocation = &m_location;
 		event->m_eventType = ET_MOUSE;
@@ -87,7 +99,8 @@ void MessageManager::sendMouseMessage(float x, float y, MouseEventTypes mouse_ty
 		break;
 	case ET_MOUSE_LUP:
 	{
-		Event* event = new Event();
+		Event* event = nullptr;
+		gbAlloc(event);
 		event->m_data = nullptr;
 		event->m_eventLocation = &m_location;
 		event->m_eventType = ET_MOUSE;
@@ -99,7 +112,8 @@ void MessageManager::sendMouseMessage(float x, float y, MouseEventTypes mouse_ty
 	{
 		m_location.x = x;
 		m_location.y = y;
-		Event* event = new Event();
+		Event* event = nullptr;
+		gbAlloc(event);
 		event->m_data = nullptr;
 		event->m_eventLocation = &m_location;
 		event->m_eventType = ET_MOUSE;
@@ -116,7 +130,7 @@ void MessageManager::clearMessage()
 {
 	auto itor = m_eventList.begin();
 	for (; itor != m_eventList.end(); ++itor)
-		delete *itor;
+		gbDealloc(*itor);
 	m_eventList.clear();
 }
 
@@ -127,7 +141,9 @@ void MessageManager::loop()
 		itor != m_keyList.end();
 		++itor	)
 	{
-		Event* event = new Event();
+		size_t ss = m_keyList.size();
+		Event* event = nullptr;
+		gbAlloc(event);
 		event->m_data = nullptr;
 		event->m_eventKey = *itor;
 		event->m_eventLocation = &m_location;
@@ -162,6 +178,6 @@ void MessageManager::destroy()
 	clearMessage();
 	auto itor = m_listenerList.begin();
 	for (; itor != m_listenerList.end(); ++itor)
-		delete (*itor).listener;
+		gbDealloc((*itor).listener);
 	m_listenerList.clear();
 }

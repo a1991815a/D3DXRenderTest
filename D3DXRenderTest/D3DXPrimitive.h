@@ -10,6 +10,8 @@ private:
 	size_t m_vCount;
 	IDirect3DVertexBuffer9* m_buf;
 	D3DPRIMITIVETYPE m_type;
+	bool m_resetFlag;
+	D3DFILLMODE m_fillMode;
 public:
 	D3DXPrimitive();
 	D3DXPrimitive(
@@ -25,6 +27,23 @@ public:
 	//设置顶点数据
 	void setData(Vertex* _vertex, size_t offset, size_t _count = 1 );
 
+	virtual void resetData() = 0;
+	inline void setReset(bool flag){
+		m_resetFlag = flag;
+	};													//设置重构标记
+	inline bool needReset() const{
+		return m_resetFlag;
+	};
+
+	inline void setSolid(D3DFILLMODE solid){
+		m_fillMode = solid;
+	};
+
+	inline D3DFILLMODE getSolid() const{
+		return m_fillMode;
+	}
+
+	void initBuf();
 	/*
 		getter, setter
 	*/
@@ -86,5 +105,8 @@ protected:
 	inline Vertex* getVertex(size_t offset) {
 		return m_vertex->getNextVertex(offset);
 	};
+	inline Vertex* getVertex(){
+		return m_vertex;
+	}
 };
 #endif

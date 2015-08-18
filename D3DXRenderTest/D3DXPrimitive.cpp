@@ -5,7 +5,8 @@
 #include "D3DXGlobalFunction.h"
 
 D3DXPrimitive::D3DXPrimitive()
-	:m_vertex(nullptr), m_count(1), m_vCount(0), m_buf(nullptr), m_type()
+	:m_vertex(nullptr), m_count(1), m_vCount(0), m_buf(nullptr),
+	m_type(), m_resetFlag(false), m_fillMode(D3DFILL_WIREFRAME)
 {
 
 }
@@ -37,6 +38,7 @@ void D3DXPrimitive::assemble()
 	memcpy_s(data_ptr, m_vertex->getSize() * m_vCount, m_vertex, m_vertex->getSize() * m_vCount);
 	m_buf->Unlock();
 */
+	resetData();
 	dxVertexArray(m_vertex, 0, m_vCount, m_buf);
 }
 
@@ -53,6 +55,7 @@ void D3DXPrimitive::draw() const
 */
 // 	result = _renderEngine->getDevice()->SetFVF(m_vertex->getFVF());
 
+	dxSetRenderState(D3DRS_FILLMODE, m_fillMode);
 	dxDrawPrimitive(m_type, 0, m_count);
 }
 
@@ -65,4 +68,18 @@ void D3DXPrimitive::setData(Vertex* _vertex, size_t offset, size_t _count /*= 1 
 		_vertex,
 		_vertex->getSize() * _count
 		);
+}
+
+void D3DXPrimitive::initBuf()
+{
+	IDirect3DVertexBuffer9* buf = nullptr;
+	dxGetDevice()->CreateVertexBuffer(
+		getVertex()->getSize() * getVCount(),
+		0,
+		getVertex()->getFVF(),
+		D3DPOOL_DEFAULT,
+		&buf,
+		nullptr
+		);
+	setBuf(buf);
 }

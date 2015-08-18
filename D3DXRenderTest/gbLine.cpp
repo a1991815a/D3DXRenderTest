@@ -5,19 +5,20 @@
 gbLine::gbLine()
 	:D3DXPrimitive(new Vertex[2], 1, 2, nullptr, D3DPT_LINELIST)
 {
-	IDirect3DVertexBuffer9* buf = nullptr;
-	dxGetDevice()->CreateVertexBuffer(
-		getVertex()->getSize() * getVCount(),
-		0,
-		getVertex()->getFVF(),
-		D3DPOOL_DEFAULT,
-		&buf,
-		nullptr
-		);
-	setBuf(buf);
+	initBuf();
 }
 
 gbLine::~gbLine()
 {
 
+}
+
+void gbLine::resetData()
+{
+	if(!needReset())
+		return;
+	Vertex* vertex = getVertex();
+	vertex[0].position = Vec3(m_Position.x, m_Position.y, 0.0f);
+	vertex[1].position = Vec3(m_toPosition.x, m_toPosition.y, 0.0f);
+	setReset(false);
 }

@@ -5,7 +5,7 @@
 
 TimerManager::TimerManager()
 {
-	m_timerList.reserve(100);
+	/*m_timerList.reserve(100);*/
 }
 
 TimerManager::~TimerManager()
@@ -15,13 +15,13 @@ TimerManager::~TimerManager()
 
 bool TimerManager::init()
 {
-	m_curTime = m_preTime = m_startTime = GetTickCount64();
+	m_curTime = m_preTime = m_startTime = GetTickCount();
 	return true;
 }
 
 void TimerManager::loop()
 {
-	m_curTime = GetTickCount64();
+	m_curTime = GetTickCount();
 	time_type delta = m_curTime - m_preTime;
 	m_preTime = m_curTime;
 	auto itor = m_timerList.begin();

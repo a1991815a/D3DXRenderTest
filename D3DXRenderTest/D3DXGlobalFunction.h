@@ -27,6 +27,7 @@ void dxCompileShader(
 	ShaderVersion _version,
 	D3DXProgram* _program);												//编译着色器
 void dxLinkProgram(D3DXProgram* _program);								//连接着色器
+const D3DXProgram* dxGetProgram();										//得到当前着色器
 void dxSetVertexDeclaration(IDirect3DVertexDeclaration9* decl);			//顶点声明
 void dxVertexArray(
 	const Vertex* _vertex, 

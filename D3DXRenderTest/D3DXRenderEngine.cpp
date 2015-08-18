@@ -88,6 +88,7 @@ bool D3DXRenderEngine::init()
 	m_defProgram.initVTable("mMatrix");
 	m_defProgram.initVTable("vMatrix");
 	m_defProgram.initVTable("pMatrix");
+	dxSetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	return true;
 }

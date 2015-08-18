@@ -11,38 +11,27 @@
 #include "TimerManager.h"
 #include "MessageManager.h"
 #include "KeyListener.h"
-
+#include "gbSolidRect.h"
+#include "gbCircle.h"
+#include "AppdeleGate.h"
+#include "MemoryPool/gbMemoryPool.h"
+#include "MemoryPoolManager.h"
+#include "Ref.h"
+#include "Director.h"
 
 gbLine* line = nullptr;
 gbPointArray* gb_pa = nullptr;
-gbRect* gb_rect = nullptr;
+gbSolidRect* gb_rect = nullptr;
+gbCircle* circle = nullptr;
 D3DXProgram program;
 
 ID3DXConstantTable* vTable = nullptr;
 ID3DXConstantTable* fTable = nullptr;
 
+float xx = 0; 
+float yy = 0;
+
 D3DXMATRIX mMatrix;
-
-Vertex pp[2] = {
-	Vertex(50, 50, 0.0f),
-	Vertex(120, 250, 0.0f)
-};
-
-Vertex_Point ppp[5] = {
-	Vertex_Point(Vec3(100, 100, 0), Color4f(), Vec3(), 50.0f),
-	Vertex_Point(Vec3(100, 200, 0), Color4f(), Vec3(), 50.0f),
-	Vertex_Point(Vec3(100, 300, 0), Color4f(), Vec3(), 50.0f),
-	Vertex_Point(Vec3(100, 400, 0), Color4f(), Vec3(), 50.0f),
-	Vertex_Point(Vec3(100, 500, 0), Color4f(), Vec3(), 50.0f),
-};
-
-Vertex re[6] = {
-	Vertex(50, 50, 0),
-	Vertex(250, 50, 0),
-	Vertex(250, 250, 0),
-	Vertex(50, 250, 0),
-	Vertex(50, 50, 0)
-};
 
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance, 
@@ -50,32 +39,75 @@ int WINAPI WinMain(
 	_In_ LPSTR lpCmdLine, 
 	_In_ int nShowCmd)
 {
+	MemoryChunkPoolInit;
 	Application* application = new GameApplication();
 	application->pushInnerLoop(MessageManager::getInstance());
+	application->pushInnerLoop(Director::getInstance());
+	application->pushInnerLoop(MemoryPoolManager::getInstance());
 	application->pushExternLoop(TimerManager::getInstance());
-
 
 	application->setRenderEngine(new D3DXRenderEngine());
 	AppdeleGate::getInstance()->setCurrentApp(application);
 	AppdeleGate::getInstance()->init();
 
-	line = new gbLine();
-	gb_pa = new gbPointArray(5);
-	gb_rect = new gbRect();
-	line->setData(pp, 0, 2);
-	gb_pa->setData(ppp, 0, 5);
-	gb_rect->setData(re, 0, 5);
-
-	D3DXMatrixTranslation(&mMatrix, 50, 150, 0);
+	gbAlloc(line);
 	
-	KeyListener* listener = new KeyListener();
-	listener->OnKeyDown = [](Event* e) {
-		OutputDebugStringA("°´ÏÂ°´¼ü \n");
+//	new(a)();
+	/*line = new gbLine();*/
+/*	gb_pa = new gbPointArray(5);*/
+	Ref* r = nullptr;
+	gbAlloc(r);
+	r->autorelease();
+	gbConstruct(gb_pa, gbPointArray, 5);
+
+	gbAlloc(gb_rect);
+	line->setPositionX(50);
+	line->setPositionY(50);
+	line->setToPositionX(120);
+	line->setToPositionY(250);
+	gb_rect->setPosition(Vec2(100, 100));
+	gb_rect->setSizeWidth(200);
+	gb_rect->setSizeHeight(150);
+	gb_rect->setSolid(D3DFILL_SOLID);
+	gb_pa->setPosition(0, Vec2(50, 50));
+	gb_pa->setPSize(0, 50);
+
+	gbAlloc(circle);
+	circle->setPosition(Vec2(300, 300));
+	circle->setRadian(60);
+	circle->setSolid(D3DFILL_SOLID);
+
+
+	D3DXMatrixIdentity(&mMatrix);
+//	D3DXMatrixTranslation(&mMatrix, 50, 150, 0);
+	
+	KeyListener* listener = nullptr;
+	gbAlloc(listener);
+	listener->OnKeyDown = [](Event* e) -> bool{
+		switch(e->getKey()){
+		case 'A':
+			--xx;
+			/*line->setPositionX(line->getPosition().x - 1.0f);*/
+			break;
+		case 'D':
+			++xx;
+			/*line->setPositionX(line->getPosition().x + 1.0f);*/
+			break;
+		case 'W':
+			++yy;
+			/*line->setPositionY(line->getPosition().y + 1.0f);*/
+			break;
+		case 'S':
+			--yy;
+			/*line->setPositionY(line->getPosition().y - 1.0f);*/
+			break;
+		default:
+			break;
+		}
+		D3DXMatrixTranslation(&mMatrix, xx, yy, 0);
 		return true;
 	};
 	_dispatchMessage->addEventListener(listener);
-
-
 
 	AppdeleGate::getInstance()->getCurrentApp()->run();
 	return 0;
@@ -86,7 +118,6 @@ int WINAPI WinMain(
 void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite) {
 	dxLinkProgram(nullptr);
 	setTransformMatrix(&mMatrix);
-	
 	line->assemble();
 	line->draw();
 
@@ -96,9 +127,13 @@ void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite) {
 	gb_rect->assemble();
 	gb_rect->draw();
 
-// 	dxLinkProgram(nullptr);
-// 	setTransformMatrix(nullptr);
-// 	gb_pa->assemble();
-// 	gb_pa->draw();
-// 	gb_pa->setPSize(1, gb_pa->getPSize(1) - 0.1f);
+	dxLinkProgram(nullptr);
+	setTransformMatrix(nullptr);
+	gb_pa->assemble();
+	gb_pa->draw();
+
+	dxLinkProgram(nullptr);
+	setTransformMatrix(&mMatrix);
+	circle->assemble();
+	circle->draw();
 }

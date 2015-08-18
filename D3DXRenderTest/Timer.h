@@ -1,7 +1,7 @@
 #ifndef __TIMER__
 #define __TIMER__
 
-typedef unsigned long long time_type;
+typedef unsigned long time_type;
 
 class Timer{
 	friend class TimerManager;

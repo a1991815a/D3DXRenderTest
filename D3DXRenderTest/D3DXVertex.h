@@ -62,19 +62,19 @@ public:
 	float psize;
 public:
 	Vertex_Point()
-		:Vertex()
+		:Vertex(), psize(1)
 	{};
 	Vertex_Point(real x, real y, real z)
-		:Vertex(x, y, z)
+		:Vertex(x, y, z), psize(1)
 	{};
 	Vertex_Point(const Vec3& pos)
-		:Vertex(pos)
+		:Vertex(pos), psize(1)
 	{};
 	Vertex_Point(const Vec3& pos, const Color4f& color)
-		:Vertex(pos, color)
+		:Vertex(pos, color), psize(1)
 	{};
 	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& normal)
-		:Vertex(pos, color, normal)
+		:Vertex(pos, color, normal), psize(1)
 	{};
 	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& normal, float psize)
 		:Vertex(pos, color, normal), psize(psize)

@@ -136,6 +136,12 @@
     <ClCompile Include="D3DXProgram.cpp" />
     <ClCompile Include="D3DXRenderEngine.cpp" />
     <ClCompile Include="D3DXVertex.cpp" />
+    <ClCompile Include="Director.cpp" />
+    <ClCompile Include="gbCircle.cpp" />
+    <ClCompile Include="gbSolidRect.cpp" />
+    <ClCompile Include="MemoryPool.cpp" />
+    <ClCompile Include="MemoryPoolManager.cpp" />
+    <ClCompile Include="MemoryPool\gbMemoryPool.cpp" />
     <ClCompile Include="MessageManager.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="gbLine.cpp" />
@@ -144,6 +150,7 @@
     <ClCompile Include="KeyListener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseListener.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Win32Utils.cpp" />
@@ -158,6 +165,12 @@
     <ClInclude Include="D3DXProgram.h" />
     <ClInclude Include="D3DXRenderEngine.h" />
     <ClInclude Include="D3DXVertex.h" />
+    <ClInclude Include="Director.h" />
+    <ClInclude Include="gbCircle.h" />
+    <ClInclude Include="gbSolidRect.h" />
+    <ClInclude Include="MemoryPool.h" />
+    <ClInclude Include="MemoryPoolManager.h" />
+    <ClInclude Include="MemoryPool\gbMemoryPool.h" />
     <ClInclude Include="MessageManager.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="GameApplication.h" />
@@ -173,9 +186,13 @@
     <ClInclude Include="MacroHeader.h" />
     <ClInclude Include="MouseListener.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="ObjectPool\ObjectPool.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Ref.h" />
     <ClInclude Include="RenderEngine.h" />
+    <ClInclude Include="RenderRef.h" />
     <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="Win32Utils.h" />

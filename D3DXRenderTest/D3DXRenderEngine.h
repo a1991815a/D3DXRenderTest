@@ -50,7 +50,7 @@ public:
 private:
 	virtual bool init() override;
 
-	inline virtual void loop() override{
+	virtual void loop() override{
 		this->render();
 	};
 
@@ -76,6 +76,7 @@ private:
 		ShaderVersion _version,
 		D3DXProgram* _program);														//编译着色器
 	friend void dxLinkProgram(D3DXProgram* _program);								//连接着色器
+	friend const D3DXProgram* dxGetProgram();
 	friend void dxSetVertexDeclaration(IDirect3DVertexDeclaration9* decl);			//顶点声明
 	friend void dxVertexArray(
 		const Vertex* _vertex, 

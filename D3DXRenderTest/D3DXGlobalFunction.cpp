@@ -163,5 +163,10 @@ ID3DXFont* dxGetFont()
 	return _d3d_render_engine->m_font;
 }
 
+const D3DXProgram* dxGetProgram()
+{
+	return _d3d_render_engine->m_curProgram;
+}
+
 #endif // !_OPENGL
 

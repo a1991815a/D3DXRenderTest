@@ -4,6 +4,6 @@
 
 bool GameApplication::init()
 {
-	Win32Utils::getInstance()->createWindow("ÎÒµÄ²âÊÔ´°¿Ú", 800, 600);
+	Win32Utils::getInstance()->createWindow(WINNAME, WND_WIDTH, WND_HEIGHT);
 	return Application::init();
 }

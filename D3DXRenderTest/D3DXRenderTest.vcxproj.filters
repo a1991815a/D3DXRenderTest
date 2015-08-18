@@ -45,9 +45,6 @@
     <Filter Include="模型">
       <UniqueIdentifier>{eb3df158-9cdf-4ec1-8112-d4dedaae84a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="内存分配器">
-      <UniqueIdentifier>{3672c89f-c9c2-4ba3-b1bf-165cd3c0ccc5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="渲染器\D3DX全局函数">
       <UniqueIdentifier>{1a0ba4e3-b61e-4dad-ae0b-36aa55d8f4de}</UniqueIdentifier>
     </Filter>
@@ -83,6 +80,33 @@
     </Filter>
     <Filter Include="单例\游戏循环步骤接口">
       <UniqueIdentifier>{840b9c92-c71e-4dd1-9f7d-435049cf035f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="容器">
+      <UniqueIdentifier>{fbfbf660-6254-4824-a1f6-966d220ef466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="容器\内存池">
+      <UniqueIdentifier>{b0ec198b-0e90-45dd-a621-17015491e56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="容器\对象池">
+      <UniqueIdentifier>{d86f6f50-529f-460f-98a7-dc93a7bd4158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏模型">
+      <UniqueIdentifier>{ae0bee63-d89d-46aa-b032-f60bc09e0124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="内存管理">
+      <UniqueIdentifier>{ef05594b-1ae2-4a06-a639-c61bc62d2e03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="内存管理\引用模型">
+      <UniqueIdentifier>{79a4e008-7db0-49da-aea4-1c2c39a9ccb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="模型\导演">
+      <UniqueIdentifier>{9842fd80-936c-469c-8fac-79a9cc9606f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="渲染器\可渲染对象模型">
+      <UniqueIdentifier>{4ab9acd7-aa95-431a-bb4d-df316a6db9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="纹理管理器">
+      <UniqueIdentifier>{4cd172f2-9efe-43d6-97cb-f93effed215f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +166,27 @@
     </ClCompile>
     <ClCompile Include="CustomListener.cpp">
       <Filter>单例\消息分发\监听器模型</Filter>
+    </ClCompile>
+    <ClCompile Include="gbSolidRect.cpp">
+      <Filter>渲染器\图元组装</Filter>
+    </ClCompile>
+    <ClCompile Include="gbCircle.cpp">
+      <Filter>渲染器\图元组装</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryPool.cpp">
+      <Filter>内存管理</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryPoolManager.cpp">
+      <Filter>内存管理</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryPool\gbMemoryPool.cpp">
+      <Filter>容器\内存池</Filter>
+    </ClCompile>
+    <ClCompile Include="Director.cpp">
+      <Filter>模型\导演</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>纹理管理器</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +277,36 @@
     </ClInclude>
     <ClInclude Include="CustomListener.h">
       <Filter>单例\消息分发\监听器模型</Filter>
+    </ClInclude>
+    <ClInclude Include="gbSolidRect.h">
+      <Filter>渲染器\图元组装</Filter>
+    </ClInclude>
+    <ClInclude Include="gbCircle.h">
+      <Filter>渲染器\图元组装</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool\ObjectPool.h">
+      <Filter>容器\对象池</Filter>
+    </ClInclude>
+    <ClInclude Include="Ref.h">
+      <Filter>内存管理\引用模型</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>内存管理</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPoolManager.h">
+      <Filter>内存管理</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool\gbMemoryPool.h">
+      <Filter>容器\内存池</Filter>
+    </ClInclude>
+    <ClInclude Include="Director.h">
+      <Filter>模型\导演</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderRef.h">
+      <Filter>渲染器\可渲染对象模型</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>纹理管理器</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

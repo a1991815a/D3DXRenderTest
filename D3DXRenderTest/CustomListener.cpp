@@ -13,5 +13,5 @@ CustomListener::~CustomListener()
 
 bool CustomListener::trigger(Event* event)
 {
-	EventCall(event);
+	return EventCall(event);
 }

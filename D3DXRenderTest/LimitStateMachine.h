@@ -30,6 +30,7 @@ public:
 		m_State = state;
 		m_curFunc = (LimitStateFunc*)(&*itor);
 	};
+
 	inline limitState getState() const{
 		return m_State;
 	};
@@ -46,9 +47,9 @@ public:
 		m_funcList.erase(_State);
 	}
 
-	inline void(void* data){
+	inline void RunStateFunc(void* data){
 		GBASSERT(m_curFunc != nullptr);
-		m_curFunc(data);
+		(*m_curFunc)(data);
 	}
 };
 #endif
