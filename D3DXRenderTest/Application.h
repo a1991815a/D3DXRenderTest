@@ -4,67 +4,52 @@
 #include "GameStep.h"
 #include <vector>
 #include "Timer.h"
+#include "Vec.h"
 
-class Application : public GameStep {
-private:
-	std::vector<GameStep*> m_gameInnerLoop;
-	std::vector<GameStep*> m_gameExternLoop;
+class Application{
 public:
 	Application()
-		:render_engine(nullptr)
 	{}
 
-	inline void run() {
-		this->loop();
+	int run();
+
+	bool init();
+
+	void destroy();
+	
+	const Vec2& getWindowSize() const{
+		return m_wndSize;
 	}
-
-	virtual bool init() override;
-
-	virtual void loop() override;
-
-	virtual void destroy() override;
-
-	inline void setRenderEngine(RenderEngine* render_engine) {
-		this->render_engine = render_engine;
-	};
-
-	inline RenderEngine* getRenderEngine() {
-		return render_engine;
-	};
-
-	inline const RenderEngine* getRenderEngine() const {
-		return render_engine;
-	};
-
-	inline void pushInnerLoop(GameStep* step) {
-		m_gameInnerLoop.push_back(step);
-	};
-
-	inline void pushExternLoop(GameStep* step) {
-		m_gameExternLoop.push_back(step);
-	};
-
-	inline void popGameStep() {
-		m_gameInnerLoop.pop_back();
+	float getWindowWidth() const{
+		return m_wndSize.x;
 	}
-
+	float getWindowHeight() const{
+		return m_wndSize.y;
+	}
+	void setWindowSize(float width, float height){
+		m_wndSize.x = width;
+		m_wndSize.y = height;
+	}
+	const std::string& getWindowName()const{
+		return m_wndName;
+	}
+	void setWindowName(const std::string& name){
+		m_wndName = name;
+	}
+	void setResignSize(const std::string& name, float width, float height, size_t frame){
+		m_wndName = name;
+		m_wndSize.x = width;
+		m_wndSize.y = height;
+		m_frame = frame;
+	}
 private:
 	friend class AppdeleGate;
-	//³õÊ¼»¯
-	void _init() {
-		this->init();
-		render_engine->init();
-	};					
-
-	//Ïú»Ù
-	void _destroy() { 
-		render_engine->destroy();
-		this->destroy();
-	};			
 
 private:
-	RenderEngine* render_engine;
 	Timer m_globalTimer;
-	float m_frame;
+	size_t m_frame;
+	float m_delay;
+	Vec2 m_wndSize;
+	std::string m_wndName;
 };
 #endif

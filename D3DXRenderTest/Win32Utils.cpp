@@ -2,6 +2,8 @@
 #include "GBAssert.h"
 #include "MessageManager.h"
 
+extern bool GameInit(HWND hWnd);
+
 Win32Utils* Win32Utils::m_instance = nullptr;
 
 Win32Utils::Win32Utils()
@@ -80,6 +82,8 @@ LRESULT CALLBACK Win32Utils::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	switch (message)
 	{
 	case WM_CREATE:
+		if (!GameInit(hwnd))
+			PostQuitMessage(0);
 		break;
 	case WM_KEYDOWN:
 		_dispatchMessage->sendKeyMessage((char)wParam, ET_KEY_DOWN);

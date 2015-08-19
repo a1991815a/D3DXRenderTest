@@ -70,10 +70,11 @@ void gbCircle::resetData()
 		-vertex[i + 1 - 45].position.x,
 		0);
 	/*	vertex[361].position = vertex[1].position;*/
-
+	vertex[0].color = Color4f(1, 0, 0, 1);
 	for (size_t i = 0; i <= 360; ++i){
 		vertex[i + 1].position.x += m_position.x;
 		vertex[i + 1].position.y += m_position.y;
+		vertex[i + 1].color = Color4f(1, 0, 0, 1);
 	}
 
 	setReset(false);

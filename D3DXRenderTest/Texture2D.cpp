@@ -1,5 +1,6 @@
 #include "Texture2D.h"
 #include "MacroHeader.h"
+#include "D3DXGlobalFunction.h"
 
 Texture2D* Texture2D::create()
 {
@@ -57,6 +58,16 @@ Texture2D* Texture2D::create(const std::string& file)
 	return texture;
 }
 
+Texture2D* Texture2D::create(IDirect3DTexture9* texture, size_t width, size_t height)
+{
+	Texture2D* tex = nullptr;
+	gbAlloc(tex);
+	tex->m_d3dTexture = texture;
+	tex->m_size.x = (float)width;
+	tex->m_size.y = (float)height;
+	return tex;
+}
+
 Texture2D::Texture2D()
 	:m_d3dTexture(nullptr), isTarget(false)
 {
@@ -73,13 +84,31 @@ Texture2D::~Texture2D()
 	SAFE_RELEASE_COM(m_d3dTexture);
 }
 
-void Texture2D::RenderThis()
+void Texture2D::visit()
 {
-	
-
+	linkProgram();
+	RECT rect = { 0, 0, (long)m_size.x, (long)m_size.y };
+	getProgram()->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", mMatrix);
+	getProgram()->SetBool(D3D_PIXEL_SHADER, "isSprite", true);
+	dxGetSprite()->Draw(m_d3dTexture, &rect, anchontPoint->getD3DXVector(), nullptr, 0xffffffff);
+	dxGetSprite()->Flush();
 }
 
-void Texture2D::renderToThis()
+void Texture2D::renderToThis(RenderObject* obj)
 {
 	GBASSERT(isTarget);
+	auto device = dxGetDevice();
+	IDirect3DSurface9* surface = nullptr;
+	IDirect3DSurface9* tex_surface = nullptr;
+	device->GetRenderTarget(0, &surface);
+	m_d3dTexture->GetSurfaceLevel(0, &tex_surface);
+	device->SetRenderTarget(0, tex_surface);
+	device->BeginScene();
+	dxGetSprite()->Begin(D3DXSPRITE_ALPHABLEND);
+	obj->visit();
+	dxGetSprite()->End();
+	device->EndScene();
+	device->SetRenderTarget(0, surface);
+	SAFE_RELEASE_COM(surface);
+	SAFE_RELEASE_COM(tex_surface);
 }

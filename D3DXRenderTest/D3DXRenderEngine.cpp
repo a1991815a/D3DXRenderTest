@@ -1,13 +1,16 @@
 #include "D3DXRenderEngine.h"
 #include "GBAssert.h"
-#include "Win32Utils.h"
 #include "MacroHeader.h"
 #include "D3DXVertex.h"
 #include "D3DXGlobalFunction.h"
+#include "Director.h"
+#include "MacroHeader.h"
 
 #pragma warning(disable: 4244)
 
 extern void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite);
+
+static std::multiset<Node*, Node_less<Node>>::iterator global_iterator;
 
 D3DXRenderEngine::D3DXRenderEngine()
 	:RenderEngine((void**)(&m_device)), 
@@ -40,7 +43,7 @@ void D3DXRenderEngine::setLookAtMatrix(float pos_x, float pos_y, float pos_z, fl
 		);
 }
 
-bool D3DXRenderEngine::init()
+bool D3DXRenderEngine::init(HWND hwnd)
 {
 	HRESULT result = D3D_OK;
 	m_d3pp = Direct3DCreate9(D3D_SDK_VERSION);
@@ -53,7 +56,7 @@ bool D3DXRenderEngine::init()
 	result = m_d3pp->CreateDevice(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
-		Win32Utils::getInstance()->getWin32Window(),
+		hwnd,
 		D3DCREATE_HARDWARE_VERTEXPROCESSING,
 		&parameters,
 		&m_device
@@ -65,14 +68,12 @@ bool D3DXRenderEngine::init()
 
 	Vertex::init();
 
-	auto win32_utils = Win32Utils::getInstance();
-
 	D3DXMatrixTranslation(&m_tMatrix, 
-		-(win32_utils->getWidth() >> 1), 
-		-(win32_utils->getHeight() >> 1),
+		-(WND_WIDTH >> 1), 
+		-(WND_HEIGHT >> 1),
 		0.0f
 		);
-	setOrthoMatrix(win32_utils->getWidth(), win32_utils->getHeight(), 0, 1);
+	setOrthoMatrix(WND_WIDTH, WND_HEIGHT, 0, 1);
 	setLookAtMatrix(
 		0.0f, 0.0f, 5.0f,
 		0.0f, 0.0f, 0.0f,
@@ -88,7 +89,11 @@ bool D3DXRenderEngine::init()
 	m_defProgram.initVTable("mMatrix");
 	m_defProgram.initVTable("vMatrix");
 	m_defProgram.initVTable("pMatrix");
+	m_defProgram.initFTable("BaiscSampler");
+	m_defProgram.initFTable("isSprite");
 	dxSetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+	
 
 	return true;
 }
@@ -100,11 +105,40 @@ void D3DXRenderEngine::render()
 	m_device->BeginScene();
 	m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	inputMatrix();
-	GameDraw(m_device, m_sprite);
-
+/*	GameDraw(m_device, m_sprite);*/
+	render_pre();
+	render_local();
+	render_next();
 	m_sprite->End();
 	m_device->EndScene();
 	m_device->Present(0, 0, 0, 0);
+}
+
+void D3DXRenderEngine::render_pre()
+{
+	global_iterator = m_globalList.begin();
+	for (; global_iterator != m_globalList.end(); ++global_iterator)
+	{
+		Node* node = *global_iterator;
+		if(node->getGlobal() >= 0)
+			break;
+		node->visit();
+	}
+}
+
+void D3DXRenderEngine::render_local()
+{
+	auto itor = m_localList.begin();
+	for (; itor != m_localList.end(); ++itor)
+		(*itor)->visit();
+}
+
+void D3DXRenderEngine::render_next()
+{
+	for (; global_iterator != m_globalList.end(); ++global_iterator){
+		Node* node = *global_iterator;
+		node->visit();
+	}
 }
 
 void D3DXRenderEngine::destroy()

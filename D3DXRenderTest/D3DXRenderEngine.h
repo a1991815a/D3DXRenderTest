@@ -7,8 +7,22 @@
 #pragma comment(lib, "d3dx9.lib")
 #include "D3DXProgram.h"
 #include "D3DXVertex.h"
+#include <set>
+#include "Node.h"
+#include <xstddef>
+
+template<typename _vTy>
+struct Node_less
+	: public std::binary_function<_vTy, _vTy, bool> {
+	bool operator()(const _vTy& _Left, const _vTy& _Right) const
+	{	// apply operator< to operands
+		return (_Left->getGlobal() < _Right->getGlobal());
+	}
+};
 
 class D3DXRenderEngine: public RenderEngine{
+	typedef std::vector<Node*>					  local_vector;
+	typedef std::multiset<Node*, Node_less<Node*>> global_set;
 private:
 	IDirect3D9*				m_d3pp;
 	IDirect3DDevice9*		m_device;
@@ -22,6 +36,9 @@ private:
 	D3DXMATRIX				Identify_Matrix;		//单位矩阵
 
 	D3DXProgram*			m_curProgram;			//当前使用的着色器程序
+
+	local_vector			m_localList;			//本地渲染目标
+	global_set				m_globalList;			//全局渲染目标
 public:
 	D3DXRenderEngine();
 	~D3DXRenderEngine();
@@ -48,7 +65,7 @@ public:
 
 
 private:
-	virtual bool init() override;
+	virtual bool init(HWND hwnd) override;
 
 	virtual void loop() override{
 		this->render();
@@ -57,7 +74,9 @@ private:
 	virtual void destroy() override;
 
 	void render();
-
+	void render_pre();
+	void render_local();
+	void render_next();
 
 /*
 	友元全局函数
@@ -76,7 +95,7 @@ private:
 		ShaderVersion _version,
 		D3DXProgram* _program);														//编译着色器
 	friend void dxLinkProgram(D3DXProgram* _program);								//连接着色器
-	friend const D3DXProgram* dxGetProgram();
+	friend D3DXProgram* dxGetProgram();
 	friend void dxSetVertexDeclaration(IDirect3DVertexDeclaration9* decl);			//顶点声明
 	friend void dxVertexArray(
 		const Vertex* _vertex, 
@@ -96,6 +115,7 @@ private:
 	friend ID3DXSprite* dxGetSprite();												//得到精灵
 	friend void dxSetFont(ID3DXFont* font);											//设置当前字体
 	friend ID3DXFont* dxGetFont();													//得到当前字体
+	friend void dxPushQuadCommand(Node* node);										//发送渲染数据
 };
 
 #endif

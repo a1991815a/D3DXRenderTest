@@ -143,13 +143,15 @@
     <ClCompile Include="MemoryPoolManager.cpp" />
     <ClCompile Include="MemoryPool\gbMemoryPool.cpp" />
     <ClCompile Include="MessageManager.cpp" />
-    <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="gbLine.cpp" />
     <ClCompile Include="gbPoint.cpp" />
     <ClCompile Include="gbRect.cpp" />
     <ClCompile Include="KeyListener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseListener.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
@@ -173,7 +175,6 @@
     <ClInclude Include="MemoryPool\gbMemoryPool.h" />
     <ClInclude Include="MessageManager.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="GameApplication.h" />
     <ClInclude Include="GameStep.h" />
     <ClInclude Include="GBAssert.h" />
     <ClInclude Include="GBCALLBACK.h" />
@@ -190,11 +191,14 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Ref.h" />
     <ClInclude Include="RenderEngine.h" />
-    <ClInclude Include="RenderRef.h" />
+    <ClInclude Include="RenderObject.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="Win32Utils.h" />
   </ItemGroup>
   <ItemGroup>

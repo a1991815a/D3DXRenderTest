@@ -27,5 +27,8 @@ void gbSolidRect::resetData()
 	vertex[4].position = Vec3(m_rect.x, m_rect.y + t_size.y, 0.0f);
 	vertex[5].position = Vec3(m_rect.x, m_rect.y, 0.0f);
 	
+	for (size_t i = 0; i < 6; ++i)
+		vertex[i].color = Color4f(1, 0, 0, 1);
+
 	setReset(false);
 }

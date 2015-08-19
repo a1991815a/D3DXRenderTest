@@ -20,6 +20,7 @@ void gbPoint::resetData()
 	Vertex_Point* vertex = (Vertex_Point*)getVertex();
 	vertex[0].psize = m_size;
 	vertex[0].position = Vec3(m_position.x, m_position.y, 0.0f);
+	vertex[0].color = Color4f(1, 0, 0, 1);
 }
 
 gbPointArray::gbPointArray(size_t _count)
@@ -47,6 +48,7 @@ void gbPointArray::resetData()
 	{
 		vertex[i].position = Vec3(m_position[i].x, m_position[i].y, 0.0f);
 		vertex[i].psize = m_size[i];
+		vertex[i].color = Color4f(1, 0, 0, 1);
 	}
 	setReset(false);
 }

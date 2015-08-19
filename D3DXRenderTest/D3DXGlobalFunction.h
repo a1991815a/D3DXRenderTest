@@ -6,6 +6,7 @@
 
 #ifndef _OPENGL
 class D3DXRenderEngine;
+class Node;
 
 struct D3DXRenderEngineObject {
 public:
@@ -27,7 +28,7 @@ void dxCompileShader(
 	ShaderVersion _version,
 	D3DXProgram* _program);												//编译着色器
 void dxLinkProgram(D3DXProgram* _program);								//连接着色器
-const D3DXProgram* dxGetProgram();										//得到当前着色器
+D3DXProgram* dxGetProgram();											//得到当前着色器
 void dxSetVertexDeclaration(IDirect3DVertexDeclaration9* decl);			//顶点声明
 void dxVertexArray(
 	const Vertex* _vertex, 
@@ -67,7 +68,7 @@ ID3DXFont* dxCreateFont(
 	);																	//创建字体
 
 
-
+void dxPushQuadCommand(Node* node);										//发送渲染数据
 #endif
 
 #endif

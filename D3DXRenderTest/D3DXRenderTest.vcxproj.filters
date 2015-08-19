@@ -51,9 +51,6 @@
     <Filter Include="渲染器\图元组装\点精灵图元">
       <UniqueIdentifier>{a485bbc3-dc73-49d7-b36f-a05ea3e66021}</UniqueIdentifier>
     </Filter>
-    <Filter Include="数据">
-      <UniqueIdentifier>{1aefa8eb-6a53-4a72-832b-bac24d76d62c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="单例">
       <UniqueIdentifier>{5d120cad-3f75-4662-bfec-541bf31b9c41}</UniqueIdentifier>
     </Filter>
@@ -108,6 +105,12 @@
     <Filter Include="纹理管理器">
       <UniqueIdentifier>{4cd172f2-9efe-43d6-97cb-f93effed215f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="容器\内存管理容器">
+      <UniqueIdentifier>{35da7e5d-cf97-4c4c-9950-bf1784f69cf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="容器\数据">
+      <UniqueIdentifier>{1aefa8eb-6a53-4a72-832b-bac24d76d62c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -115,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="Win32Utils.cpp">
       <Filter>Win32工具</Filter>
-    </ClCompile>
-    <ClCompile Include="GameApplication.cpp">
-      <Filter>入口</Filter>
     </ClCompile>
     <ClCompile Include="AppdeleGate.cpp">
       <Filter>入口\接口</Filter>
@@ -188,6 +188,15 @@
     <ClCompile Include="Texture2D.cpp">
       <Filter>纹理管理器</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>模型</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>模型</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>模型</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win32Utils.h">
@@ -195,9 +204,6 @@
     </ClInclude>
     <ClInclude Include="GBAssert.h">
       <Filter>断言器</Filter>
-    </ClInclude>
-    <ClInclude Include="GameApplication.h">
-      <Filter>入口</Filter>
     </ClInclude>
     <ClInclude Include="MacroHeader.h" />
     <ClInclude Include="Application.h">
@@ -237,7 +243,7 @@
       <Filter>渲染器\图元组装\点精灵图元</Filter>
     </ClInclude>
     <ClInclude Include="Rect.h">
-      <Filter>数据</Filter>
+      <Filter>容器\数据</Filter>
     </ClInclude>
     <ClInclude Include="gbRect.h">
       <Filter>渲染器\图元组装</Filter>
@@ -302,11 +308,20 @@
     <ClInclude Include="Director.h">
       <Filter>模型\导演</Filter>
     </ClInclude>
-    <ClInclude Include="RenderRef.h">
-      <Filter>渲染器\可渲染对象模型</Filter>
-    </ClInclude>
     <ClInclude Include="Texture2D.h">
       <Filter>纹理管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>模型</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>容器\内存管理容器</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>模型</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderObject.h">
+      <Filter>渲染器\可渲染对象模型</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

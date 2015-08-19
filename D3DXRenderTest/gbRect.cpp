@@ -20,5 +20,13 @@ void gbRect::resetData()
 	vertex[2].position = Vec3(m_rect.x + t_size.x, m_rect.y + t_size.y, 0.0f);
 	vertex[3].position = Vec3(m_rect.x, m_rect.y + t_size.y, 0.0f);
 	vertex[4].position = Vec3(m_rect.x, m_rect.y, 0.0f);
+	for (size_t i = 0; i < 5; ++i)
+		vertex[i].color = Color4f(1, 0, 0, 1);
+	vertex[0].texcoord = Vec2(0, 1);
+	vertex[1].texcoord = Vec2(1, 1);
+	vertex[2].texcoord = Vec2(1, 0);
+	vertex[3].texcoord = Vec2(0, 0);
+	vertex[4].texcoord = Vec2(0, 1);
+
 	setReset(false);
 }

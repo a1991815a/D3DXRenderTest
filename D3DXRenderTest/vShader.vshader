@@ -8,12 +8,14 @@ struct VS_INPUT{
 	float4 inColor : COLOR;
 	float3 inNormal : NORMAL;
 	float inPSize : PSIZE;
+	float2 inTexcoord : TEXCOORD0;
 };
 
 struct VS_OUTPUT{
 	float4 outPosition : POSITION;
 	float4 outColor : COLOR;
 	float outPSize : PSIZE;
+	float2 outTexcoord : TEXCOORD0;
 };
 
 VS_OUTPUT vmain(VS_INPUT input){
@@ -24,7 +26,8 @@ VS_OUTPUT vmain(VS_INPUT input){
 	coord = mul(coord, vMatrix);
 	coord = mul(coord, pMatrix);
 	output.outPosition = coord;
-	output.outColor = float4(1.0f, 0.0f, 0.0f, 1.0f);
+	output.outColor = input.inColor;
 	output.outPSize = input.inPSize;
+	output.outTexcoord = input.inTexcoord;
 	return output;
 }

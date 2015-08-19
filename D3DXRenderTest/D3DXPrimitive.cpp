@@ -56,6 +56,7 @@ void D3DXPrimitive::draw() const
 // 	result = _renderEngine->getDevice()->SetFVF(m_vertex->getFVF());
 
 	dxSetRenderState(D3DRS_FILLMODE, m_fillMode);
+	dxGetProgram()->SetBool(D3D_PIXEL_SHADER, "isSprite", false);
 	dxDrawPrimitive(m_type, 0, m_count);
 }
 

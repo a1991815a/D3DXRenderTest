@@ -7,6 +7,7 @@ public:
 	Vec3 position;
 	Color4f color;
 	Vec3 normal;
+	Vec2 texcoord;
 private:
 	static DWORD							m_fvf;
 	static IDirect3DVertexDeclaration9*		m_decl;

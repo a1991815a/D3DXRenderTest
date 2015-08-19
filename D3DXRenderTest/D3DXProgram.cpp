@@ -3,6 +3,8 @@
 #include "GBAssert.h"
 #include "D3DXGlobalFunction.h"
 
+#define SHADER_FLAG D3DXSHADER_DEBUG
+
 D3DXProgram::D3DXProgram()
 	:m_vShader(nullptr), m_fShader(nullptr),
 	m_vTable(nullptr), m_fTable(nullptr)
@@ -91,13 +93,13 @@ void D3DXProgram::createShaderFromFile(
 			nullptr,
 			"vmain",
 			getVersion(version),
-			D3DXSHADER_DEBUG,
+			SHADER_FLAG,
 			&buf,
 			&error_buf,
 			&program->m_vTable
 			);
 
-		if (result != D3D_OK)
+		if (result != D3D_OK && error_buf)
 		{
 			char debug_text[1024] = { 0 };
 			sprintf_s(debug_text, "%s \n", (char*)error_buf->GetBufferPointer());
@@ -107,6 +109,7 @@ void D3DXProgram::createShaderFromFile(
 		GBASSERT(result == D3D_OK);
 		dxGetDevice()->CreateVertexShader((DWORD*)buf->GetBufferPointer(), &program->m_vShader);
 		SAFE_RELEASE_COM(buf);
+		program->m_vTable->SetDefaults(dxGetDevice());
 	}
 	else if(version == PS_2_0) {
 		HRESULT result = D3D_OK;
@@ -118,7 +121,7 @@ void D3DXProgram::createShaderFromFile(
 			nullptr,
 			"fmain",
 			getVersion(version),
-			D3DXSHADER_DEBUG,
+			SHADER_FLAG,
 			&buf,
 			&error_buf,
 			&program->m_fTable
@@ -134,6 +137,7 @@ void D3DXProgram::createShaderFromFile(
 		GBASSERT(result == D3D_OK);
 		dxGetDevice()->CreatePixelShader((DWORD*)buf->GetBufferPointer(), &program->m_fShader);
 		SAFE_RELEASE_COM(buf);
+		program->m_fTable->SetDefaults(dxGetDevice());
 	}
 }
 
@@ -153,7 +157,7 @@ void D3DXProgram::createShaderFromData(
 			nullptr,
 			"vmain",
 			getVersion(version),
-			D3DXSHADER_DEBUG,
+			SHADER_FLAG,
 			&buf,
 			&error_buf,
 			&program->m_vTable
@@ -173,7 +177,7 @@ void D3DXProgram::createShaderFromData(
 			nullptr,
 			"fmain",
 			getVersion(version),
-			D3DXSHADER_DEBUG,
+			SHADER_FLAG,
 			&buf,
 			&error_buf,
 			&program->m_fTable

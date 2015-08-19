@@ -3,6 +3,7 @@
 #include "D3DXRenderEngine.h"
 #include "D3DXProgram.h"
 #include "GBAssert.h"
+#include "Node.h"
 
 #ifndef _OPENGL
 
@@ -163,9 +164,17 @@ ID3DXFont* dxGetFont()
 	return _d3d_render_engine->m_font;
 }
 
-const D3DXProgram* dxGetProgram()
+D3DXProgram* dxGetProgram()
 {
 	return _d3d_render_engine->m_curProgram;
+}
+
+void dxPushQuadCommand(Node* node)
+{
+	if (node->getGlobal() == 0)
+		_d3d_render_engine->m_localList.push_back(node);
+	else
+		_d3d_render_engine->m_globalList.insert(node);
 }
 
 #endif // !_OPENGL

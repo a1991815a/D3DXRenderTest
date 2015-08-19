@@ -24,10 +24,10 @@ AppdeleGate::AppdeleGate()
 
 AppdeleGate::~AppdeleGate()
 {
-	m_app->_destroy();
+	m_app->destroy();
 }
 
 void AppdeleGate::init()
 {
-	m_app->_init();
+	m_app->init();
 }

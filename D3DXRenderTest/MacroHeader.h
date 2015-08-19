@@ -5,6 +5,7 @@
 #define WINNAME			"我的测试用窗口"
 #define WND_WIDTH		800
 #define WND_HEIGHT		600
+#define REFRESH_FRAME	60
 #define DEFAULT_VSHADER "vShader.vshader"
 #define DEFAULT_FSHADER "fShader.fshader"
 

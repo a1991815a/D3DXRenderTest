@@ -19,6 +19,8 @@ void gbLine::resetData()
 		return;
 	Vertex* vertex = getVertex();
 	vertex[0].position = Vec3(m_Position.x, m_Position.y, 0.0f);
+	vertex[0].color = Color4f(1, 0, 0, 1);
 	vertex[1].position = Vec3(m_toPosition.x, m_toPosition.y, 0.0f);
+	vertex[1].color = Color4f(1, 0, 0, 1);
 	setReset(false);
 }

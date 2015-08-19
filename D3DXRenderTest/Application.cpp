@@ -1,31 +1,22 @@
 #include "Application.h"
 #include "GBAssert.h"
+#include "Win32Utils.h"
+#include "SingleInstance.h"
+#include "TimerManager.h"
+#include "Director.h"
+#include "MacroHeader.h"
 
 bool Application::init()
 {
-	m_frame = 1000 / 60;
-	{
-		auto itor = m_gameInnerLoop.begin();
-		for (; itor != m_gameInnerLoop.end(); ++itor)
-		{
-			bool result = (*itor)->init();
-			GBASSERT(result);
-		}
-	}
-
-	{
-		auto itor = m_gameExternLoop.begin();
-		for (; itor != m_gameExternLoop.end(); ++itor)
-		{
-			bool result = (*itor)->init();
-			GBASSERT(result);
-		}
-	}
-	render_engine->init();
+	_director->m_app = this;
+	setResignSize(WINNAME, WND_WIDTH, WND_HEIGHT, REFRESH_FRAME);
+	Win32Utils::getInstance()->createWindow(
+		m_wndName.c_str(), m_wndSize.x, m_wndSize.y);
+	m_delay = (float)1000 / (float)m_frame;
 	return true;
 }
 
-void Application::loop()
+int Application::run()
 {
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT)
@@ -34,25 +25,19 @@ void Application::loop()
 			::TranslateMessage(&msg);
 			::DispatchMessageA(&msg);
 		}
-		else if(m_globalTimer.getDelta() > m_frame)
+		else if(m_globalTimer.getDelta() > m_delay)				//Ö÷Ñ­»·
 		{
-			auto itor = m_gameInnerLoop.begin();
-			for (; itor != m_gameInnerLoop.end(); ++itor)
-				(*itor)->loop();
-			render_engine->loop();
+			_director->loop();
 			m_globalTimer.reset();
 		}
 		else
 			Sleep(1);
-		auto itor = m_gameExternLoop.begin();
-		for (; itor != m_gameExternLoop.end(); ++itor)
-			(*itor)->loop();
+		TimerManager::getInstance()->loop();
 	}
+	return msg.wParam;
 }
 
 void Application::destroy()
 {
-	auto itor = m_gameInnerLoop.rbegin();
-	for (; itor != m_gameInnerLoop.rend(); ++itor)
-		(*itor)->destroy();
+	_director->destroy();
 }

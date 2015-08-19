@@ -2,21 +2,29 @@
 #define __DIRECTOR__
 #include "SingleInstance.h"
 #include <vector>
-#include "GameStep.h"
+#include "Scene.h"
+#include "Application.h"
 
-class Director: public SingleInstance<Director>, public GameStep{
+#define _director Director::getInstance()
+
+class Director: public SingleInstance<Director>{
 	DEFINE_PRIVATE_INSTANCE(Director);
-
-	virtual bool init() override;
-
-	virtual void loop() override;
-
-	virtual void destroy() override;
-
+	friend class Application;
 private:
+	Scene* m_scene;
+	RenderEngine* render_engine;
+	Application* m_app;
+	void update();
+public:
+	bool init(HWND hwnd);
+
+	void loop();
+
+	void destroy();
 
 public:
-	
-
+	void TransformScene(Scene* scene);
+	Scene* getCurrentScene();
+	void setRenderEngine(RenderEngine* render_endgine);
 };
 #endif
