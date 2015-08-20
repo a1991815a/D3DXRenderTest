@@ -4,6 +4,7 @@
 #include <vector>
 #include "Scene.h"
 #include "Application.h"
+#include "LimitStateMachine.h"
 
 #define _director Director::getInstance()
 
@@ -22,6 +23,7 @@ public:
 
 	void destroy();
 
+	
 public:
 	void TransformScene(Scene* scene);
 	Scene* getCurrentScene();

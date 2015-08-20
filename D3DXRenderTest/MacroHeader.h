@@ -16,7 +16,7 @@
 #define SAFE_RELEASE_COM(com) do{if(com) com->Release(); com = nullptr;} while(0)
 #define SAFE_DELETE(p) do{if(p) delete p; p = nullptr;} while(0)
 #define SAFE_DELETE_ARRAY(p) do{if(p) delete[] p; p = nullptr;} while(0)
-
+#define SAFE_RELEASE(p)	do{if(p) p->release(); p = nullptr;} while(0)
 
 
 

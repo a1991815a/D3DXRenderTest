@@ -32,11 +32,11 @@ void Node::update()
 	}
 	D3DXMATRIX matrix;
 	D3DXMatrixIdentity(&mMatrix);
-	D3DXMatrixRotationX(&matrix, m_rotate.x);
+	D3DXMatrixRotationX(&matrix, m_rotate.x / 180.0f * D3DX_PI);
 	mMatrix = mMatrix * matrix;
-	D3DXMatrixRotationY(&matrix, m_rotate.y);
+	D3DXMatrixRotationY(&matrix, m_rotate.y / 180.0f * D3DX_PI);
 	mMatrix = mMatrix * matrix;
-	D3DXMatrixRotationZ(&matrix, m_rotate.z);
+	D3DXMatrixRotationZ(&matrix, m_rotate.z / 180.0f * D3DX_PI);
 	mMatrix = mMatrix * matrix;
 	D3DXMatrixScaling(&matrix, m_scale.x, m_scale.y, 1);
 	mMatrix = mMatrix * matrix;

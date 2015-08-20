@@ -3,6 +3,8 @@ float4x4 mMatrix;
 float4x4 vMatrix;
 float4x4 pMatrix;
 
+//bool isSpirte;
+
 struct VS_INPUT{
 	float3 inPosition : POSITION;
 	float4 inColor : COLOR;
@@ -21,6 +23,7 @@ struct VS_OUTPUT{
 VS_OUTPUT vmain(VS_INPUT input){
 	VS_OUTPUT output = (VS_OUTPUT)0;
 	float4 coord = float4(input.inPosition, 1.0f);
+
 	coord = mul(coord, tMatrix);
 	coord = mul(coord, mMatrix);
 	coord = mul(coord, vMatrix);
@@ -28,6 +31,6 @@ VS_OUTPUT vmain(VS_INPUT input){
 	output.outPosition = coord;
 	output.outColor = input.inColor;
 	output.outPSize = input.inPSize;
-	output.outTexcoord = input.inTexcoord;
+	output.outTexcoord = float2(input.inTexcoord.x, 1.0f-input.inTexcoord.y);
 	return output;
 }

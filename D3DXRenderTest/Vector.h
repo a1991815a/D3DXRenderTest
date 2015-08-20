@@ -36,7 +36,19 @@ public:
 	inline typename Vector<_vTp>::const_iterator begin() const;
 	inline typename Vector<_vTp>::iterator end();
 	inline typename Vector<_vTp>::const_iterator end() const;
+
+	const Vector<_vTp>& operator=(const Vector<_vTp>& copy_obj);
 };
+
+template<typename _vTp>
+const Vector<_vTp>& Vector<_vTp>::operator=( const Vector<_vTp>& copy_obj )
+{
+	this->clear();
+	m_list = copy_obj.m_list;
+	auto itor = m_list.begin();
+	for (; itor != m_list.end(); ++itor)
+		(*itor)->retain();
+}
 
 template<typename _vTp>
 typename Vector<_vTp>::const_iterator Vector<_vTp>::end() const

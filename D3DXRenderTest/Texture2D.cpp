@@ -1,6 +1,7 @@
 #include "Texture2D.h"
 #include "MacroHeader.h"
 #include "D3DXGlobalFunction.h"
+#include "PathManager.h"
 
 Texture2D* Texture2D::create()
 {
@@ -25,9 +26,10 @@ Texture2D* Texture2D::create(size_t width, size_t height)
 		&texture->m_d3dTexture
 		);
 	GBASSERT(texture->m_d3dTexture != nullptr);
-
-	texture->m_size.x = (real)width;
-	texture->m_size.y = (real)height;
+	texture->m_size.left = 0;
+	texture->m_size.top = 0;
+	texture->m_size.right = width;
+	texture->m_size.bottom = height;
 	return texture;
 }
 
@@ -36,25 +38,41 @@ Texture2D* Texture2D::create(const std::string& file)
 	Texture2D* texture = nullptr;
 	gbAlloc(texture);
 	D3DXIMAGE_INFO info = { 0 };
-	D3DXCreateTextureFromFileExA(
-		dxGetDevice(),
-		file.c_str(),
-		D3DX_FROM_FILE,
-		D3DX_FROM_FILE,
-		D3DX_DEFAULT,
-		0,
-		D3DFMT_FROM_FILE,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		0x00000000,
-		&info,
-		nullptr,
-		&texture->m_d3dTexture
-		);
+
+	for (size_t i = 0; i < _pathManager->size(); ++i)
+	{
+		std::string t_path = _pathManager->getPath(file, i);
+
+		D3DXCreateTextureFromFileExA(
+			dxGetDevice(),
+			t_path.c_str(),
+			D3DX_FROM_FILE,
+			D3DX_FROM_FILE,
+			D3DX_DEFAULT,
+			0,
+			D3DFMT_FROM_FILE,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			0x00000000,
+			&info,
+			nullptr,
+			&texture->m_d3dTexture
+			);
+		if(texture->m_d3dTexture)
+			break;
+	}
+	
 	GBASSERT(texture->m_d3dTexture != nullptr);
-	texture->m_size.x = (real)info.Width;
-	texture->m_size.y = (real)info.Height;
+	/*texture->m_size.left = 0;
+	texture->m_size.top = 0;
+	texture->m_size.right = info.Width;
+	texture->m_size.bottom = info.Height;*/
+	texture->m_size.left = 0;
+	texture->m_size.top = 0;
+	texture->m_size.right = info.Width;
+	texture->m_size.bottom = info.Height;
+	texture->m_name = file;
 	return texture;
 }
 
@@ -63,10 +81,20 @@ Texture2D* Texture2D::create(IDirect3DTexture9* texture, size_t width, size_t he
 	Texture2D* tex = nullptr;
 	gbAlloc(tex);
 	tex->m_d3dTexture = texture;
-	tex->m_size.x = (float)width;
-	tex->m_size.y = (float)height;
+
+	tex->m_size.left = 0;
+	tex->m_size.top = 0;
+	tex->m_size.right = width;
+	tex->m_size.bottom = height;
 	return tex;
 }
+
+/*
+Texture2D* Texture2D::create( const std::string& file, const std::string& plist )
+{
+
+}
+*/
 
 Texture2D::Texture2D()
 	:m_d3dTexture(nullptr), isTarget(false)
@@ -87,10 +115,9 @@ Texture2D::~Texture2D()
 void Texture2D::visit()
 {
 	linkProgram();
-	RECT rect = { 0, 0, (long)m_size.x, (long)m_size.y };
 	getProgram()->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", mMatrix);
 	getProgram()->SetBool(D3D_PIXEL_SHADER, "isSprite", true);
-	dxGetSprite()->Draw(m_d3dTexture, &rect, anchontPoint->getD3DXVector(), nullptr, 0xffffffff);
+	dxGetSprite()->Draw(m_d3dTexture, &m_size, anchontPoint->getD3DXVector(), nullptr, 0xffffffff);
 	dxGetSprite()->Flush();
 }
 

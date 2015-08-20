@@ -28,7 +28,7 @@ public:
 		auto itor = m_funcList.find(state);
 		GBASSERT(itor != m_funcList.end());
 		m_State = state;
-		m_curFunc = (LimitStateFunc*)(&*itor);
+		m_curFunc = (LimitStateFunc*)(&itor->second);
 	};
 
 	inline limitState getState() const{

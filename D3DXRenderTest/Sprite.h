@@ -1,11 +1,11 @@
 #ifndef __SPRITE__
 #define __SPRITE__
 #include "Node.h"
-#include "Texture2D.h"
+#include "SpriteFrame.h"
 
 class Sprite: public Node{
 private:
-	Texture2D* m_texture;
+	SpriteFrame* m_frame;
 public:
 	Sprite();
 	~Sprite();
@@ -13,7 +13,7 @@ public:
 	virtual void visit();
 	CREATE_FUNC(Sprite);
 	bool init();
-	void setFrame(Texture2D* texture);
+	void setFrame(SpriteFrame* frame);
 	
 private:
 	void bindAnimate();

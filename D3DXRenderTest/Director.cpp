@@ -3,6 +3,7 @@
 #include "MacroHeader.h"
 #include "MessageManager.h"
 #include "MemoryPoolManager.h"
+#include "GameUI.h"
 
 Director::Director()
 	:m_scene(nullptr)
@@ -17,6 +18,7 @@ Director::~Director()
 
 void Director::update()
 {
+	GameUI::getInstance()->loop();
 	if (m_scene)
 	{
 		m_scene->update();
@@ -28,6 +30,7 @@ bool Director::init(HWND hwnd)
 {
 	render_engine->init(hwnd);
 	MessageManager::getInstance()->init();
+	GameUI::getInstance()->init();
 	MemoryPoolManager::getInstance()->init();
 	return true;
 }

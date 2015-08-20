@@ -10,7 +10,7 @@
 
 extern void GameDraw(IDirect3DDevice9* device, ID3DXSprite* sprite);
 
-static std::multiset<Node*, Node_less<Node>>::iterator global_iterator;
+static std::multiset<Node*, Node_less<Node*>>::iterator global_iterator;
 
 D3DXRenderEngine::D3DXRenderEngine()
 	:RenderEngine((void**)(&m_device)), 

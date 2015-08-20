@@ -1,7 +1,7 @@
 #include "Sprite.h"
 
 Sprite::Sprite()
-	:m_texture(nullptr)
+	:m_frame(nullptr)
 {
 
 }
@@ -14,9 +14,9 @@ Sprite::~Sprite()
 void Sprite::visit()
 {
 	linkProgram();
-	m_texture->setAnchontPoint(&getAnchontPoint());
-	m_texture->setMatrix(getTransformMatrix());
-	m_texture->visit();
+	m_frame->setAnchontPoint(&getAnchontPoint());
+	m_frame->setMatrix(getTransformMatrix());
+	m_frame->visit();
 }
 
 bool Sprite::init()
@@ -24,9 +24,10 @@ bool Sprite::init()
 	return true;
 }
 
-void Sprite::setFrame(Texture2D* texture)
+void Sprite::setFrame(SpriteFrame* frame)
 {
-	m_texture = texture;
+	m_frame = frame;
+	frame->retain();
 }
 
 void Sprite::bindAnimate()

@@ -153,6 +153,11 @@ public:
 	const Vec3& getAnchontPoint() const{
 		return m_anchontPoint;
 	}
+	void setAnchontPoint(real x, real y){
+		m_anchontPoint.x = x;
+		m_anchontPoint.y = y;
+	};
+
 	void setAnchontPoint(const Vec2& point){
 		m_anchontPoint.x = point.x;
 		m_anchontPoint.y = point.y;
@@ -171,6 +176,12 @@ public:
 		m_position = pos;
 		setUpdate(true);
 	}
+	void setPosition(real x, real y){
+		m_position.x = x;
+		m_position.y = y;
+		setUpdate(true);
+	};
+
 	void setPositionX(real x) {
 		m_position.x = x;
 		setUpdate(true);
@@ -216,8 +227,14 @@ public:
 	const Vec2& getContentSize() {
 		return m_contentSize;
 	}
+	
 	void setContentSize(const Vec2& size) {
 		m_contentSize = size;
+		setUpdate(true);
+	}
+	void setContentSize(real width, real height){
+		m_contentSize.x = width;
+		m_contentSize.y = height;
 		setUpdate(true);
 	}
 	void setContentSizeWidth(real width) {
