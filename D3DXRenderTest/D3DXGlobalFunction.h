@@ -13,6 +13,8 @@ public:
 	static D3DXRenderEngine* d3dx_engine;
 };
 
+
+const D3DXMATRIX* dxGetIndentityMatrix();								//得到单位矩阵
 void dxSetOrginalMatrix(const D3DXMATRIX* _matrix);						//原点转换矩阵
 
 void setTransformMatrix(const D3DXMATRIX* _matrix);						//model-to-world转换矩阵设置
@@ -69,6 +71,8 @@ ID3DXFont* dxCreateFont(
 
 
 void dxPushQuadCommand(Node* node);										//发送渲染数据
+
+
 #endif
 
 #endif

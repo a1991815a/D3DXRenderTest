@@ -13,9 +13,9 @@ void GameUI::initStartUI()
 	Sprite* back_ground = Sprite::create();
 	back_ground->setFrame(sf);
 	startScene->addChild(back_ground);
-	back_ground->setPosition(0, 0);
-	back_ground->setScaleY(700.0f/480.0f);
+	back_ground->setScaleY(600.0f/480.0f);
 	_director->TransformScene(startScene);
+	
 }
 
 void GameUI::StartUI( void* )

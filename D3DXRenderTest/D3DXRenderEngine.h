@@ -116,6 +116,7 @@ private:
 	friend void dxSetFont(ID3DXFont* font);											//设置当前字体
 	friend ID3DXFont* dxGetFont();													//得到当前字体
 	friend void dxPushQuadCommand(Node* node);										//发送渲染数据
+	friend const D3DXMATRIX* dxGetIndentityMatrix();								//得到单位矩阵
 };
 
 #endif

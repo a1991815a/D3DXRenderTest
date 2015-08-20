@@ -177,5 +177,10 @@ void dxPushQuadCommand(Node* node)
 		_d3d_render_engine->m_globalList.insert(node);
 }
 
+const D3DXMATRIX* dxGetIndentityMatrix()
+{
+	return &_d3d_render_engine->Identify_Matrix;
+}
+
 #endif // !_OPENGL
 

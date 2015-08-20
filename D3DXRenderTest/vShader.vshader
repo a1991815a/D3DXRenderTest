@@ -20,7 +20,7 @@ struct VS_OUTPUT{
 	float2 outTexcoord : TEXCOORD0;
 };
 
-VS_OUTPUT vmain(VS_INPUT input){
+VS_OUTPUT main(VS_INPUT input){
 	VS_OUTPUT output = (VS_OUTPUT)0;
 	float4 coord = float4(input.inPosition, 1.0f);
 

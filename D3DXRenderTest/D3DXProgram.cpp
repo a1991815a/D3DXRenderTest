@@ -3,12 +3,12 @@
 #include "GBAssert.h"
 #include "D3DXGlobalFunction.h"
 
-#define SHADER_FLAG D3DXSHADER_DEBUG
+#define SHADER_FLAG D3DXSHADER_DEBUG | D3DXSHADER_USE_LEGACY_D3DX9_31_DLL
 
 D3DXProgram::D3DXProgram()
 	:m_vShader(nullptr), m_fShader(nullptr),
 	m_vTable(nullptr), m_fTable(nullptr)
-{
+{ 
 
 }
 
@@ -91,7 +91,7 @@ void D3DXProgram::createShaderFromFile(
 			file_name.c_str(),
 			nullptr,
 			nullptr,
-			"vmain",
+			"main",
 			getVersion(version),
 			SHADER_FLAG,
 			&buf,
@@ -119,7 +119,7 @@ void D3DXProgram::createShaderFromFile(
 			file_name.c_str(),
 			nullptr,
 			nullptr,
-			"fmain",
+			"main",
 			getVersion(version),
 			SHADER_FLAG,
 			&buf,

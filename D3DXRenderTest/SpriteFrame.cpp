@@ -35,13 +35,16 @@ SpriteFrame::~SpriteFrame()
 
 void SpriteFrame::visit()
 {
+	linkProgram();
 	RECT rect;
 	rect.left = m_rect.x;
 	rect.right = m_rect.x + m_rect.width;
 	rect.top = m_rect.y;
 	rect.bottom = m_rect.y + m_rect.height;
-	getProgram()->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", mMatrix);
+	getProgram()->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", dxGetIndentityMatrix());
 	getProgram()->SetBool(D3D_PIXEL_SHADER, "isSprite", true);
+
+	dxGetSprite()->SetTransform(mMatrix);
 	dxGetSprite()->Draw(m_texture->m_d3dTexture, &rect, anchontPoint->getD3DXVector(), nullptr, 0xffffffff);
 	dxGetSprite()->Flush();
 }
