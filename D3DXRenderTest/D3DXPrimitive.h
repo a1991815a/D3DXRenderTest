@@ -2,8 +2,9 @@
 #define __D3DXPRIMITIVE__
 #include "D3DXHeader.h"
 #include "D3DXVertex.h"
+#include "Node.h"
 
-class D3DXPrimitive{
+class D3DXPrimitive: public Node{
 private:
 	Vertex* m_vertex;
 	size_t m_count;
@@ -21,25 +22,25 @@ public:
 		IDirect3DVertexBuffer9* _buf,
 		D3DPRIMITIVETYPE type);
 	~D3DXPrimitive();
-	void assemble();
-	void draw() const;
+	void gbAssemble();
+	void gbDraw() const;
 
 	//设置顶点数据
-	void setData(Vertex* _vertex, size_t offset, size_t _count = 1 );
+	void gbSetData(Vertex* _vertex, size_t offset, size_t _count = 1 );
 
-	virtual void resetData() = 0;
-	inline void setReset(bool flag){
+	virtual void gbResetData() = 0;
+	inline void gbSetReset(bool flag){
 		m_resetFlag = flag;
 	};													//设置重构标记
-	inline bool needReset() const{
+	inline bool gbNeedReset() const{
 		return m_resetFlag;
 	};
 
-	inline void setSolid(D3DFILLMODE solid){
+	inline void gbSetSolid(D3DFILLMODE solid){
 		m_fillMode = solid;
 	};
 
-	inline D3DFILLMODE getSolid() const{
+	inline D3DFILLMODE gbGetSolid() const{
 		return m_fillMode;
 	}
 
@@ -47,66 +48,69 @@ public:
 	/*
 		getter, setter
 	*/
-	inline const Vertex* getVertex() const { return m_vertex; }
+	inline const Vertex* gbGetVertex() const { return m_vertex; }
 
 /*	inline void setVertex(Vertex* val) { m_vertex = val; }
 	不需要在外部初始化该属性
 */
-	inline const size_t getCount() const { return m_count; }
+	inline const size_t gbGetCount() const { return m_count; }
 
 /*	inline void setCount(size_t val) { m_count = val; }
 	不需要在外部初始化该属性
 */
-	inline const size_t getVCount() const { return m_vCount; }
+	inline const size_t gbGetVCount() const { return m_vCount; }
 
 /*	inline void setVCount(size_t val) { m_vCount = val; }
 	不需要在外部初始化该属性
 */
-	inline const IDirect3DVertexBuffer9* getBuf() const { return m_buf; }
+	inline const IDirect3DVertexBuffer9* gbGetBuf() const { return m_buf; }
 	
-	inline D3DPRIMITIVETYPE getType() const { return m_type; }
+	inline D3DPRIMITIVETYPE gbGetType() const { return m_type; }
 
 /*	
 	inline void setType(D3DPRIMITIVETYPE val) { m_type = val; }
 	:不需要在外部初始化该属性
 */
-	const Vec3 getPosition(size_t offset) const {
-		return getVertex(offset)->position;
+	const Vec3 gbGetPosition(size_t offset) const {
+		return gbGetVertex(offset)->position;
 	};
-	void setPosition(size_t offset, const Vec3& toPos) {
-		getVertex(offset)->position = toPos;
+	void gbSetPosition(size_t offset, const Vec3& toPos) {
+		gbGetVertex(offset)->position = toPos;
 	};
-	inline void setColor(size_t offset, real r, real g, real b, real a) {
-		Vertex* vertex = getVertex(offset);
+	inline void gbSetColor(size_t offset, real r, real g, real b, real a) {
+		Vertex* vertex = gbGetVertex(offset);
 		vertex->color.r = r;
 		vertex->color.g = g;
 		vertex->color.b = b;
 		vertex->color.a = a;
 	};
-	inline void setColor(size_t offset, const Color4f& color) {
-		getVertex(offset)->color = color;
+	inline void gbSetColor(size_t offset, const Color4f& color) {
+		gbGetVertex(offset)->color = color;
 	};
-	inline const Color4f& getColor(size_t offset) const {
-		return getVertex(offset)->color;
+	inline const Color4f& gbGetColor(size_t offset) const {
+		return gbGetVertex(offset)->color;
 	};
-	inline const Vec3& getNormal(size_t offset) const {
-		return getVertex(offset)->normal;
+	inline const Vec3& gbGetNormal(size_t offset) const {
+		return gbGetVertex(offset)->anchoPoint;
 	};
-	inline void setNormal(size_t offset, const Vec3& normal) {
-		getVertex(offset)->normal = normal;
+	inline void gbSetNormal(size_t offset, const Vec3& normal) {
+		gbGetVertex(offset)->anchoPoint = normal;
 	}
 
 
 protected:
-	inline void setBuf(IDirect3DVertexBuffer9* val) { m_buf = val; }
-	inline const Vertex* getVertex(size_t offset) const {
+	inline void gbSetBuf(IDirect3DVertexBuffer9* val) { m_buf = val; }
+	inline const Vertex* gbGetVertex(size_t offset) const {
 		return m_vertex->getNextVertex(offset);
 	};
-	inline Vertex* getVertex(size_t offset) {
+	inline Vertex* gbGetVertex(size_t offset) {
 		return m_vertex->getNextVertex(offset);
 	};
-	inline Vertex* getVertex(){
+	inline Vertex* gbGetVertex(){
 		return m_vertex;
 	}
+
+	virtual void visit() override;
+
 };
 #endif

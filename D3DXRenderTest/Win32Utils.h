@@ -1,7 +1,7 @@
 #ifndef __WIN32UTILS__
 #define __WIN32UTILS__
 #include <windows.h>
-#include <string>
+#include "UtilsHeader.h"
 
 class Win32Utils{
 public:
@@ -13,7 +13,7 @@ private:
 private:
 	HWND m_hWnd;
 public:
-	HWND createWindow(const std::string& wnd_name, int width, int height);
+	HWND createWindow(const GString& wnd_name, int width, int height);
 	void destroyWindow();
 	inline HWND getWin32Window() const { return m_hWnd; };
 	int getWidth() const{return m_width;};

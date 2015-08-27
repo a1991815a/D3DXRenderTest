@@ -52,19 +52,19 @@ ID3DXConstantTable* D3DXProgram::getTable(ShaderTypes shader_type)
 	return nullptr;
 }
 
-void D3DXProgram::initVTable(const std::string& val_name)
+void D3DXProgram::initVTable(const GString& val_name)
 {
 	D3DXHANDLE handle = m_vTable->GetConstantByName(0, val_name.c_str());
 	m_vDataHandle[val_name] = handle;
 }
 
-void D3DXProgram::initFTable(const std::string& val_name)
+void D3DXProgram::initFTable(const GString& val_name)
 {
 	D3DXHANDLE handle = m_fTable->GetConstantByName(0, val_name.c_str());
 	m_fDataHandle[val_name] = handle;
 }
 
-D3DXHANDLE D3DXProgram::getHandle(const std::string& key, ShaderTypes shader_type)
+D3DXHANDLE D3DXProgram::getHandle(const GString& key, ShaderTypes shader_type)
 {
 	switch (shader_type)
 	{
@@ -79,7 +79,7 @@ D3DXHANDLE D3DXProgram::getHandle(const std::string& key, ShaderTypes shader_typ
 }
 
 void D3DXProgram::createShaderFromFile(
-	const std::string& file_name,
+	const GString& file_name,
 	ShaderVersion version, 
 	D3DXProgram* program)
 {
@@ -142,7 +142,7 @@ void D3DXProgram::createShaderFromFile(
 }
 
 void D3DXProgram::createShaderFromData(
-	const std::string& source, 
+	const GString& source, 
 	ShaderVersion version, 
 	D3DXProgram* program)
 {
@@ -201,7 +201,7 @@ const char* D3DXProgram::getVersion(ShaderVersion version)
 	return nullptr;
 }
 
-void D3DXProgram::SetBool(ShaderTypes shader_type, const std::string& val_name, BOOL b)
+void D3DXProgram::SetBool(ShaderTypes shader_type, const GString& val_name, BOOL b)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -216,7 +216,7 @@ void D3DXProgram::SetBool(ShaderTypes shader_type, const std::string& val_name, 
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetBoolArray(ShaderTypes shader_type, const std::string& val_name, const BOOL* pB, UINT Count)
+void D3DXProgram::SetBoolArray(ShaderTypes shader_type, const GString& val_name, const BOOL* pB, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -231,7 +231,7 @@ void D3DXProgram::SetBoolArray(ShaderTypes shader_type, const std::string& val_n
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetFloat(ShaderTypes shader_type, const std::string& val_name, float f)
+void D3DXProgram::SetFloat(ShaderTypes shader_type, const GString& val_name, float f)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -246,7 +246,7 @@ void D3DXProgram::SetFloat(ShaderTypes shader_type, const std::string& val_name,
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetFloatArray(ShaderTypes shader_type, const std::string& val_name, const float* pF, UINT Count)
+void D3DXProgram::SetFloatArray(ShaderTypes shader_type, const GString& val_name, const float* pF, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -261,7 +261,7 @@ void D3DXProgram::SetFloatArray(ShaderTypes shader_type, const std::string& val_
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetInt(ShaderTypes shader_type, const std::string& val_name, int i)
+void D3DXProgram::SetInt(ShaderTypes shader_type, const GString& val_name, int i)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -276,7 +276,7 @@ void D3DXProgram::SetInt(ShaderTypes shader_type, const std::string& val_name, i
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetIntArray(ShaderTypes shader_type, const std::string& val_name, const int* pI, UINT Count)
+void D3DXProgram::SetIntArray(ShaderTypes shader_type, const GString& val_name, const int* pI, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -291,7 +291,7 @@ void D3DXProgram::SetIntArray(ShaderTypes shader_type, const std::string& val_na
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetMatrix(ShaderTypes shader_type, const std::string& val_name, const D3DXMATRIX* pMatrix)
+void D3DXProgram::SetMatrix(ShaderTypes shader_type, const GString& val_name, const D3DXMATRIX* pMatrix)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -306,7 +306,7 @@ void D3DXProgram::SetMatrix(ShaderTypes shader_type, const std::string& val_name
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetMatrixArray(ShaderTypes shader_type, const std::string& val_name, const D3DXMATRIX* pMatrix, UINT Count)
+void D3DXProgram::SetMatrixArray(ShaderTypes shader_type, const GString& val_name, const D3DXMATRIX* pMatrix, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -321,7 +321,7 @@ void D3DXProgram::SetMatrixArray(ShaderTypes shader_type, const std::string& val
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetMatrixPointerArray(ShaderTypes shader_type, const std::string& val_name, const D3DXMATRIX** pMatrix, UINT Count)
+void D3DXProgram::SetMatrixPointerArray(ShaderTypes shader_type, const GString& val_name, const D3DXMATRIX** pMatrix, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -336,7 +336,7 @@ void D3DXProgram::SetMatrixPointerArray(ShaderTypes shader_type, const std::stri
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetMatrixTranspose(ShaderTypes shader_type, const std::string& val_name, const D3DXMATRIX* pMatrix)
+void D3DXProgram::SetMatrixTranspose(ShaderTypes shader_type, const GString& val_name, const D3DXMATRIX* pMatrix)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -351,7 +351,7 @@ void D3DXProgram::SetMatrixTranspose(ShaderTypes shader_type, const std::string&
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetMatrixTransposeArray(ShaderTypes shader_type, const std::string& val_name, const D3DXMATRIX* pMatrix, UINT Count)
+void D3DXProgram::SetMatrixTransposeArray(ShaderTypes shader_type, const GString& val_name, const D3DXMATRIX* pMatrix, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -366,7 +366,7 @@ void D3DXProgram::SetMatrixTransposeArray(ShaderTypes shader_type, const std::st
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetMatrixTransposePointerArray(ShaderTypes shader_type, const std::string& val_name, const D3DXMATRIX** pMatrix, UINT Count)
+void D3DXProgram::SetMatrixTransposePointerArray(ShaderTypes shader_type, const GString& val_name, const D3DXMATRIX** pMatrix, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -381,7 +381,7 @@ void D3DXProgram::SetMatrixTransposePointerArray(ShaderTypes shader_type, const 
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetValue(ShaderTypes shader_type, const std::string& val_name, void* pData, UINT Bytes)
+void D3DXProgram::SetValue(ShaderTypes shader_type, const GString& val_name, void* pData, UINT Bytes)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -396,7 +396,7 @@ void D3DXProgram::SetValue(ShaderTypes shader_type, const std::string& val_name,
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetVector(ShaderTypes shader_type, const std::string& val_name, const D3DXVECTOR4* pVector)
+void D3DXProgram::SetVector(ShaderTypes shader_type, const GString& val_name, const D3DXVECTOR4* pVector)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)
@@ -411,7 +411,7 @@ void D3DXProgram::SetVector(ShaderTypes shader_type, const std::string& val_name
 	GBASSERT(false);
 }
 
-void D3DXProgram::SetVectorArray(ShaderTypes shader_type, const std::string& val_name, const D3DXVECTOR4* pVector, UINT Count)
+void D3DXProgram::SetVectorArray(ShaderTypes shader_type, const GString& val_name, const D3DXVECTOR4* pVector, UINT Count)
 {
 	D3DXHANDLE handle = getHandle(val_name, shader_type);
 	switch (shader_type)

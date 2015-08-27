@@ -1,7 +1,7 @@
 #ifndef __D3DXGLOBALFUNCTION__
 #define __D3DXGLOBALFUNCTION__
 #include "D3DXProgram.h"
-#include <string>
+#include "UtilsHeader.h"
 #include "D3DXVertex.h"
 
 #ifndef _OPENGL
@@ -26,7 +26,7 @@ void dxSetProjMatrix(
 	float target_x, float target_y, float target_z,
 	float up_x, float up_y, float up_z);								//投影矩阵
 void dxCompileShader(
-	const std::string& _file_path,
+	const GString& _file_path,
 	ShaderVersion _version,
 	D3DXProgram* _program);												//编译着色器
 void dxLinkProgram(D3DXProgram* _program);								//连接着色器
@@ -51,7 +51,7 @@ IDirect3DDevice9* dxGetDevice();										//得到dx设备接口
 ID3DXSprite* dxGetSprite();												//得到精灵
 ID3DXFont* dxGetFont();													//得到当前字体
 void dxSetFont(ID3DXFont* font);										//设置当前字体
-void dxDrawText(const std::string& text, 
+void dxDrawText(const GString& text, 
 	int x, int y, 
 	DWORD Format,
 	D3DCOLOR Color

@@ -1,6 +1,8 @@
 #include "gbMemoryPool.h"
 #include <assert.h>
 
+#undef _DEBUG
+
 using namespace gbContainer;
 
 MemoryPoolManager* MemoryPoolManager::m_instance = nullptr;
@@ -142,3 +144,5 @@ size_t MemoryPoolManager::searchPool(size_t size) const
 {
 	return (((size) + ALIGN_SIZE - 1) & ~(ALIGN_SIZE - 1));
 }
+
+#define _DEBUG

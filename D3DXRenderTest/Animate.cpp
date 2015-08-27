@@ -1,40 +1,42 @@
 #include "Animate.h"
 
-void Animate::bindSpriteFrame( SpriteFrame** frame )
+Animate* Animate::create()
 {
-	m_useIndex.insert(
-		std::unordered_map<SpriteFrame**, Timer_Frame>::value_type(frame, Timer_Frame()));
+	Animate* ret = nullptr;
+	gbAlloc(ret);
+	return ret;
 }
 
-void Animate::update()
+Animate::Animate()
+	:index(0), m_replay(true), m_reset(true)
 {
-	auto itor = m_useIndex.begin();
-	for (; itor != m_useIndex.end(); )
-	{
-		SpriteFrame** sf = itor->first;
-		Timer_Frame& t_frame = itor->second;
-		Timer& time = t_frame.m_timer;
-		size_t& cur_frame = t_frame.cur_frame;
 
-		if(time.getDelta() >= animation->getDelay()){
-			if(++cur_frame >= animation->getFrameCount())
-			{
-				
-				if(animation->isReplay())
-					cur_frame = 0;
-				else{
-					if(animation->isReset())
-					{
-						cur_frame = 0;
-						*sf = animation->m_frameList.at(cur_frame);
-					}
-					itor = m_useIndex.erase(itor);
-					continue;
-				}
-			}
-			*sf = animation->m_frameList.at(cur_frame);
-			time.reset();
-		}
-		++itor;
-	}
+}
+
+void Animate::addSpriteFrame(SpriteFrame* frame)
+{
+	m_frameList.push_back(frame);
+}
+
+void Animate::setReplay(bool _replay)
+{
+	m_replay = _replay;
+}
+
+void Animate::setReset(bool _reset)
+{
+	m_reset = _reset;
+}
+
+void Animate::reset()
+{
+	index = 0;
+}
+
+void Animate::_update()
+{
+	if (index >= m_frameList.size())
+		reset();
+	Sprite* sprite = dynamic_cast<Sprite*>(getNode());
+	sprite->m_frame = m_frameList.at(index++);
 }

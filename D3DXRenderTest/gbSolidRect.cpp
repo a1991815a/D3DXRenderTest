@@ -5,7 +5,7 @@ gbSolidRect::gbSolidRect()
 	:D3DXPrimitive(new Vertex[6], 2, 6, nullptr, D3DPT_TRIANGLELIST)
 {
 	initBuf();
-	setSolid(D3DFILL_SOLID);
+	gbSetSolid(D3DFILL_SOLID);
 }
 
 gbSolidRect::~gbSolidRect()
@@ -13,12 +13,12 @@ gbSolidRect::~gbSolidRect()
 
 }
 
-void gbSolidRect::resetData()
+void gbSolidRect::gbResetData()
 {
-	if(!needReset())
+	if(!gbNeedReset())
 		return;
-	Vertex* vertex = getVertex();
-	Vec2 t_size = getSize();
+	Vertex* vertex = gbGetVertex();
+	Vec2 t_size = gbGetSize();
 	GBASSERT(t_size.x >= 0 && t_size.y >= 0);
 	vertex[0].position = Vec3(m_rect.x, m_rect.y, 0.0f);
 	vertex[1].position = Vec3(m_rect.x + t_size.x, m_rect.y, 0.0f);
@@ -30,5 +30,5 @@ void gbSolidRect::resetData()
 	for (size_t i = 0; i < 6; ++i)
 		vertex[i].color = Color4f(1, 0, 0, 1);
 
-	setReset(false);
+	gbSetReset(false);
 }

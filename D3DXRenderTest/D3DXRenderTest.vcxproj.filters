@@ -123,8 +123,26 @@
     <Filter Include="游戏UI">
       <UniqueIdentifier>{924ba5be-27cc-4e85-996b-d73e171d9b93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="游戏引擎\动画系统">
+    <Filter Include="游戏引擎\单例\动画系统">
       <UniqueIdentifier>{9d20f70d-7e3b-4f73-b33b-85010d55085f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\控件">
+      <UniqueIdentifier>{0cffe481-d555-4601-8dec-968e36fe0417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\非游戏步骤工具\坐标转换器">
+      <UniqueIdentifier>{511529e3-e48f-4588-827b-65ce7e816778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="工具类">
+      <UniqueIdentifier>{bf8f555e-ed14-4bbb-97a1-332aa5b1c9dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="工具类\数据工具">
+      <UniqueIdentifier>{3312dea1-0c6f-4846-953e-d24e5e20f67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\单例\动作">
+      <UniqueIdentifier>{74e49b29-5f01-44b0-9345-e20e810084af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\单例\动作\管理器">
+      <UniqueIdentifier>{6a600273-6637-4aaf-bdca-1fc531f1be7c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -224,14 +242,41 @@
     <ClCompile Include="SpriteFrameManager.cpp">
       <Filter>游戏引擎\纹理管理器\精灵帧管理器</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>游戏引擎\动画系统</Filter>
-    </ClCompile>
-    <ClCompile Include="Animate.cpp">
-      <Filter>游戏引擎\动画系统</Filter>
-    </ClCompile>
     <ClCompile Include="GameUI.cpp">
       <Filter>游戏UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Animate.cpp">
+      <Filter>游戏引擎\单例\动画系统</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimateManager.cpp">
+      <Filter>游戏引擎\单例\动画系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GButton.cpp">
+      <Filter>游戏引擎\控件</Filter>
+    </ClCompile>
+    <ClCompile Include="CoordUtils.cpp">
+      <Filter>游戏引擎\非游戏步骤工具\坐标转换器</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\GString.cpp">
+      <Filter>工具类\数据工具</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Value.cpp">
+      <Filter>工具类\数据工具</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionInterval.cpp">
+      <Filter>游戏引擎\单例\动作</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>游戏引擎\单例\动作</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionInstant.cpp">
+      <Filter>游戏引擎\单例\动作</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionManager.cpp">
+      <Filter>游戏引擎\单例\动作\管理器</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>游戏引擎\单例\动作</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,11 +422,47 @@
     <ClInclude Include="GameUI.h">
       <Filter>游戏UI</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>游戏引擎\动画系统</Filter>
-    </ClInclude>
     <ClInclude Include="Animate.h">
-      <Filter>游戏引擎\动画系统</Filter>
+      <Filter>游戏引擎\单例\动画系统</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimateManager.h">
+      <Filter>游戏引擎\单例\动画系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GButton.h">
+      <Filter>游戏引擎\控件</Filter>
+    </ClInclude>
+    <ClInclude Include="CoordUtils.h">
+      <Filter>游戏引擎\非游戏步骤工具\坐标转换器</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon.h">
+      <Filter>游戏引擎\模型</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsHeader.h">
+      <Filter>工具类</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\GString.h">
+      <Filter>工具类\数据工具</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Value.h">
+      <Filter>工具类\数据工具</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>游戏引擎\单例\动作</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionInterval.h">
+      <Filter>游戏引擎\单例\动作</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionInstant.h">
+      <Filter>游戏引擎\单例\动作</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionManager.h">
+      <Filter>游戏引擎\单例\动作\管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="Set.h">
+      <Filter>游戏引擎\容器\内存管理容器</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>游戏引擎\单例\动作</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

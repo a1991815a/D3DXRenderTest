@@ -8,12 +8,12 @@ gbRect::gbRect()
 	initBuf();
 }
 
-void gbRect::resetData()
+void gbRect::gbResetData()
 {
-	if(!needReset())
+	if(!gbNeedReset())
 		return;
-	Vertex* vertex = getVertex();
-	Vec2 t_size = getSize();
+	Vertex* vertex = gbGetVertex();
+	Vec2 t_size = gbGetSize();
 	GBASSERT(t_size.x >= 0 && t_size.y >= 0);
 	vertex[0].position = Vec3(m_rect.x, m_rect.y, 0.0f);
 	vertex[1].position = Vec3(m_rect.x + t_size.x, m_rect.y, 0.0f);
@@ -28,5 +28,5 @@ void gbRect::resetData()
 	vertex[3].texcoord = Vec2(0, 0);
 	vertex[4].texcoord = Vec2(0, 1);
 
-	setReset(false);
+	gbSetReset(false);
 }

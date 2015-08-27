@@ -11,22 +11,22 @@ SpriteFrameManager::~SpriteFrameManager()
 
 }
 
-void SpriteFrameManager::insertSpriteFrame( const std::string& name, SpriteFrame* tex )
+void SpriteFrameManager::insertSpriteFrame( const GString& name, SpriteFrame* tex )
 {
 	m_frameList.insert(name, tex);
 }
 
-void SpriteFrameManager::deleteSpriteFrame( const std::string& texture_name )
+void SpriteFrameManager::deleteSpriteFrame( const GString& texture_name )
 {
 	m_frameList.erase(texture_name);
 }
 
-SpriteFrame* SpriteFrameManager::getSpriteFrame( const std::string& texture_name )
+SpriteFrame* SpriteFrameManager::getSpriteFrame( const GString& texture_name )
 {
 	return m_frameList.at(texture_name);
 }
 
-SpriteFrame* SpriteFrameManager::loadSpriteFrameFromFile( const std::string& file_name )
+SpriteFrame* SpriteFrameManager::loadSpriteFrameFromFile( const GString& file_name )
 {
 	Texture2D* tex = _textureManager->loadTextureFromFile(file_name);
 	SpriteFrame* sf = SpriteFrame::create(tex);

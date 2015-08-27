@@ -15,6 +15,7 @@ public:
 	Vector(Vector&& move_obj);
 	~Vector();
 
+	inline void reserve(size_t size);
 	inline size_t size() const;
 	inline const _vTp& at(size_t index) const;
 	inline _vTp& at(size_t index);
@@ -41,6 +42,12 @@ public:
 };
 
 template<typename _vTp>
+void Vector<_vTp>::reserve( size_t size )
+{
+	m_list.reserve(size);
+}
+
+template<typename _vTp>
 const Vector<_vTp>& Vector<_vTp>::operator=( const Vector<_vTp>& copy_obj )
 {
 	this->clear();
@@ -48,6 +55,7 @@ const Vector<_vTp>& Vector<_vTp>::operator=( const Vector<_vTp>& copy_obj )
 	auto itor = m_list.begin();
 	for (; itor != m_list.end(); ++itor)
 		(*itor)->retain();
+	return *this;
 }
 
 template<typename _vTp>

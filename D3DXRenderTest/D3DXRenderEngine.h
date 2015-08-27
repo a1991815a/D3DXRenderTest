@@ -91,7 +91,7 @@ private:
 		float target_x, float target_y, float target_z,
 		float up_x, float up_y, float up_z);										//投影矩阵
 	friend void dxCompileShader(
-		const std::string& _file_path,
+		const GString& _file_path,
 		ShaderVersion _version,
 		D3DXProgram* _program);														//编译着色器
 	friend void dxLinkProgram(D3DXProgram* _program);								//连接着色器

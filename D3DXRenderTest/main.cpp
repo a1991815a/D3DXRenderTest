@@ -53,10 +53,10 @@ int WINAPI WinMain(
 	MemoryChunkPoolInit;
 	_pathManager->init();
 	Application* application = new Application();
-
 	_director->setRenderEngine(new D3DXRenderEngine());
 	AppdeleGate::getInstance()->setCurrentApp(application);
 	AppdeleGate::getInstance()->init();
+
 	
 
 

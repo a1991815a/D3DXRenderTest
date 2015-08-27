@@ -45,7 +45,7 @@ void dxSetProjMatrix(
 }
 
 void dxCompileShader(
-	const std::string& _file_path, 
+	const GString& _file_path, 
 	ShaderVersion _version, 
 	D3DXProgram* _program
 	)
@@ -142,7 +142,7 @@ ID3DXFont* dxCreateFont(size_t Width, int Height, size_t Weight, size_t MipmapLe
 }
 
 void dxDrawText(
-	const std::string& text, 
+	const GString& text, 
 	int x, int y, 
 	DWORD Format,
 	D3DCOLOR Color)

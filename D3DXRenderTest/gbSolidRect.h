@@ -10,41 +10,41 @@ public:
 	gbSolidRect();
 	~gbSolidRect();
 
-	Vec2 getPosition() const{
+	Vec2 gbGetPosition() const{
 		return Vec2(m_rect.x, m_rect.y);
 	};
-	void setPosition(const Vec2& pos){
+	void gbSetPosition(const Vec2& pos){
 		m_rect.x = pos.x;
 		m_rect.y = pos.y;
-		setReset(true);
+		gbSetReset(true);
 	};
 	void setPositionX(float x){
 		m_rect.x = x;
-		setReset(true);
+		gbSetReset(true);
 	};
 	void setPositionY(float y){
 		m_rect.y = y;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	Vec2 getSize() const{
+	Vec2 gbGetSize() const{
 		return Vec2(m_rect.width, m_rect.height);
 	};
 
-	void setSize(const Vec2& _Size){
+	void gbSetSize(const Vec2& _Size){
 		m_rect.width = _Size.x;
 		m_rect.height = _Size.y;
-		setReset(true);
+		gbSetReset(true);
 	};
-	void setSizeWidth(float _Width){
+	void gbSetSizeWidth(float _Width){
 		m_rect.width = _Width;
-		setReset(true);
+		gbSetReset(true);
 	};
-	void setSizeHeight(float _Height){
+	void gbSetSizeHeight(float _Height){
 		m_rect.height = _Height;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	virtual void resetData() override;
+	virtual void gbResetData() override;
 };
 #endif

@@ -9,32 +9,32 @@ private:
 public:
 	gbCircle();
 	~gbCircle();
-	const Vec2& getPosition() const{
+	const Vec2& gbGetPosition() const{
 		return m_position;
 	};
-	void setPosition(const Vec2& pos){
+	void gbSetPosition(const Vec2& pos){
 		m_position.x = pos.x;
 		m_position.y = pos.y;
-		setReset(true);
+		gbSetReset(true);
 	};
-	void setPositionX(float x){
+	void gbSetPositionX(float x){
 		m_position.x = x;
-		setReset(true);
+		gbSetReset(true);
 	};
-	void setPositionY(float y){
+	void gbSetPositionY(float y){
 		m_position.y = y;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	float getRadian() const{
+	float gbGetRadian() const{
 		return m_radian;
 	}
-	void setRadian(float r){
+	void gbSetRadian(float r){
 		m_radian = r;
-		setReset(true);
+		gbSetReset(true);
 	}
 
-	virtual void resetData() override;
+	virtual void gbResetData() override;
 
 };
 #endif

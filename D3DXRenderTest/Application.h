@@ -5,6 +5,7 @@
 #include <vector>
 #include "Timer.h"
 #include "Vec.h"
+#include "UtilsHeader.h"
 
 class Application{
 public:
@@ -30,13 +31,13 @@ public:
 		m_wndSize.x = width;
 		m_wndSize.y = height;
 	}
-	const std::string& getWindowName()const{
+	const GString& getWindowName()const{
 		return m_wndName;
 	}
-	void setWindowName(const std::string& name){
+	void setWindowName(const GString& name){
 		m_wndName = name;
 	}
-	void setResignSize(const std::string& name, float width, float height, size_t frame){
+	void setResignSize(const GString& name, float width, float height, size_t frame){
 		m_wndName = name;
 		m_wndSize.x = width;
 		m_wndSize.y = height;
@@ -50,6 +51,6 @@ private:
 	size_t m_frame;
 	float m_delay;
 	Vec2 m_wndSize;
-	std::string m_wndName;
+	GString m_wndName;
 };
 #endif

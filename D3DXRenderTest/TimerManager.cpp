@@ -28,7 +28,8 @@ void TimerManager::loop()
 	for (; itor != m_timerList.end(); ++itor)
 	{
 		Timer* timer = *itor;
-		timer->m_time += delta;
+		if(!timer->getPause())
+			timer->m_time += delta;
 	}
 }
 

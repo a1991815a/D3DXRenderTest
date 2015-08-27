@@ -103,7 +103,12 @@ void D3DXRenderEngine::render()
 	
 	m_device->Clear(0, nullptr, D3DCLEAR_TARGET, 0xff000000, 1.0f, 0);
 	m_device->BeginScene();
-	m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	m_sprite->Begin(
+		D3DXSPRITE_ALPHABLEND |
+		D3DXSPRITE_OBJECTSPACE | 
+		D3DXSPRITE_DONOTSAVESTATE |
+		D3DXSPRITE_SORT_TEXTURE
+		);
 	inputMatrix();
 /*	GameDraw(m_device, m_sprite);*/
 	render_pre();

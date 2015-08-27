@@ -22,7 +22,7 @@ Texture2D* Texture2D::create(size_t width, size_t height)
 		0,
 		D3DUSAGE_RENDERTARGET,
 		D3DFMT_A8B8G8R8,
-		D3DPOOL_DEFAULT,
+		D3DPOOL_MANAGED,
 		&texture->m_d3dTexture
 		);
 	GBASSERT(texture->m_d3dTexture != nullptr);
@@ -33,7 +33,7 @@ Texture2D* Texture2D::create(size_t width, size_t height)
 	return texture;
 }
 
-Texture2D* Texture2D::create(const std::string& file)
+Texture2D* Texture2D::create(const GString& file)
 {
 	Texture2D* texture = nullptr;
 	gbAlloc(texture);
@@ -41,7 +41,7 @@ Texture2D* Texture2D::create(const std::string& file)
 
 	for (size_t i = 0; i < _pathManager->size(); ++i)
 	{
-		std::string t_path = _pathManager->getPath(file, i);
+		GString t_path = _pathManager->getPath(file, i);
 
 		D3DXCreateTextureFromFileExA(
 			dxGetDevice(),
@@ -51,7 +51,7 @@ Texture2D* Texture2D::create(const std::string& file)
 			D3DX_DEFAULT,
 			0,
 			D3DFMT_FROM_FILE,
-			D3DPOOL_DEFAULT,
+			D3DPOOL_MANAGED,
 			D3DX_DEFAULT,
 			D3DX_DEFAULT,
 			0x00000000,
@@ -90,7 +90,7 @@ Texture2D* Texture2D::create(IDirect3DTexture9* texture, size_t width, size_t he
 }
 
 /*
-Texture2D* Texture2D::create( const std::string& file, const std::string& plist )
+Texture2D* Texture2D::create( const GString& file, const GString& plist )
 {
 
 }

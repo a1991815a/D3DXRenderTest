@@ -6,6 +6,10 @@ extern bool GameInit(HWND hWnd);
 
 Win32Utils* Win32Utils::m_instance = nullptr;
 
+static int client_width = 0;
+static int client_height = 0;
+
+
 Win32Utils::Win32Utils()
 	:m_hWnd(nullptr), m_width(0), m_height(0)
 {
@@ -36,8 +40,10 @@ void Win32Utils::destroyInstance()
 	}
 }
 
-HWND Win32Utils::createWindow(const std::string& wnd_name, int width, int height)
+HWND Win32Utils::createWindow(const GString& wnd_name, int width, int height)
 {
+	m_width = width;
+	m_height = height;
 	GBASSERT(m_hWnd == nullptr);
 	WNDCLASSEXA wnd_class = { 0 };
 	wnd_class.cbSize = sizeof(wnd_class);
@@ -65,9 +71,6 @@ HWND Win32Utils::createWindow(const std::string& wnd_name, int width, int height
 	::ShowWindow(m_hWnd, SW_SHOWNORMAL);
 	::UpdateWindow(m_hWnd);
 
-	m_width = width;
-	m_height = height;
-
 	return m_hWnd;
 }
 
@@ -82,6 +85,12 @@ LRESULT CALLBACK Win32Utils::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	switch (message)
 	{
 	case WM_CREATE:
+		{
+			RECT rect;
+			::GetClientRect(hwnd, &rect);
+			client_width = rect.right - rect.left;
+			client_height = rect.bottom - rect.top;
+		}
 		if (!GameInit(hwnd))
 			PostQuitMessage(0);
 		break;
@@ -92,13 +101,22 @@ LRESULT CALLBACK Win32Utils::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		_dispatchMessage->sendKeyMessage((char)wParam, ET_KEY_UP);
 		break;
 	case WM_LBUTTONDOWN:
-		_dispatchMessage->sendMouseMessage((float)LOWORD(lParam), (float)HIWORD(lParam), ET_MOUSE_LDOWN);
+		_dispatchMessage->sendMouseMessage(
+			(float)LOWORD(lParam), 
+			client_height - (float)HIWORD(lParam), 
+		   ET_MOUSE_LDOWN);
 		break;
 	case WM_LBUTTONUP:
-		_dispatchMessage->sendMouseMessage((float)LOWORD(lParam), (float)HIWORD(lParam), ET_MOUSE_LUP);
+		_dispatchMessage->sendMouseMessage(
+			(float)LOWORD(lParam), 
+			client_height - (float)HIWORD(lParam),
+		   ET_MOUSE_LUP);
 		break;
 	case WM_MOUSEMOVE:
-		_dispatchMessage->sendMouseMessage((float)LOWORD(lParam), (float)HIWORD(lParam), ET_MOUSE_MOVE);
+		_dispatchMessage->sendMouseMessage(
+			(float)LOWORD(lParam), 
+			client_height - (float)HIWORD(lParam), 
+			ET_MOUSE_MOVE);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

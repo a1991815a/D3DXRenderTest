@@ -28,7 +28,7 @@ D3DXPrimitive::~D3DXPrimitive()
 	SAFE_DELETE_ARRAY(m_vertex);
 }
 
-void D3DXPrimitive::assemble()
+void D3DXPrimitive::gbAssemble()
 {
 /*
 	将操作全部集中到dxVertexArray中
@@ -38,11 +38,11 @@ void D3DXPrimitive::assemble()
 	memcpy_s(data_ptr, m_vertex->getSize() * m_vCount, m_vertex, m_vertex->getSize() * m_vCount);
 	m_buf->Unlock();
 */
-	resetData();
+	gbResetData();
 	dxVertexArray(m_vertex, 0, m_vCount, m_buf);
 }
 
-void D3DXPrimitive::draw() const
+void D3DXPrimitive::gbDraw() const
 {
 /*
 	将操作全部集中到dxVertexArray中
@@ -57,10 +57,12 @@ void D3DXPrimitive::draw() const
 
 	dxSetRenderState(D3DRS_FILLMODE, m_fillMode);
 	dxGetProgram()->SetBool(D3D_PIXEL_SHADER, "isSprite", false);
+	dxGetProgram()->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", this->getTransformMatrix());
 	dxDrawPrimitive(m_type, 0, m_count);
+	
 }
 
-void D3DXPrimitive::setData(Vertex* _vertex, size_t offset, size_t _count /*= 1 */)
+void D3DXPrimitive::gbSetData(Vertex* _vertex, size_t offset, size_t _count /*= 1 */)
 {
 	GBASSERT(m_vertex->getSize() == _vertex->getSize());
 	memcpy_s(
@@ -75,12 +77,21 @@ void D3DXPrimitive::initBuf()
 {
 	IDirect3DVertexBuffer9* buf = nullptr;
 	dxGetDevice()->CreateVertexBuffer(
-		getVertex()->getSize() * getVCount(),
+		gbGetVertex()->getSize() * gbGetVCount(),
 		0,
-		getVertex()->getFVF(),
+		gbGetVertex()->getFVF(),
 		D3DPOOL_DEFAULT,
 		&buf,
 		nullptr
 		);
-	setBuf(buf);
+	gbSetBuf(buf);
+}
+
+void D3DXPrimitive::visit()
+{
+	IDirect3DVertexBuffer9* buf = nullptr;
+	this->linkProgram();
+	this->gbAssemble();
+	this->gbDraw();
+	dxGetDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }

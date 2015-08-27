@@ -133,10 +133,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="ActionInstant.cpp" />
+    <ClCompile Include="ActionInterval.cpp" />
+    <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="Animate.cpp" />
-    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimateManager.cpp" />
     <ClCompile Include="AppdeleGate.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CoordUtils.cpp" />
     <ClCompile Include="CustomListener.cpp" />
     <ClCompile Include="D3DXGlobalFunction.cpp" />
     <ClCompile Include="D3DXPrimitive.cpp" />
@@ -147,6 +152,7 @@
     <ClCompile Include="GameUI.cpp" />
     <ClCompile Include="gbCircle.cpp" />
     <ClCompile Include="gbSolidRect.cpp" />
+    <ClCompile Include="GButton.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="MemoryPoolManager.cpp" />
     <ClCompile Include="MemoryPool\gbMemoryPool.cpp" />
@@ -157,6 +163,7 @@
     <ClCompile Include="KeyListener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseListener.cpp" />
+    <ClCompile Include="Move.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -167,14 +174,21 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="utils\GString.cpp" />
+    <ClCompile Include="utils\Value.cpp" />
     <ClCompile Include="Win32Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="ActionInstant.h" />
+    <ClInclude Include="ActionInterval.h" />
+    <ClInclude Include="ActionManager.h" />
     <ClInclude Include="Animate.h" />
-    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimateManager.h" />
     <ClInclude Include="AppdeleGate.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CoordUtils.h" />
     <ClInclude Include="CustomListener.h" />
     <ClInclude Include="D3DXGlobalFunction.h" />
     <ClInclude Include="D3DXPrimitive.h" />
@@ -185,6 +199,7 @@
     <ClInclude Include="GameUI.h" />
     <ClInclude Include="gbCircle.h" />
     <ClInclude Include="gbSolidRect.h" />
+    <ClInclude Include="GButton.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="MemoryPoolManager.h" />
@@ -202,14 +217,17 @@
     <ClInclude Include="Listener.h" />
     <ClInclude Include="MacroHeader.h" />
     <ClInclude Include="MouseListener.h" />
+    <ClInclude Include="Move.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="ObjectPool\ObjectPool.h" />
     <ClInclude Include="PathManager.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Ref.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Set.h" />
     <ClInclude Include="SingleInstance.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteFrame.h" />
@@ -218,6 +236,9 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="UtilsHeader.h" />
+    <ClInclude Include="utils\GString.h" />
+    <ClInclude Include="utils\Value.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Win32Utils.h" />
   </ItemGroup>

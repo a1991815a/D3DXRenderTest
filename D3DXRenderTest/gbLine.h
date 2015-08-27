@@ -11,43 +11,43 @@ public:
 	gbLine();
 	~gbLine();
 
-	virtual void resetData();
+	virtual void gbResetData();
 
-	const Vec2& getPosition() const{
+	const Vec2& gbGetPosition() const{
 		return m_Position;
 	};
-	const Vec2& getToPosition() const{
+	const Vec2& gbGetToPosition() const{
 		return m_toPosition;
 	};
 
-	void setPosition(const Vec2& pos){
+	void gbSetPosition(const Vec2& pos){
 		m_Position = pos;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	void setPositionX(float x){
+	void gbSetPositionX(float x){
 		m_Position.x = x;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	void setPositionY(float y){
+	void gbSetPositionY(float y){
 		m_Position.y = y;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	void setToPosition(const Vec2& pos){
+	void gbSetToPosition(const Vec2& pos){
 		m_toPosition = pos;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	void setToPositionX(float x){
+	void gbSetToPositionX(float x){
 		m_toPosition.x = x;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	void setToPositionY(float y){
+	void gbSetToPositionY(float y){
 		m_toPosition.y = y;
-		setReset(true);
+		gbSetReset(true);
 	};
 
 

@@ -4,6 +4,7 @@
 #include "MessageManager.h"
 #include "MemoryPoolManager.h"
 #include "GameUI.h"
+#include "AnimateManager.h"
 
 Director::Director()
 	:m_scene(nullptr)
@@ -31,6 +32,7 @@ bool Director::init(HWND hwnd)
 	render_engine->init(hwnd);
 	MessageManager::getInstance()->init();
 	GameUI::getInstance()->init();
+	AnimateManager::getInstance()->init();
 	MemoryPoolManager::getInstance()->init();
 	return true;
 }
@@ -38,8 +40,10 @@ bool Director::init(HWND hwnd)
 void Director::loop()
 {
 	MessageManager::getInstance()->loop();					//消息分发
+	AnimateManager::getInstance()->loop();					//动画更新
 	update();												//更新
 	render_engine->loop();									//渲染
+
 	MemoryPoolManager::getInstance()->loop();				//内存管理
 }
 

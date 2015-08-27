@@ -13,11 +13,11 @@ gbCircle::~gbCircle()
 
 }
 
-void gbCircle::resetData()
+void gbCircle::gbResetData()
 {
-	if(!needReset())
+	if(!gbNeedReset())
 		return;
-	Vertex* vertex = getVertex();
+	Vertex* vertex = gbGetVertex();
 
 	vertex[0].position = Vec3(m_position.x, m_position.y, 0);
 
@@ -77,5 +77,5 @@ void gbCircle::resetData()
 		vertex[i + 1].color = Color4f(1, 0, 0, 1);
 	}
 
-	setReset(false);
+	gbSetReset(false);
 }

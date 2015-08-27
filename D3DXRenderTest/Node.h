@@ -6,6 +6,8 @@
 #include "Rect.h"
 #include "Vector.h"
 
+class gbRect;
+
 #define CREATE_FUNC(RET)		\
 static RET* create(){			\
 	RET* ret = nullptr;			\
@@ -32,12 +34,15 @@ private:
 	Vector<Node*>		m_childs;							//孩子
 
 	int					m_tag;								//标记
-	std::string			m_name;								//名字
+	GString			m_name;								//名字
 
 	int					m_local;							//本地顺序
 	int					m_global;							//全局顺序
 
 	D3DXMATRIX			mMatrix;							//模型矩阵
+
+	gbRect*				m_debugRect;						//debug线框
+
 protected:
 	inline Vector<Node*>& getChilds(){
 		return m_childs;
@@ -48,7 +53,7 @@ public:
 		m_contentSize(),
 		m_enable(true), m_visiable(true), m_updateFlag(true),
 		m_parent(nullptr), m_childs(),m_tag(INT_MIN), m_name(),
-		m_local(0), m_global(0)
+		m_local(0), m_global(0), m_debugRect(nullptr)
 	{
 		D3DXMatrixIdentity(&mMatrix);
 	};
@@ -56,12 +61,29 @@ public:
 		m_childs.clear();
 	};
 	virtual void pushQuadCommand();							//发送渲染数据
+
+/*
+	debug函数
+*/
+	void debug();
 /*
 	父子操作
 */
+	void setScaleToScreen(float x, float y);
+	void setScaleToScreenX(float x);
+	void setScaleToScreenY(float y);
+
 	inline void addChild(Node* node){
 		m_childs.push_back(node);
 		node->m_parent = this;
+	}
+
+	Node* getParent(){
+		return m_parent;
+	}
+
+	const Node* getParent() const{
+		return m_parent;
 	}
 
 	inline Node* searchChild(int tag){
@@ -70,7 +92,7 @@ public:
 			if((*itor)->m_tag == tag)
 				return *itor;
 	}
-	inline Node* searchChild(const std::string& name){
+	inline Node* searchChild(const GString& name){
 		auto itor = m_childs.begin();
 		for (; itor != m_childs.end(); ++itor)
 			if((*itor)->m_name == name)
@@ -82,7 +104,7 @@ public:
 			if((*itor)->m_tag == tag)
 				return *itor;
 	}
-	inline const Node* searchChild(const std::string& name) const{
+	inline const Node* searchChild(const GString& name) const{
 		auto itor = m_childs.begin();
 		for (; itor != m_childs.end(); ++itor)
 			if((*itor)->m_name == name)
@@ -99,7 +121,7 @@ public:
 			}
 		}
 	}
-	inline void delChild(const std::string& name){
+	inline void delChild(const GString& name){
 		auto itor = m_childs.begin();
 		for (; itor != m_childs.end(); ++itor)
 		{
@@ -137,10 +159,10 @@ public:
 		return m_global;
 	}
 
-	inline const std::string& getName() const{
+	inline const GString& getName() const{
 		return m_name;
 	}
-	inline void setName(const std::string& name){
+	inline void setName(const GString& name){
 		m_name = name;
 	}
 	inline int getTag() const{
@@ -268,5 +290,6 @@ private:
 	void setUpdate(bool flag) {
 		m_updateFlag = flag;
 	}
+	void setTransfromMatrix(const D3DXMATRIX& matrix);
 };
 #endif

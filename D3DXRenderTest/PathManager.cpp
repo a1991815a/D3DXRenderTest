@@ -14,9 +14,10 @@ void PathManager::init()
 {
 	addPath("../assets/");
 	addPath("../../assets/");
+	addPath("../../img/");
 }
 
-void PathManager::addPath(const std::string& path)
+void PathManager::addPath(const GString& path)
 {
 	if(path.back() != '\\' && path.back() != '/')
 		m_pathList.push_back(path + '/');
@@ -24,7 +25,7 @@ void PathManager::addPath(const std::string& path)
 		m_pathList.push_back(path);
 }
 
-std::string PathManager::getPath( const std::string& in_path, size_t index ) const
+GString PathManager::getPath( const GString& in_path, size_t index ) const
 {
 	return m_pathList.at(index) + in_path;
 }

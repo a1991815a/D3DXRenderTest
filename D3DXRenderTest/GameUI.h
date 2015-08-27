@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "GameStep.h"
 #include "SingleInstance.h"
+#include "UtilsHeader.h"
 
 class GameUI: 
 	public SingleInstance<GameUI>, 
@@ -24,5 +25,7 @@ public:
 	virtual void destroy();
 private:
 	Scene* startScene;
+	Scene* actorFightScene;
+	Scene* strategicFightScene;
 };
 #endif

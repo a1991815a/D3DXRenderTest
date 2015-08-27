@@ -6,7 +6,7 @@ class Vertex{
 public:
 	Vec3 position;
 	Color4f color;
-	Vec3 normal;
+	Vec3 anchoPoint;
 	Vec2 texcoord;
 private:
 	static DWORD							m_fvf;
@@ -14,7 +14,7 @@ private:
 
 public:
 	Vertex()
-		:position(), color(), normal()
+		:position(), color(), anchoPoint()
 	{};
 	Vertex(real x, real y, real z)
 		:position(x, y, z) 
@@ -25,8 +25,8 @@ public:
 	Vertex(const Vec3& pos, const Color4f& color)
 		:position(pos), color(color)
 	{};
-	Vertex(const Vec3& pos, const Color4f& color, const Vec3& normal)
-		:position(pos), color(color), normal(normal)
+	Vertex(const Vec3& pos, const Color4f& color, const Vec3& anchoPoint)
+		:position(pos), color(color), anchoPoint(anchoPoint)
 	{};
 
 	virtual ~Vertex(){};
@@ -74,11 +74,11 @@ public:
 	Vertex_Point(const Vec3& pos, const Color4f& color)
 		:Vertex(pos, color), psize(1)
 	{};
-	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& normal)
-		:Vertex(pos, color, normal), psize(1)
+	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& anchoPoint)
+		:Vertex(pos, color, anchoPoint), psize(1)
 	{};
-	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& normal, float psize)
-		:Vertex(pos, color, normal), psize(psize)
+	Vertex_Point(const Vec3& pos, const Color4f& color, const Vec3& anchoPoint, float psize)
+		:Vertex(pos, color, anchoPoint), psize(psize)
 	{};
 
 	virtual DWORD getFVF() const override

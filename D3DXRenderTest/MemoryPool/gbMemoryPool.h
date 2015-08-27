@@ -7,6 +7,7 @@
 #endif
 #include <assert.h>
 
+#undef _DEBUG
 #define MIN_SIZE 1
 #define MAX_SIZE 128
 
@@ -202,5 +203,7 @@ namespace gbContainer {
 };
 
 
+
+#define _DEBUG
 
 #endif

@@ -11,20 +11,20 @@ public:
 	gbPoint();
 	~gbPoint();
 
-	const Vec2& getPosition() const{
+	const Vec2& gbGetPosition() const{
 		return m_position;
 	}
-	void setPosition(const Vec2& pos){
+	void gbSetPosition(const Vec2& pos){
 		m_position = pos;
-		setReset(true);
+		gbSetReset(true);
 	}
 	void setPositionX(float x){
 		m_position.x = x;
-		setReset(true);
+		gbSetReset(true);
 	}
 	void setPositionY(float y){
 		m_position.y = y;
-		setReset(true);
+		gbSetReset(true);
 	}
 
 	float getPSize() const {
@@ -32,10 +32,10 @@ public:
 	};
 	void setPSize(float psize) {
 		m_size = psize;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	virtual void resetData() override;
+	virtual void gbResetData() override;
 
 };
 
@@ -49,38 +49,38 @@ public:
 	gbPointArray(size_t _count);
 	~gbPointArray();
 
-	const Vec2& getPosition(size_t index) const{
-		GBASSERT(index < getCount());
+	const Vec2& gbGetPosition(size_t index) const{
+		GBASSERT(index < gbGetCount());
 		return m_position[index];
 	}
-	void setPosition(size_t index, const Vec2& pos){
-		GBASSERT(index < getCount());
+	void gbSetPosition(size_t index, const Vec2& pos){
+		GBASSERT(index < gbGetCount());
 		m_position[index] = pos;
-		setReset(true);
+		gbSetReset(true);
 	}
 
 	void setPositionX(size_t index, float x){
-		GBASSERT(index < getCount());
+		GBASSERT(index < gbGetCount());
 		m_position[index].x = x;
-		setReset(true);
+		gbSetReset(true);
 	};
 	void setPositionY(size_t index, float y){
-		GBASSERT(index < getCount());
+		GBASSERT(index < gbGetCount());
 		m_position[index].y = y;
-		setReset(true);
+		gbSetReset(true);
 	};
 
 	float getPSize(size_t index) const {
-		GBASSERT(index < getCount());
+		GBASSERT(index < gbGetCount());
 		return m_size[index];
 	};
 	void setPSize(size_t index, float psize) {
-		GBASSERT(index < getCount());
+		GBASSERT(index < gbGetCount());
 		m_size[index] = psize;
-		setReset(true);
+		gbSetReset(true);
 	};
 
-	virtual void resetData() override;
+	virtual void gbResetData() override;
 
 };
 #endif

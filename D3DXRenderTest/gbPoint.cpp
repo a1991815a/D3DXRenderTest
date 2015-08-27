@@ -5,7 +5,7 @@ gbPoint::gbPoint()
 	:D3DXPrimitive(new Vertex_Point[1], 1, 1, nullptr, D3DPT_POINTLIST)
 {
 	initBuf();
-	setSolid(D3DFILL_POINT);
+	gbSetSolid(D3DFILL_POINT);
 }
 
 gbPoint::~gbPoint()
@@ -13,11 +13,11 @@ gbPoint::~gbPoint()
 
 }
 
-void gbPoint::resetData()
+void gbPoint::gbResetData()
 {
-	if(!needReset())
+	if(!gbNeedReset())
 		return;
-	Vertex_Point* vertex = (Vertex_Point*)getVertex();
+	Vertex_Point* vertex = (Vertex_Point*)gbGetVertex();
 	vertex[0].psize = m_size;
 	vertex[0].position = Vec3(m_position.x, m_position.y, 0.0f);
 	vertex[0].color = Color4f(1, 0, 0, 1);
@@ -28,7 +28,7 @@ gbPointArray::gbPointArray(size_t _count)
 	m_position(new Vec2[_count]), m_size(new float[_count])
 {
 	initBuf();
-	setSolid(D3DFILL_POINT);
+	gbSetSolid(D3DFILL_POINT);
 }
 
 gbPointArray::~gbPointArray()
@@ -39,16 +39,16 @@ gbPointArray::~gbPointArray()
 		delete[] m_size;
 }
 
-void gbPointArray::resetData()
+void gbPointArray::gbResetData()
 {
-	if(!needReset())
+	if(!gbNeedReset())
 		return;
-	Vertex_Point* vertex = (Vertex_Point*)getVertex();
-	for (size_t i = 0; i < getCount(); ++i)
+	Vertex_Point* vertex = (Vertex_Point*)gbGetVertex();
+	for (size_t i = 0; i < gbGetCount(); ++i)
 	{
 		vertex[i].position = Vec3(m_position[i].x, m_position[i].y, 0.0f);
 		vertex[i].psize = m_size[i];
 		vertex[i].color = Color4f(1, 0, 0, 1);
 	}
-	setReset(false);
+	gbSetReset(false);
 }

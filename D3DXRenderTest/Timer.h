@@ -7,6 +7,7 @@ class Timer{
 	friend class TimerManager;
 private:
 	time_type m_time;
+	bool m_pause;
 public:
 	Timer();
 	~Timer();
@@ -17,5 +18,8 @@ public:
 	inline time_type getDelta() const{
 		return m_time;
 	};
+
+	void setPause(bool pause);
+	bool getPause() const;
 };
 #endif

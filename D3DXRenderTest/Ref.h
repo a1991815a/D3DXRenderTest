@@ -4,6 +4,7 @@
 #include "MemoryPool.h"
 #include "MemoryPool/gbMemoryPool.h"
 #include "MemoryPoolManager.h"
+#include "UtilsHeader.h"
 
 class Ref{
 public:
@@ -12,9 +13,9 @@ public:
 	{};
 	virtual ~Ref() {
 		GBASSERT(referenceCount == 0);
-#ifdef _DEBUG
-		OutputDebugStringA("回收引用内存: \n");
-#endif
+// #ifdef _DEBUG
+// 		OutputDebugStringA("回收引用内存: \n");
+// #endif
 	};
 	inline void autorelease() {
 		isAutoRelease = true;
