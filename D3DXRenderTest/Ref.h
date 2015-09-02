@@ -11,6 +11,13 @@ public:
 	Ref()
 		:referenceCount(0), isAutoRelease(false) 
 	{};
+
+	Ref(const Ref& ref)
+		:referenceCount(0), isAutoRelease(false)
+	{
+
+	}
+
 	virtual ~Ref() {
 		GBASSERT(referenceCount == 0);
 // #ifdef _DEBUG

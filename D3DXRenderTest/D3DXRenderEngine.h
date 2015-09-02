@@ -23,6 +23,7 @@ struct Node_less
 class D3DXRenderEngine: public RenderEngine{
 	typedef std::vector<Node*>					  local_vector;
 	typedef std::multiset<Node*, Node_less<Node*>> global_set;
+	friend class Director;
 private:
 	IDirect3D9*				m_d3pp;
 	IDirect3DDevice9*		m_device;
@@ -62,6 +63,7 @@ public:
 
 	void inputMatrix();
 
+	Node* HitTest(const Vec2& location);
 
 
 private:

@@ -123,9 +123,6 @@
     <Filter Include="游戏UI">
       <UniqueIdentifier>{924ba5be-27cc-4e85-996b-d73e171d9b93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="游戏引擎\单例\动画系统">
-      <UniqueIdentifier>{9d20f70d-7e3b-4f73-b33b-85010d55085f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="游戏引擎\控件">
       <UniqueIdentifier>{0cffe481-d555-4601-8dec-968e36fe0417}</UniqueIdentifier>
     </Filter>
@@ -143,6 +140,36 @@
     </Filter>
     <Filter Include="游戏引擎\单例\动作\管理器">
       <UniqueIdentifier>{6a600273-6637-4aaf-bdca-1fc531f1be7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\单例\动作\瞬间动作">
+      <UniqueIdentifier>{2905744e-afe0-48c9-8794-3ee133301c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\单例\动作\间隔动作">
+      <UniqueIdentifier>{0c8f9dfc-b4d2-4fbf-a6c8-dcecdf5ae570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\单例\动作\间隔动作\动画系统">
+      <UniqueIdentifier>{9d20f70d-7e3b-4f73-b33b-85010d55085f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\观察者模式">
+      <UniqueIdentifier>{c98bc913-a671-46e0-a00b-30beb12d140d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\观察者模式\观察者系统">
+      <UniqueIdentifier>{9fe47468-0dc8-44b3-ba57-ac08804347ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏模型">
+      <UniqueIdentifier>{e5086317-4e41-4996-8357-1bb622b0557b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\配置文档">
+      <UniqueIdentifier>{8cdfec03-d2a4-40eb-82ea-3fb43e2bc96f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="工具类\Xml解析工具">
+      <UniqueIdentifier>{c56daef8-f0e8-478e-8343-e56e491fd1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="工具类\Xml解析工具\tiny">
+      <UniqueIdentifier>{1e9b28a1-fdee-4d46-a019-dbfef95e1ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏引擎\序列化">
+      <UniqueIdentifier>{ce453eef-fa4d-40ea-8303-97410c5cfeb7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,10 +273,10 @@
       <Filter>游戏UI</Filter>
     </ClCompile>
     <ClCompile Include="Animate.cpp">
-      <Filter>游戏引擎\单例\动画系统</Filter>
+      <Filter>游戏引擎\单例\动作\间隔动作\动画系统</Filter>
     </ClCompile>
     <ClCompile Include="AnimateManager.cpp">
-      <Filter>游戏引擎\单例\动画系统</Filter>
+      <Filter>游戏引擎\单例\动作\间隔动作\动画系统</Filter>
     </ClCompile>
     <ClCompile Include="GButton.cpp">
       <Filter>游戏引擎\控件</Filter>
@@ -263,20 +290,74 @@
     <ClCompile Include="utils\Value.cpp">
       <Filter>工具类\数据工具</Filter>
     </ClCompile>
+    <ClCompile Include="ActionManager.cpp">
+      <Filter>游戏引擎\单例\动作\管理器</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionInstant.cpp">
+      <Filter>游戏引擎\单例\动作\瞬间动作</Filter>
+    </ClCompile>
     <ClCompile Include="ActionInterval.cpp">
-      <Filter>游戏引擎\单例\动作</Filter>
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClCompile>
+    <ClCompile Include="CallFunc.cpp">
+      <Filter>游戏引擎\单例\动作\瞬间动作</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>游戏引擎\单例\动作</Filter>
     </ClCompile>
-    <ClCompile Include="ActionInstant.cpp">
-      <Filter>游戏引擎\单例\动作</Filter>
+    <ClCompile Include="Scale.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
     </ClCompile>
-    <ClCompile Include="ActionManager.cpp">
-      <Filter>游戏引擎\单例\动作\管理器</Filter>
+    <ClCompile Include="Rotate.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
     </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>游戏引擎\单例\动作</Filter>
+    <ClCompile Include="ActionRepeat.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionSequence.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeDelay.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>游戏引擎\观察者模式</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverSystem.cpp">
+      <Filter>游戏引擎\观察者模式\观察者系统</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>游戏模型</Filter>
+    </ClCompile>
+    <ClCompile Include="Shake.cpp">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>游戏引擎\模型</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParse\XmlParse.cpp">
+      <Filter>工具类\Xml解析工具</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParse\tiny\tinystr.cpp">
+      <Filter>工具类\Xml解析工具\tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParse\tiny\tinyxml.cpp">
+      <Filter>工具类\Xml解析工具\tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParse\tiny\tinyxmlerror.cpp">
+      <Filter>工具类\Xml解析工具\tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParse\tiny\tinyxmlparser.cpp">
+      <Filter>工具类\Xml解析工具\tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="Number.cpp">
+      <Filter>游戏模型</Filter>
+    </ClCompile>
+    <ClCompile Include="Serialization.cpp">
+      <Filter>游戏引擎\序列化</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -423,10 +504,10 @@
       <Filter>游戏UI</Filter>
     </ClInclude>
     <ClInclude Include="Animate.h">
-      <Filter>游戏引擎\单例\动画系统</Filter>
+      <Filter>游戏引擎\单例\动作\间隔动作\动画系统</Filter>
     </ClInclude>
     <ClInclude Include="AnimateManager.h">
-      <Filter>游戏引擎\单例\动画系统</Filter>
+      <Filter>游戏引擎\单例\动作\间隔动作\动画系统</Filter>
     </ClInclude>
     <ClInclude Include="GButton.h">
       <Filter>游戏引擎\控件</Filter>
@@ -446,23 +527,71 @@
     <ClInclude Include="utils\Value.h">
       <Filter>工具类\数据工具</Filter>
     </ClInclude>
-    <ClInclude Include="Action.h">
-      <Filter>游戏引擎\单例\动作</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionInterval.h">
-      <Filter>游戏引擎\单例\动作</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionInstant.h">
-      <Filter>游戏引擎\单例\动作</Filter>
-    </ClInclude>
     <ClInclude Include="ActionManager.h">
       <Filter>游戏引擎\单例\动作\管理器</Filter>
     </ClInclude>
     <ClInclude Include="Set.h">
       <Filter>游戏引擎\容器\内存管理容器</Filter>
     </ClInclude>
-    <ClInclude Include="Move.h">
+    <ClInclude Include="ActionInstant.h">
+      <Filter>游戏引擎\单例\动作\瞬间动作</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionInterval.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="CallFunc.h">
+      <Filter>游戏引擎\单例\动作\瞬间动作</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
       <Filter>游戏引擎\单例\动作</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="Scale.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotate.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionRepeat.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionSequence.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeDelay.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>游戏引擎\观察者模式</Filter>
+    </ClInclude>
+    <ClInclude Include="ObserverSystem.h">
+      <Filter>游戏引擎\观察者模式\观察者系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>游戏模型</Filter>
+    </ClInclude>
+    <ClInclude Include="Shake.h">
+      <Filter>游戏引擎\单例\动作\间隔动作</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>游戏引擎\模型</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlParse\XmlParse.h">
+      <Filter>工具类\Xml解析工具</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlParse\tiny\tinystr.h">
+      <Filter>工具类\Xml解析工具\tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlParse\tiny\tinyxml.h">
+      <Filter>工具类\Xml解析工具\tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="Number.h">
+      <Filter>游戏模型</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization.h">
+      <Filter>游戏引擎\序列化</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -472,5 +601,13 @@
     <None Include="fShader.fshader">
       <Filter>资源文件\着色器</Filter>
     </None>
+    <None Include="..\img.xml">
+      <Filter>资源文件\配置文档</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\bin\background\gackground.xml">
+      <Filter>资源文件\配置文档</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

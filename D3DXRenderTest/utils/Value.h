@@ -6,7 +6,7 @@
 #include <ostream>
 
 #define ValueVector std::vector<Value>
-#define ValueMap std::unordered_map<GString, Value, GString_hash>
+#define ValueMap std::unordered_map<GString, Value>
 
 #ifndef _DOUBLE
 typedef float real;
@@ -23,6 +23,7 @@ private:
 		char _char;
 		int _int;
 		real _real;
+		void* _data;
 		GString* _string;
 		ValueVector* _vvector;
 		ValueMap* _vmap;
@@ -36,7 +37,8 @@ public:
 		REAL,
 		STRING,
 		VVECTOR,
-		VMAP
+		VMAP,
+		DATA
 	};
 
 //¹¹Ôìº¯Êý
@@ -51,6 +53,7 @@ public:
 	Value(const GString& str);
 	Value(const ValueVector& vvec);
 	Value(const ValueMap& vmap);
+	Value(void* _data);
 	Value(GString&& str);
 	Value(ValueVector&& vvec);
 	Value(ValueMap&& vmap);
@@ -65,6 +68,7 @@ public:
 	const Value& operator=(const GString& str);
 	const Value& operator=(const ValueVector& vvec);
 	const Value& operator=(const ValueMap& vmap);
+	const Value& operator=(void* data);
 
 	const Value& operator=(GString&& str);
 	const Value& operator=(ValueVector&& vvec);
@@ -81,6 +85,7 @@ public:
 	const GString& asString() const;
 	const ValueVector& asVVector() const;
 	const ValueMap& asVMap() const;
+	const void* asData() const;
 
 	char& asChar();
 	int& asInt();
@@ -88,8 +93,12 @@ public:
 	GString& asString();
 	ValueVector& asVVector();
 	ValueMap& asVMap();
+	void* asData();
+
+	ValueTypes getType() const;
 
 	friend std::ostream& operator<<(std::ostream& os, const Value& val);
+	void outputString(GString& out_text) const;
 private:
 	ValueTypes m_type;
 	ValueUnion m_value;

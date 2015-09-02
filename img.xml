@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="gb2312"?>
+<dic key="image">
+  <dic key="number">
+    <dic key="white">
+      <string key="lv">ui/uis_249.png</string>
+      <string key="0">ui/uis_250.png</string>
+      <string key="1">ui/uis_251.png</string>
+      <string key="2">ui/uis_252.png</string>
+      <string key="3">ui/uis_253.png</string>
+      <string key="4">ui/uis_254.png</string>
+      <string key="5">ui/uis_255.png</string>
+      <string key="6">ui/uis_256.png</string>
+      <string key="7">ui/uis_257.png</string>
+      <string key="8">ui/uis_258.png</string>
+      <string key="9">ui/uis_259.png</string>
+    </dic>
+
+    <dic key="blue">
+      <string key="0">ui/uis_260.png</string>
+      <string key="1">ui/uis_261.png</string>
+      <string key="2">ui/uis_262.png</string>
+      <string key="3">ui/uis_263.png</string>
+      <string key="4">ui/uis_264.png</string>
+      <string key="5">ui/uis_265.png</string>
+      <string key="6">ui/uis_266.png</string>
+      <string key="7">ui/uis_267.png</string>
+      <string key="8">ui/uis_268.png</string>
+      <string key="9">ui/uis_269.png</string>
+    </dic>
+
+    <dic key="green">
+      <string key="0">ui/uis_270.png</string>
+      <string key="1">ui/uis_271.png</string>
+      <string key="2">ui/uis_272.png</string>
+      <string key="3">ui/uis_273.png</string>
+      <string key="4">ui/uis_274.png</string>
+      <string key="5">ui/uis_275.png</string>
+      <string key="6">ui/uis_276.png</string>
+      <string key="7">ui/uis_277.png</string>
+      <string key="8">ui/uis_278.png</string>
+      <string key="9">ui/uis_279.png</string>
+    </dic>
+
+    <dic key="yellow">
+      <string key="0">ui/uis_280.png</string>
+      <string key="1">ui/uis_281.png</string>
+      <string key="2">ui/uis_282.png</string>
+      <string key="3">ui/uis_283.png</string>
+      <string key="4">ui/uis_284.png</string>
+      <string key="5">ui/uis_285.png</string>
+      <string key="6">ui/uis_286.png</string>
+      <string key="7">ui/uis_287.png</string>
+      <string key="8">ui/uis_288.png</string>
+      <string key="9">ui/uis_289.png</string>
+    </dic>
+
+    <dic key="white_sm">
+      <string key="lv">ui/uis_323.png</string>
+      <string key="0">ui/uis_324.png</string>
+      <string key="1">ui/uis_325.png</string>
+      <string key="2">ui/uis_326.png</string>
+      <string key="3">ui/uis_327.png</string>
+      <string key="4">ui/uis_328.png</string>
+      <string key="5">ui/uis_329.png</string>
+      <string key="6">ui/uis_330.png</string>
+      <string key="7">ui/uis_331.png</string>
+      <string key="8">ui/uis_332.png</string>
+      <string key="9">ui/uis_333.png</string>
+    </dic>
+
+    <dic key="yellow_sm">
+      <string key="0">ui/uis_334.png</string>
+      <string key="1">ui/uis_335.png</string>
+      <string key="2">ui/uis_336.png</string>
+      <string key="3">ui/uis_337.png</string>
+      <string key="4">ui/uis_338.png</string>
+      <string key="5">ui/uis_339.png</string>
+      <string key="6">ui/uis_340.png</string>
+      <string key="7">ui/uis_341.png</string>
+      <string key="8">ui/uis_342.png</string>
+      <string key="9">ui/uis_343.png</string>
+    </dic>
+
+    <dic key="blue_sm">
+      <string key="0">ui/uis_347.png</string>
+      <string key="1">ui/uis_348.png</string>
+      <string key="2">ui/uis_349.png</string>
+      <string key="3">ui/uis_350.png</string>
+      <string key="4">ui/uis_351.png</string>
+      <string key="5">ui/uis_352.png</string>
+      <string key="6">ui/uis_353.png</string>
+      <string key="7">ui/uis_354.png</string>
+      <string key="8">ui/uis_355.png</string>
+      <string key="9">ui/uis_356.png</string>
+    </dic>
+
+    <dic key="white_lg">
+      <string key="0">ui/uis_360.png</string>
+      <string key="1">ui/uis_361.png</string>
+      <string key="2">ui/uis_362.png</string>
+      <string key="3">ui/uis_363.png</string>
+      <string key="4">ui/uis_364.png</string>
+      <string key="5">ui/uis_365.png</string>
+      <string key="6">ui/uis_366.png</string>
+      <string key="7">ui/uis_367.png</string>
+      <string key="8">ui/uis_368.png</string>
+      <string key="9">ui/uis_369.png</string>
+    </dic>
+
+    <dic key="red_vlg">
+      <string key="0">ui/uis_172.png</string>
+      <string key="1">ui/uis_173.png</string>
+      <string key="2">ui/uis_174.png</string>
+      <string key="3">ui/uis_175.png</string>
+      <string key="4">ui/uis_176.png</string>
+      <string key="5">ui/uis_177.png</string>
+      <string key="6">ui/uis_178.png</string>
+      <string key="7">ui/uis_179.png</string>
+      <string key="8">ui/uis_180.png</string>
+      <string key="9">ui/uis_181.png</string>
+    </dic>
+  </dic>
+  
+  <dic key="button">
+    <string key="reset_game">ui/uis_378.png</string>
+    <string key="new_game">ui/uis_379.png</string>
+    <string key="start_game">ui/uis_380.png</string>
+    <string key="special_game">ui/uis_381.png</string>
+    <string key="setting_game">ui/uis_382.png</string>
+    <string key="rank_game">ui/uis_383.png</string>
+    <string key="help_game">ui/uis_384.png</string>
+    <string key="present_game">ui/uis_57.png</string>
+    <string key="save_game">ui/uis_57_.png</string>
+    
+    <string key="game_store">ui/uis_388.png</string>
+    <string key="left_bt">ui/left_bt.png</string>
+    <string key="right_bt">ui/right_bt.png</string>
+    <string key="bt">ui/bt.png</string>
+    <string key="back_bt">ui/uis_243.png</string>
+  </dic>
+
+  <dic key="ui">
+    <string key="ui_sp">ui/uis_234.png</string>
+  </dic>
+
+  <dic key="sprite">
+    
+  </dic>
+  
+  <dic key="word">
+    <string key="卡通王国">ui/uis_20.png</string>
+    <string key="山谷荣耀">ui/uis_21.png</string>
+    <string key="荒凉沙漠">ui/uis_22.png</string>
+    <string key="失落岛屿">ui/uis_23.png</string>
+    <string key="污染森林">ui/uis_24.png</string>
+    <string key="恶魔巢穴">ui/uis_25.png</string>
+
+    <string key="购买">ui/uis_88.png</string>
+    <string key="装备">ui/uis_89.png</string>
+    <string key="升级">ui/uis_91.png</string>
+    <string key="力量">ui/uis_92.png</string>
+    <string key="速度">ui/uis_93.png</string>
+    <string key="血量">ui/uis_94.png</string>
+    <string key="射程">ui/uis_95.png</string>
+
+    <string key="关卡">ui/uis_182.png</string>
+    <string key="关卡清除">ui/uis_183.png</string>
+    
+    <string key="GO">ui/uis_241.png</string>
+    <string key="去">ui/uis_241_c.png</string>
+    <string key="胜利">ui/uis_244.png</string>
+    <string key="失败">ui/uis_245.png</string>
+    <string key="任务">ui/uis_246.png</string>
+    <string key="完成">ui/uis_247.png</string>
+    <string key="任务失败">ui/uis_248.png</string>
+
+    <string key="BOSS">ui/uis_359.png</string>
+    <string key="使用英雄">ui/uis_391.png</string>
+  </dic>
+  
+</dic>

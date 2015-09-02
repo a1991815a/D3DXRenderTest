@@ -42,7 +42,7 @@ Texture2D* Texture2D::create(const GString& file)
 	for (size_t i = 0; i < _pathManager->size(); ++i)
 	{
 		GString t_path = _pathManager->getPath(file, i);
-
+			
 		D3DXCreateTextureFromFileExA(
 			dxGetDevice(),
 			t_path.c_str(),
@@ -50,7 +50,7 @@ Texture2D* Texture2D::create(const GString& file)
 			D3DX_FROM_FILE,
 			D3DX_DEFAULT,
 			0,
-			D3DFMT_FROM_FILE,
+			D3DFMT_A8B8G8R8,
 			D3DPOOL_MANAGED,
 			D3DX_DEFAULT,
 			D3DX_DEFAULT,
@@ -59,10 +59,15 @@ Texture2D* Texture2D::create(const GString& file)
 			nullptr,
 			&texture->m_d3dTexture
 			);
+
 		if(texture->m_d3dTexture)
 			break;
 	}
-	
+	if (texture->m_d3dTexture == nullptr)
+	{
+		GString out_text = file + "\n";
+		OutputDebugStringA(out_text.c_str());
+	}
 	GBASSERT(texture->m_d3dTexture != nullptr);
 	/*texture->m_size.left = 0;
 	texture->m_size.top = 0;

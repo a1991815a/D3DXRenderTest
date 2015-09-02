@@ -7,9 +7,12 @@
 
 class SpriteFrame:public Ref, public RenderObject{
 private:
+	GString m_key;											//取帧键值
 	Rect m_rect;											//绘图区域
 	Texture2D* m_texture;									//纹理
 	const Vec3* anchontPoint;								//锚点
+	const Vec2* contentSize;								//纹理对应尺寸
+	const Vec2* scale;										//缩放
 	const D3DXMATRIX* mMatrix;								//变换矩阵
 	unsigned char* pixelColor;
 	int m_pitch;
@@ -24,6 +27,11 @@ public:
 
 	inline const Rect& getRect() const{
 		return m_rect;
+	}
+
+	void setKey(const GString& key);
+	const GString& getKey() const{
+		return m_key;
 	}
 
 	Color4f getColor(const Vec2& pos) const;
@@ -45,6 +53,10 @@ public:
 	const Texture2D* getTexture() const {
 		return m_texture;
 	};
+
+	void setContentSize(const Vec2* size){
+		contentSize = size;
+	}
 
 	void initColorRect();
 

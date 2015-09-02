@@ -1,20 +1,20 @@
 #include "Action.h"
 #include "ActionManager.h"
+#include "MacroHeader.h"
 
 
 Action::Action( ActionTypes type )
-	:m_bindNode(nullptr), m_type(type)
-{
-
-}
+	:m_bindNode(nullptr), m_type(type), m_stop(false), isInit(false),
+	m_resetAction(nullptr)
+{}
 
 Action::~Action()
 {
-	if(m_bindNode)
-		m_bindNode->release();
+	SAFE_RELEASE(m_bindNode);
+	SAFE_RELEASE(m_resetAction);
 }
 
-void Action::bindNode(Node* node)
+void Action::init(Node* node)
 {
 	m_bindNode = node;
 	m_bindNode->retain();
@@ -33,9 +33,4 @@ Node* Action::getNode()
 const Node* Action::getNode() const
 {
 	return m_bindNode;
-}
-
-void Action::setStop()
-{
-	ActionManager::getInstance()->popAction(this);
 }

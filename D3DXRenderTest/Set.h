@@ -6,15 +6,15 @@ template<typename _vTy>
 class Set{
 //类型定义
 public:
-	typedef std::unordered_set<_vTy>::key_type key_type;
-	typedef std::unordered_set<_vTy>::value_type value_type;
-	typedef std::unordered_set<_vTy>::iterator iterator;
-	typedef std::unordered_set<_vTy>::const_iterator const_iterator;
-	typedef std::unordered_set<_vTy>::reference reference;
-	typedef std::unordered_set<_vTy>::const_reference const_reference;
-	typedef std::unordered_set<_vTy>::pointer pointer;
-	typedef std::unordered_set<_vTy>::const_pointer const_pointer;
-	typedef std::unordered_set<_vTy>::size_type size_type;
+	typedef typename std::unordered_set<_vTy>::key_type key_type;
+	typedef typename std::unordered_set<_vTy>::value_type value_type;
+	typedef typename std::unordered_set<_vTy>::iterator iterator;
+	typedef typename std::unordered_set<_vTy>::const_iterator const_iterator;
+	typedef typename std::unordered_set<_vTy>::reference reference;
+	typedef typename std::unordered_set<_vTy>::const_reference const_reference;
+	typedef typename std::unordered_set<_vTy>::pointer pointer;
+	typedef typename std::unordered_set<_vTy>::const_pointer const_pointer;
+	typedef typename std::unordered_set<_vTy>::size_type size_type;
 public:
 	Set();
 	Set(const Set& copy_obj);
@@ -25,6 +25,8 @@ public:
 	size_t size() const;
 	void insert(_vTy& _val);
 	void erase(_vTy& _val);
+	typename Set<_vTy>::iterator 
+	erase(typename Set<_vTy>::iterator _iterator);
 	void swap(_vTy& swap_obj);
 	bool empty() const;
 
@@ -37,6 +39,14 @@ public:
 private:
 	std::unordered_set<_vTy> m_set;
 };
+
+template<typename _vTy>
+typename Set<_vTy>::iterator
+Set<_vTy>::erase(typename Set<_vTy>::iterator _iterator)
+{
+	(*_iterator)->release();
+	return m_set.erase(_iterator);
+}
 
 template<typename _vTy>
 bool Set<_vTy>::empty() const

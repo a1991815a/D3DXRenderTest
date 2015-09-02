@@ -5,6 +5,8 @@
 #include "D3DXGlobalFunction.h"
 #include "Director.h"
 #include "MacroHeader.h"
+#include "CoordUtils.h"
+#include "D3DXPrimitive.h"
 
 #pragma warning(disable: 4244)
 
@@ -68,7 +70,8 @@ bool D3DXRenderEngine::init(HWND hwnd)
 
 	Vertex::init();
 
-	D3DXMatrixTranslation(&m_tMatrix, 
+	D3DXMatrixTranslation(
+		&m_tMatrix, 
 		-(WND_WIDTH >> 1), 
 		-(WND_HEIGHT >> 1),
 		0.0f
@@ -117,6 +120,8 @@ void D3DXRenderEngine::render()
 	m_sprite->End();
 	m_device->EndScene();
 	m_device->Present(0, 0, 0, 0);
+
+
 }
 
 void D3DXRenderEngine::render_pre()
@@ -200,6 +205,30 @@ void D3DXRenderEngine::inputMatrix()
 	m_curProgram->SetMatrix(D3D_VERTEX_SHADER, "tMatrix", &m_tMatrix);
 	m_curProgram->SetMatrixTranspose(D3D_VERTEX_SHADER, "vMatrix", &m_vMatrix);
 	m_curProgram->SetMatrixTranspose(D3D_VERTEX_SHADER, "pMatrix", &m_pMatrix);
+}
+
+Node* D3DXRenderEngine::HitTest(const Vec2& location)
+{
+	auto itor = m_localList.rbegin();
+	for (; itor != m_localList.rend(); ++itor)
+	{
+		Node* node = *itor;
+		if(dynamic_cast<D3DXPrimitive*>(node)){
+			continue;
+		}
+		Vec2 local_point = WorldToNode(node, location);
+		const Vec3 ap = node->getAnchontPoint();
+		const Vec2 cs = node->getContentSize();
+// 		local_point.x += (*itor)->getPosition().x / _director->getWindowSize().x * 15;
+// 		local_point.y += (*itor)->getPosition().y / _director->getWindowSize().y * 30;
+		if(	local_point.x >=   - ap.x * cs.x &&
+			local_point.x <= (1 - ap.x) * cs.x &&
+			local_point.y >=   - ap.y * cs.y &&
+			local_point.y <= (1 - ap.y) * cs.y
+			)
+			return node;
+	}
+	return nullptr;
 }
 
 #pragma warning(default: 4244)

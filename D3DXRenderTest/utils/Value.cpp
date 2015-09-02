@@ -1,5 +1,7 @@
 #include "Value.h"
 
+#include <windows.h>
+
 #pragma warning(disable: 4244)
 
 Value::ValueUnion::ValueUnion()
@@ -72,6 +74,13 @@ Value::Value(ValueMap&& vmap)
 	*this = vmap;
 }
 
+Value::Value(void* _data)
+{
+	reset();
+	m_value._data = _data;
+	m_type = DATA;
+}
+
 const Value& Value::operator=(GString&& str)
 {
 	reset();
@@ -99,6 +108,14 @@ const Value& Value::operator=(ValueMap&& vmap)
 	return *this;
 }
 
+const Value& Value::operator=(void* data)
+{
+	reset();
+	m_value._data = data;
+	m_type = DATA;
+	return *this;
+}
+
 void Value::reset()
 {
 	switch (m_type)
@@ -107,6 +124,7 @@ void Value::reset()
 	case Value::CHAR:
 	case Value::INT:
 	case Value::REAL:
+	case Value::DATA:
 		break;
 	case Value::STRING:
 		delete m_value._string;
@@ -192,6 +210,75 @@ ValueMap& Value::asVMap()
 	return *m_value._vmap;
 }
 
+const void* Value::asData() const
+{
+	return m_value._data;
+}
+
+void* Value::asData()
+{
+	return m_value._data;
+}
+
+Value::ValueTypes Value::getType() const
+{
+	return m_type;
+}
+
+void Value::outputString(GString& out_text) const
+{
+	switch (m_type)
+	{
+	case Value::NONE:
+		out_text += "NULL";
+		break;
+	case Value::CHAR:
+		out_text += asChar();
+		break;
+	case Value::INT:
+		out_text +=  asInt();
+		break;
+	case Value::REAL:
+		out_text += asReal();
+		break;
+	case Value::STRING:
+		out_text += asString();
+		break;
+	case Value::VMAP:
+	{
+		out_text += "ValueMap: {";
+
+		auto itor = asVMap().begin();
+		for (; itor != asVMap().end(); ++itor)
+		{
+			out_text += "\n";
+			out_text += itor->first;
+			out_text += " : ";
+			itor->second.outputString(out_text);
+		}
+		out_text += "\n}";
+	}
+	break;
+	case Value::VVECTOR:
+	{
+		out_text += "ValueVector: {";
+		auto itor = asVVector().begin();
+		for (; itor != asVVector().end(); ++itor)
+		{
+			out_text += "\n";
+			(*itor).outputString(out_text);
+		}
+		out_text += "\n}";
+	}
+	break;
+	case Value::DATA:
+		out_text += "Data: 0x \n";
+		break;
+	default:
+		break;
+	}
+}
+
 bool Value::operator==(const Value& compare_obj) const
 {
 	if (m_type != compare_obj.m_type)
@@ -212,6 +299,8 @@ bool Value::operator==(const Value& compare_obj) const
 		return *m_value._vvector == *compare_obj.m_value._vvector;
 	case Value::VMAP:
 		return *m_value._vmap == *compare_obj.m_value._vmap;
+	case Value::DATA:
+		return m_value._data == compare_obj.m_value._data;
 	}
 	return false;
 }
@@ -286,6 +375,7 @@ const Value& Value::operator=(const Value& copy_obj)
 	case Value::CHAR:
 	case Value::INT:
 	case Value::REAL:
+	case Value::DATA:
 		m_value = copy_obj.m_value;
 		break;
 	case Value::STRING:
@@ -341,6 +431,9 @@ std::ostream& operator<<(std::ostream& os, const Value& val) {
 			os << std::endl << *itor;
 		os << std::endl << "}";
 	}
+		break;
+	case Value::DATA:
+		os << "Data: 0x" << val.m_value._data << std::endl;
 		break;
 	default:
 		break;

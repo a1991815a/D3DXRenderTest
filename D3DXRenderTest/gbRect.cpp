@@ -15,6 +15,9 @@ void gbRect::gbResetData()
 	Vertex* vertex = gbGetVertex();
 	Vec2 t_size = gbGetSize();
 	GBASSERT(t_size.x >= 0 && t_size.y >= 0);
+	m_rect.x -= t_size.x * gbGetAnchontPoint().x;
+	m_rect.y -= t_size.y * gbGetAnchontPoint().y;
+
 	vertex[0].position = Vec3(m_rect.x, m_rect.y, 0.0f);
 	vertex[1].position = Vec3(m_rect.x + t_size.x, m_rect.y, 0.0f);
 	vertex[2].position = Vec3(m_rect.x + t_size.x, m_rect.y + t_size.y, 0.0f);

@@ -16,6 +16,7 @@ public:
 	void deleteTexture(const GString& texture_name);
 	Texture2D* getTexture(const GString& texture_name);
 	Texture2D* loadTextureFromFile(const GString& file_name);
-
+	Texture2D* loadTextureFromFile(const GString& key, const GString& file_name);
+	Texture2D* loadTextureFromFileNotIns(const GString& file_name);
 };
 #endif

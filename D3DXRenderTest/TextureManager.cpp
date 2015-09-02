@@ -31,3 +31,17 @@ Texture2D* TextureManager::loadTextureFromFile( const GString& file_name )
 	insertTexture(tex->getName(), tex);
 	return tex;
 }
+
+Texture2D* TextureManager::loadTextureFromFile(const GString& key, const GString& file_name)
+{
+	Texture2D* tex = Texture2D::create(file_name);
+	tex->setName(key);
+	insertTexture(key, tex);
+	return tex;
+}
+
+Texture2D* TextureManager::loadTextureFromFileNotIns(const GString& file_name)
+{
+	Texture2D* tex = Texture2D::create(file_name);
+	return tex;
+}

@@ -1,12 +1,16 @@
 #include "Scene.h"
 
-bool Scene::init()
+Scene* Scene::create()
 {
-	return true;
+	Scene* ret = nullptr;
+	gbAlloc(ret);
+	ret->setEnable(false);
+	return ret;
 }
 
 void Scene::visit()
 {
+	
 	
 }
 // 

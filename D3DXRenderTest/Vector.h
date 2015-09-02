@@ -31,6 +31,7 @@ public:
 	inline void clear();
 	inline void erase(size_t index);
 	inline void erase(typename Vector<_vTp>::iterator itor);
+	inline void erase(_vTp del_ele);
 	inline void insert(const _vTp& ins_data, typename Vector<typename _vTp>::const_iterator itor);
 
 	inline typename Vector<_vTp>::iterator begin();
@@ -40,6 +41,20 @@ public:
 
 	const Vector<_vTp>& operator=(const Vector<_vTp>& copy_obj);
 };
+
+template<typename _vTp>
+void Vector<_vTp>::erase(_vTp del_ele)
+{
+	auto itor = begin();
+	for (;itor != end(); ++itor)
+	{
+		if(*itor == del_ele)
+		{
+			erase(itor);
+			break;
+		}
+	}
+}
 
 template<typename _vTp>
 void Vector<_vTp>::reserve( size_t size )

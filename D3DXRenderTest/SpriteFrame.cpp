@@ -19,7 +19,7 @@ SpriteFrame* SpriteFrame::create( Texture2D* tex )
 	sf->m_rect.x = sf->m_rect.y = 0;
 	sf->m_rect.width = tex->getWidth();
 	sf->m_rect.height = tex->getHeight();
-	tex->retain();
+	sf->autorelease();
 	return sf;
 }
 
@@ -36,11 +36,16 @@ SpriteFrame::~SpriteFrame()
 	SAFE_RELEASE(m_texture);
 }
 
+void SpriteFrame::setKey(const GString& key)
+{
+	m_key = key;
+}
+
 Color4f SpriteFrame::getColor(const Vec2& pos) const
 {
 	if(pos.x < 0 || pos.y < 0 || pos.x > getSize().x || pos.y > getSize().y)
 		return Color4f(0, 0, 0, 0);
-	POINT point = {(int)pos.x, (int)getSize().y - (int)pos.y};
+	POINT point = {pos.x, getSize().y - pos.y};
 	float r = 0, g = 0, b = 0, a = 0;
 	unsigned char* ptr = pixelColor;
 	ptr += point.y * m_pitch + point.x * 4;
@@ -79,11 +84,15 @@ void SpriteFrame::visit()
 	rect.right = m_rect.x + m_rect.width;
 	rect.top = m_rect.y;
 	rect.bottom = m_rect.y + m_rect.height;
+
+	Vec3 tmp_ap = *anchontPoint;
+	tmp_ap.x *= contentSize->x;
+	tmp_ap.y *= contentSize->y;
+
 	dxGetProgram()->SetMatrix(D3D_VERTEX_SHADER, "mMatrix", dxGetIndentityMatrix());
 	dxGetProgram()->SetBool(D3D_PIXEL_SHADER, "isSprite", true);
-
 	dxGetSprite()->SetTransform(mMatrix);
-	dxGetSprite()->Draw(m_texture->m_d3dTexture, &rect, anchontPoint->getD3DXVector(), nullptr, 0xffffffff);
+	dxGetSprite()->Draw(m_texture->m_d3dTexture, &rect, tmp_ap.getD3DXVector(), nullptr, 0xffffffff);
 	dxGetSprite()->Flush();
 	
 }

@@ -36,11 +36,11 @@ public:
 		m_rect.height = _Size.y;
 		gbSetReset(true);
 	};
-	void gbSetSizeWidth(float _Width){
+	void gbSetSizeWidth(float _Width) {
 		m_rect.width = _Width;
 		gbSetReset(true);
 	};
-	void gbSetSizeHeight(float _Height){
+	void gbSetSizeHeight(float _Height) {
 		m_rect.height = _Height;
 		gbSetReset(true);
 	};

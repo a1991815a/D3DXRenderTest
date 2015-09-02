@@ -78,6 +78,12 @@
     <IncludePath>$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>$(WindowsSDK_LibraryPath_x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(WindowsSdkDir)include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>$(WindowsSdkDir)lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -85,6 +91,10 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)../../PhysicsTest/PhysicsTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
+      <PreprocessorDefinitions>MSV_$(PlatformToolsetVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -111,6 +121,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PhysicsTest\PhysicsTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MSV_$(PlatformToolsetVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -137,10 +149,14 @@
     <ClCompile Include="ActionInstant.cpp" />
     <ClCompile Include="ActionInterval.cpp" />
     <ClCompile Include="ActionManager.cpp" />
+    <ClCompile Include="ActionRepeat.cpp" />
+    <ClCompile Include="ActionSequence.cpp" />
+    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Animate.cpp" />
     <ClCompile Include="AnimateManager.cpp" />
     <ClCompile Include="AppdeleGate.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CallFunc.cpp" />
     <ClCompile Include="CoordUtils.cpp" />
     <ClCompile Include="CustomListener.cpp" />
     <ClCompile Include="D3DXGlobalFunction.cpp" />
@@ -153,6 +169,7 @@
     <ClCompile Include="gbCircle.cpp" />
     <ClCompile Include="gbSolidRect.cpp" />
     <ClCompile Include="GButton.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="MemoryPoolManager.cpp" />
     <ClCompile Include="MemoryPool\gbMemoryPool.cpp" />
@@ -165,28 +182,45 @@
     <ClCompile Include="MouseListener.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Number.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="ObserverSystem.cpp" />
     <ClCompile Include="PathManager.cpp" />
+    <ClCompile Include="Rotate.cpp" />
+    <ClCompile Include="Scale.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Serialization.cpp" />
+    <ClCompile Include="Shake.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteFrame.cpp" />
     <ClCompile Include="SpriteFrameManager.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TimeDelay.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="utils\GString.cpp" />
     <ClCompile Include="utils\Value.cpp" />
     <ClCompile Include="Win32Utils.cpp" />
+    <ClCompile Include="XmlParse\tiny\tinystr.cpp" />
+    <ClCompile Include="XmlParse\tiny\tinyxml.cpp" />
+    <ClCompile Include="XmlParse\tiny\tinyxmlerror.cpp" />
+    <ClCompile Include="XmlParse\tiny\tinyxmlparser.cpp" />
+    <ClCompile Include="XmlParse\XmlParse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
     <ClInclude Include="ActionInstant.h" />
     <ClInclude Include="ActionInterval.h" />
     <ClInclude Include="ActionManager.h" />
+    <ClInclude Include="ActionRepeat.h" />
+    <ClInclude Include="ActionSequence.h" />
+    <ClInclude Include="Actor.h" />
     <ClInclude Include="Animate.h" />
     <ClInclude Include="AnimateManager.h" />
     <ClInclude Include="AppdeleGate.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="CallFunc.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CoordUtils.h" />
     <ClInclude Include="CustomListener.h" />
@@ -200,6 +234,7 @@
     <ClInclude Include="gbCircle.h" />
     <ClInclude Include="gbSolidRect.h" />
     <ClInclude Include="GButton.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="MemoryPoolManager.h" />
@@ -219,21 +254,29 @@
     <ClInclude Include="MouseListener.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Number.h" />
     <ClInclude Include="ObjectPool\ObjectPool.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="ObserverSystem.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Ref.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="RenderObject.h" />
+    <ClInclude Include="Rotate.h" />
+    <ClInclude Include="Scale.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Serialization.h" />
     <ClInclude Include="Set.h" />
+    <ClInclude Include="Shake.h" />
     <ClInclude Include="SingleInstance.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteFrame.h" />
     <ClInclude Include="SpriteFrameManager.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TimeDelay.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="UtilsHeader.h" />
@@ -241,6 +284,9 @@
     <ClInclude Include="utils\Value.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Win32Utils.h" />
+    <ClInclude Include="XmlParse\tiny\tinystr.h" />
+    <ClInclude Include="XmlParse\tiny\tinyxml.h" />
+    <ClInclude Include="XmlParse\XmlParse.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PhysicsTest\PhysicsTest\PhysicsTest.vcxproj">
@@ -248,8 +294,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\img.xml" />
     <None Include="fShader.fshader" />
     <None Include="vShader.vshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\bin\background\gackground.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

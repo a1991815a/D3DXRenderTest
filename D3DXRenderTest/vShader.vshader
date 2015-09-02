@@ -24,8 +24,8 @@ VS_OUTPUT main(VS_INPUT input){
 	VS_OUTPUT output = (VS_OUTPUT)0;
 	float4 coord = float4(input.inPosition, 1.0f);
 
-	coord = mul(coord, tMatrix);
 	coord = mul(coord, mMatrix);
+	coord = mul(coord, tMatrix);
 	coord = mul(coord, vMatrix);
 	coord = mul(coord, pMatrix);
 	output.outPosition = coord;

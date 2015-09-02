@@ -4,4 +4,6 @@
 #include "utils/GString.h"
 #include "utils/Value.h"
 
+#include "XmlParse/XmlParse.h"
+
 #endif

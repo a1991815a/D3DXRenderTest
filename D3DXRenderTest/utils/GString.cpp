@@ -9,93 +9,72 @@ static char s_buf[max_length + 1] = { 0 };
 
 //÷ÿ‘ÿ…¢¡–∫Ø ˝
 
-
-GString GString::FormatString(const char* str, ...)
-{
-	GString return_str = "";
-	va_list ap;
-	va_start(ap, str);
-	int buf_size = _vsnprintf(nullptr, 0, str, ap);
-	if (buf_size <= max_length) {
-		va_end(ap);
-		va_start(ap, str);
-		vsprintf_s(s_buf, max_length + 1, str, ap);
-		return_str += s_buf;
-		memset(s_buf, 0, max_length + 1);
-		va_end(ap);
-	}
-	else
-	{
-		char* tmp_buf = new char[buf_size + 1];
-		memset(tmp_buf, 0, buf_size + 1);
-		va_end(ap);
-		va_start(ap, str);
-		vsprintf_s(tmp_buf, buf_size + 1, str, ap);
-		return_str += tmp_buf;
-		delete[] tmp_buf;
-		va_end(ap);
-	}
-
-	return return_str;
-}
+ 
+ GString GString::FormatString(const char* str, ...)
+ {
+ 	GString return_str = "";
+ 	va_list ap;
+ 	va_start(ap, str);
+ 	int buf_size = _vsnprintf(nullptr, 0, str, ap);
+ 	if (buf_size <= max_length) {
+ 		va_end(ap);
+ 		va_start(ap, str);
+ 		vsprintf_s(s_buf, max_length + 1, str, ap);
+ 		return_str += s_buf;
+ 		memset(s_buf, 0, max_length + 1);
+ 		va_end(ap);
+ 	}
+ 	else
+ 	{
+ 		char* tmp_buf = new char[buf_size + 1];
+ 		memset(tmp_buf, 0, buf_size + 1);
+ 		va_end(ap);
+ 		va_start(ap, str);
+ 		vsprintf_s(tmp_buf, buf_size + 1, str, ap);
+ 		return_str += tmp_buf;
+ 		delete[] tmp_buf;
+ 		va_end(ap);
+ 	}
+ 
+ 	return return_str;
+ }
 
 GString::GString()
-	:m_str("")
-{
-
-}
+	:_Mybase()
+{}
 
 GString::GString(const GString& str)
-	:m_str(str.m_str)
-{
-
-}
+	: _Mybase(str)
+{}
 
 GString::GString(GString&& str)
-{
-	m_str = std::forward<std::string>(str.m_str);
-}
-
-GString::GString(const std::string& str)
-	:m_str(str)
-{
-
-}
-
-GString::GString(std::string&& str)
-	:m_str(str)
-{
-}
+	: _Mybase(str)
+{}
 
 GString::GString(const char* str)
-{
-	if (str == nullptr)
-		m_str = "";
-	else
-		m_str = str;
-}
+	: _Mybase(str)
+{}
 
 GString::GString(int num)
 {
 	char tmp_str[26] = { 0 };
 	sprintf_s(tmp_str, "%d", num);
-	m_str = tmp_str;
+	_Mybase::operator+=(tmp_str);
 }
 
 GString::GString(double num)
 {
 	char tmp_str[26] = { 0 };
 	sprintf_s(tmp_str, "%f", num);
-	m_str = tmp_str;
-	while(m_str.size() > 0 && m_str.back() == '0')
-		m_str.pop_back();
-	m_str = tmp_str;
+	_Mybase::operator+=(tmp_str);
+	while(size() > 0 && back() == '0')
+		pop_back();
 }
 
 GString::GString(char c)
-	:m_str("")
+	:_Mybase()
 {
-	m_str += c;
+	_Mybase::operator+=(c);
 }
 
 GString::GString( const wchar_t* wstr )
@@ -105,254 +84,34 @@ GString::GString( const wchar_t* wstr )
 	str=new char[len+1]; 
 	WideCharToMultiByte(CP_ACP,0,wstr,wcslen(wstr),str,len,NULL,NULL); 
 	str[len]='\0'; 
-	m_str += str;
+	_Mybase::operator+=(str);
 	delete[] str;
 }
 
-bool GString::operator>(const GString& compare_obj) const
+GString::GString(const _Mybase& copy_obj)
+	:_Mybase(copy_obj)
+{}
+
+GString::GString(const _Mybase&& move_obj)
+	:_Mybase(move_obj)
+{}
+
+int GString::find(char ch, size_t offset /*= 0*/)
 {
-	return m_str > compare_obj.m_str;
+	return _Mybase::find(ch, offset);
 }
 
-bool GString::operator>(const std::string& compare_obj) const
+int GString::find(const char* find_str, size_t offset /*= 0*/) const
 {
-	return m_str > compare_obj;
-}
-
-bool GString::operator<(const GString& compare_obj) const
-{
-	return m_str < compare_obj.m_str;
-}
-
-bool GString::operator<=(const GString& compare_obj) const
-{
-	return m_str <= compare_obj.m_str;
-}
-
-bool GString::operator<(const std::string& compare_obj) const
-{
-	return m_str < compare_obj;
-}
-
-bool GString::operator<=(const std::string& compare_obj) const
-{
-	return m_str <= compare_obj;
-}
-
-GString GString::operator+(const GString& compare_obj) const
-{
-	GString gstr = *this;
-	gstr.m_str += compare_obj.m_str;
-	return gstr;
-}
-
-GString GString::operator+(const std::string& compare_obj) const
-{
-	GString gstr = *this;
-	gstr.m_str += compare_obj;
-	return gstr;
-}
-
-GString GString::operator+(const char* compare_obj) const
-{
-	GString gstr = *this;
-	gstr.m_str += compare_obj;
-	return gstr;
-}
-
-GString GString::operator+(const char& c) const
-{
-	GString gstr = *this;
-	gstr.m_str += c;
-	return gstr;
-}
-
-GString GString::operator+(const int& num) const
-{
-	char tmp_str[26] = { 0 };
-	sprintf_s(tmp_str, "%d", num);
-	GString gstr = *this;
-	gstr.m_str += tmp_str;
-	return gstr;
-}
-
-GString GString::operator+(const float& num) const
-{
-	char tmp_str[26] = { 0 };
-	sprintf_s(tmp_str, "%f", num);
-	GString gstr = *this;
-	gstr.m_str += tmp_str;
-	return gstr;
-}
-
-const GString& GString::operator+=(const GString& compare_obj)
-{
-	m_str += compare_obj.m_str;
-	return *this;
-}
-
-const GString& GString::operator+=(const std::string& compare_obj)
-{
-	m_str += compare_obj;
-	return *this;
-}
-
-const GString& GString::operator+=(const char* compare_obj)
-{
-	m_str += compare_obj;
-	return *this;
-}
-
-const GString& GString::operator+=(const char& c)
-{
-	m_str += c;
-	return *this;
-}
-
-const GString& GString::operator+=(const int& num)
-{
-	char tmp_str[26] = { 0 };
-	sprintf_s(tmp_str, "%d", num);
-	m_str += tmp_str;
-	return *this;
-}
-
-const GString& GString::operator+=(const double& num)
-{
-	char tmp_str[26] = { 0 };
-	sprintf_s(tmp_str, "%f", num);
-	m_str += tmp_str;
-	while(m_str.size() > 0 && m_str.back() == '0')
-		m_str.pop_back();
-	return *this;
-}
-
-const GString& GString::operator<<(const GString& obj)
-{
-	m_str += obj.m_str;
-	return *this;
-	return obj;
-}
-
-const GString& GString::operator<<(const int& obj)
-{
-	char tmp_str[26] = { 0 };
-	sprintf_s(tmp_str, "%d", obj);
-	m_str += tmp_str;
-	return *this;
-}
-
-const GString& GString::operator<<(const double& obj)
-{
-	char tmp_str[26] = { 0 };
-	sprintf_s(tmp_str, "%f", obj);
-	m_str += tmp_str;
-	while(m_str.size() > 0 && m_str.back() == '0')
-		m_str.pop_back();
-	return *this;
-}
-
-const GString& GString::operator<<(const char& obj)
-{
-	m_str += obj;
-	return *this;
-}
-
-const GString& GString::operator<<(const std::string& obj)
-{
-	m_str += obj;
-	return *this;
-}
-
-const GString& GString::operator<<(const char* obj)
-{
-	m_str += obj;
-	return *this;
-}
-
-const GString& GString::operator>>(GString& obj) const
-{
-	obj.m_str += this->m_str;
-	return obj;
-}
-
-const int& GString::operator>>(int& obj) const
-{
-	obj = atoi(this->m_str.c_str());
-	return obj;
-}
-
-const double& GString::operator>>(double& obj) const
-{
-	obj = atof(this->m_str.c_str());
-	return obj;
-}
-
-const char& GString::operator>>(char& obj) const
-{
-	if (this->size() == 0)
-	{
-		obj = 0;
-		return obj;
-	}
-	obj = this->m_str.front();
-	return obj;
-}
-
-const std::string& GString::operator>>(std::string& obj) const
-{
-	obj += this->m_str;
-	return obj;
-}
-
-GString::size_type GString::size() const
-{
-	return m_str.size();
-}
-
-bool GString::empty() const
-{
-	if (size() == 0)
-		return true;
-	return false;
-}
-
-GString::iterator GString::begin()
-{
-	return m_str.begin();
-}
-
-GString::const_iterator GString::begin() const
-{
-	return m_str.begin();
-}
-
-GString::iterator GString::end()
-{
-	return m_str.end();
-}
-
-GString::const_iterator GString::end() const
-{
-	return m_str.end();
-}
-
-void GString::clear()
-{
-	m_str.clear();
-}
-
-int GString::find(char ch, size_type offset /*=0 */) const
-{
-	return m_str.find(ch, offset);
+	return _Mybase::find(find_str, offset);
 }
 
 int GString::find(const GString& find_str, size_type offset /*=0 */) const
 {
 	if (find_str.size() == 1)
-		return this->m_str.find(find_str.c_str());
+		return this->find(find_str.c_str());
 
-	while ((offset = m_str.find(find_str.m_str.front(), offset)) != -1)
+	while ((offset = find(find_str.front(), offset)) != -1)
 	{
 		for(size_t i = 1; i < find_str.size(); i++){
 			if (find_str.at(i) != this->at(offset + i))
@@ -370,14 +129,9 @@ int GString::findFinal( char ch, size_type offset /*= 0*/ ) const
 {
 	int index = -1;
 	for (size_t i = offset; i < size(); ++i)
-		if(m_str.at(i) == ch)
+		if(at(i) == ch)
 			index = i;
 	return index;
-}
-
-GString GString::substr(size_type offset, size_type count /*= 1*/) const
-{
-	return m_str.substr(offset, count);
 }
 
 GString GString::substr(
@@ -399,12 +153,7 @@ GString GString::substr(
 		return "";
 	if (out_index != nullptr)
 		*out_index = right_index + right.size();
-	return m_str.substr(left_index, right_index - left_index);
-}
-
-void GString::erase(size_type offset, size_type count /*= 1*/)
-{
-	m_str.erase(offset, count);
+	return substr(left_index, right_index - left_index);
 }
 
 void GString::emplace(const GString& str, const GString& emplace_str, size_type offset /*= 0*/)
@@ -412,65 +161,25 @@ void GString::emplace(const GString& str, const GString& emplace_str, size_type 
 	int index = -1;
 	while ((index = find(str, offset)) != -1)
 	{
-		m_str.erase(index, str.size());
-		m_str.insert(index, emplace_str.m_str);
+		erase(index, str.size());
+		insert(index, emplace_str);
 	}
-}
-
-char GString::at(int index) const
-{
-	return m_str.at(index);
-}
-
-const char* GString::c_str() const
-{
-	return m_str.c_str();
-}
-
-GString::const_reference GString::front() const
-{
-	return m_str.front();
-}
-
-GString::const_reference GString::back() const
-{
-	return m_str.back();
-}
-
-void GString::push_back(char ch)
-{
-	m_str.push_back(ch);
-}
-
-void GString::pop_back()
-{
-	m_str.pop_back();
-}
-
-void GString::push_front(char ch)
-{
-	m_str.insert(m_str.begin(), ch);
-}
-
-void GString::pop_front()
-{
-	m_str.erase(m_str.begin());
 }
 
 int GString::toInt() const
 {
-	return atoi(m_str.c_str());
+	return atoi(this->c_str());
 }
 
 double GString::toDouble() const
 {
-	return atof(m_str.c_str());
+	return atof(this->c_str());
 }
 
 long GString::toInt_hex() const
 {
 	long val = 0;
-	int index = m_str.size() - 1;
+	int index = this->size() - 1;
 	int hex = 1;
 
 	for (size_t i = 0; i < 8; ++i, --index, hex *= 16)
@@ -478,7 +187,7 @@ long GString::toInt_hex() const
 		if (index < 0)
 			break;
 		char num[3] = { 0 };
-		num[0] = m_str.at(index);
+		num[0] = this->at(index);
 		switch (num[0])
 		{
 		case '0':
@@ -534,55 +243,206 @@ long GString::toInt_hex() const
 	return val;
 }
 
-const GString& GString::operator=(const GString& copy_obj)
-{
-	m_str = copy_obj.m_str;
-	return *this;
-}
-
-bool GString::operator>=(const std::string& compare_obj) const
-{
-	return m_str >= compare_obj;
-}
-
-bool GString::operator>=(const GString& compare_obj) const
-{
-	return m_str >= compare_obj.m_str;
-}
-
-bool GString::operator==(const char* compare_obj) const
-{
-	return m_str == compare_obj;
-}
-
-bool GString::operator==(const std::string& compare_obj) const
-{
-	return m_str == compare_obj;
-}
-
-bool GString::operator==(const GString& compare_obj) const
-{
-	return m_str == compare_obj.m_str;
-}
-
 std::basic_string<wchar_t> GString::toWString() const
 {
-	
+
 	wchar_t* wstr = nullptr;
-	int len = MultiByteToWideChar(CP_ACP,0,m_str.c_str(), m_str.size(),NULL,0); 
-	wstr=new wchar_t[len+1]; 
-	MultiByteToWideChar(CP_ACP,0,m_str.c_str(), m_str.size(), wstr,len); 
-	wstr[len]='\0'; 
+	int len = MultiByteToWideChar(CP_ACP, 0, c_str(), size(), NULL, 0);
+	wstr = new wchar_t[len + 1];
+	MultiByteToWideChar(CP_ACP, 0, c_str(), size(), wstr, len);
+	wstr[len] = '\0';
 
 	std::basic_string<wchar_t> wString = wstr;
 	delete[] wstr;
 
-	return wString; 
+	return wString;
 }
 
 std::ostream& operator<<(std::ostream& os, const GString& str) {
 	os << str.c_str();
 	return os;
 };
+
+GString GString::operator+(const int& num) const
+{
+	char tmp_str[26] = { 0 };
+	sprintf_s(tmp_str, "%d", num);
+	GString gstr = *this;
+	gstr += tmp_str;
+	return gstr;
+}
+
+GString GString::operator+(const float& num) const
+{
+	char tmp_str[26] = { 0 };
+	sprintf_s(tmp_str, "%f", num);
+	GString gstr = *this;
+	gstr += tmp_str;
+	return gstr;
+}
+
+GString GString::operator+(const char* compare_obj) const
+{
+	return std::operator+(*this, compare_obj);
+}
+
+GString GString::operator+(const char& c) const
+{
+	return std::operator+(*this, c);
+}
+
+GString GString::operator+(const GString& str) const
+{
+	GString gs = *this;
+	gs += str;
+	return gs;
+}
+
+const GString& GString::operator+=(const char* compare_obj)
+{
+	_Mybase::operator+=(compare_obj);
+	return *this;
+}
+
+const GString& GString::operator+=(const char& c)
+{
+	_Mybase::operator+=(c);
+	return *this;
+}
+
+const GString& GString::operator+=(const int& num)
+{
+	char tmp_str[26] = { 0 };
+	sprintf_s(tmp_str, "%d", num);
+	*this += tmp_str;
+	return *this;
+}
+
+const GString& GString::operator+=(const double& num)
+{
+	char tmp_str[26] = { 0 };
+	sprintf_s(tmp_str, "%f", num);
+	*this += tmp_str;
+	while (size() > 0 && back() == '0')
+		pop_back();
+	return *this;
+}
+
+const GString& GString::operator+=(const GString& str)
+{
+	_Mybase::operator+=(str);
+	return *this;
+}
+
+const GString& GString::operator<<(const GString& obj)
+{
+	*this += obj;
+	return *this;
+}
+
+const GString& GString::operator<<(const int& obj)
+{
+	char tmp_str[26] = { 0 };
+	sprintf_s(tmp_str, "%d", obj);
+	*this += tmp_str;
+	return *this;
+}
+
+const GString& GString::operator<<(const double& obj)
+{
+	char tmp_str[26] = { 0 };
+	sprintf_s(tmp_str, "%f", obj);
+	*this += tmp_str;
+	while (size() > 0 && back() == '0')
+		pop_back();
+	return *this;
+}
+
+const GString& GString::operator<<(const char& obj)
+{
+	*this += obj;
+	return *this;
+}
+
+const GString& GString::operator<<(const char* obj)
+{
+	*this += obj;
+	return *this;
+}
+
+const GString& GString::operator>>(GString& obj) const
+{
+	obj += *this;
+	return obj;
+}
+
+const int& GString::operator>>(int& obj) const
+{
+	obj = atoi(this->c_str());
+	return obj;
+}
+
+const double& GString::operator>>(double& obj) const
+{
+	obj = atof(this->c_str());
+	return obj;
+}
+
+const char& GString::operator>>(char& obj) const
+{
+	if (this->size() == 0)
+	{
+		obj = 0;
+		return obj;
+	}
+	obj = this->front();
+	return obj;
+}
+
+bool GString::operator==(const char* compare_obj) const
+{
+	return std::operator==(*this, compare_obj);
+}
+
+bool GString::operator==(const GString& str) const
+{
+	return std::operator==(*this, str);
+}
+
+const GString& GString::operator=(const GString& copy_obj)
+{
+	_Mybase::operator=(copy_obj);
+	return *this;
+}
+
+const GString& GString::operator=(GString&& move_obj)
+{
+	_Mybase::operator=(move_obj);
+	return *this;
+}
+
+std::vector<GString> GString::split(const GString& split_str) const
+{
+	std::vector<GString> split_text;
+
+	for (
+		int cur_index = 0, pre_index = 0;;)
+	{
+		cur_index = find(split_str.c_str(), pre_index);
+		if (npos == cur_index)
+		{
+			GString gs = _Mybase::substr(pre_index, size() - pre_index);
+			if (!gs.empty())
+				split_text.push_back(gs);
+			break;
+		}
+		GString gs = _Mybase::substr(pre_index, cur_index - pre_index);
+		if (!gs.empty())
+			split_text.push_back(gs);
+		pre_index = cur_index + split_str.size();
+	}
+
+	return split_text;
+}
 
 #pragma warning(default: 4996)

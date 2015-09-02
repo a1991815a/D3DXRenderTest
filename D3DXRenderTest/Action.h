@@ -3,9 +3,10 @@
 #include "Node.h"
 
 
-
 class Action: public Ref{
 	friend class Node;
+	friend class ActionRepeat;
+	friend class ActionSequence;
 public:
 	enum ActionTypes{
 		ACTION_INSTANT,
@@ -19,16 +20,31 @@ public:
 	virtual void update() = 0;
 
 	ActionTypes getActionType() const;
-	void setStop();
+
+	void setStop(bool _stop){
+		m_stop = _stop;
+	};
+	bool getStop() const{
+		return m_stop;
+	};
+
+	const Node* getNode() const;
+
 protected:
 //Ö´ÐÐÄÚÈÝ
 	virtual void _update() = 0;
-	void bindNode(Node* node);
+	
 	
 	Node* getNode();
-	const Node* getNode() const;
+	
+	virtual void init(Node* node);
 private:
 	Node* m_bindNode;
 	ActionTypes m_type;
+	bool m_stop;
+
+	Action* m_resetAction;
+protected:
+	bool isInit;
 };
 #endif

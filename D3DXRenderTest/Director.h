@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Application.h"
 #include "LimitStateMachine.h"
+#include "D3DXRenderEngine.h"
 
 #define _director Director::getInstance()
 
@@ -23,7 +24,11 @@ public:
 
 	void destroy();
 
+	Vec2 getWindowSize() const;
 	
+	D3DXRenderEngine* getD3DXRenderEngine(){
+		return (D3DXRenderEngine*)render_engine;
+	}
 public:
 	void TransformScene(Scene* scene);
 	Scene* getCurrentScene();

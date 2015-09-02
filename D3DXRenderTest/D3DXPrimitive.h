@@ -13,6 +13,7 @@ private:
 	D3DPRIMITIVETYPE m_type;
 	bool m_resetFlag;
 	D3DFILLMODE m_fillMode;
+	Vec2 m_anchontPoint;
 public:
 	D3DXPrimitive();
 	D3DXPrimitive(
@@ -96,7 +97,19 @@ public:
 	inline void gbSetNormal(size_t offset, const Vec3& normal) {
 		gbGetVertex(offset)->anchoPoint = normal;
 	}
+	inline void gbSetAnchontPoint(const Vec2& point) {
+		m_anchontPoint = point;
+		gbSetReset(true);
+	};
+	inline void gbSetAnchontPoint(const Vec3& point) {
+		m_anchontPoint.x = point.x;
+		m_anchontPoint.y = point.y;
+		gbSetReset(true);
+	};
 
+	inline const Vec2& gbGetAnchontPoint() const{
+		return m_anchontPoint;
+	}
 
 protected:
 	inline void gbSetBuf(IDirect3DVertexBuffer9* val) { m_buf = val; }

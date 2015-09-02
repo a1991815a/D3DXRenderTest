@@ -5,6 +5,8 @@
 
 class ActionInterval: public Action{
 public:
+	ActionInterval();
+	~ActionInterval();
 	void setDelay(time_type delay);
 	time_type getDelay() const;
 	virtual void update() override;
@@ -12,6 +14,10 @@ public:
 	void setPause(bool pause);
 	bool getPause() const;
 	time_type getDelta() const;
+
+	virtual void init(Node* node) override;
+
+	
 private:
 	Timer m_timer;
 	time_type m_delay;

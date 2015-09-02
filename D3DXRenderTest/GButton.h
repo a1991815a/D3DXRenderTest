@@ -17,10 +17,14 @@ public:
 	~GButton();
 	static GButton* create(const GString& image_path);
 	static GButton* createFromSpriteFrame(const GString& _frame);
+	static GButton* createByKey(const char* key);
 
 	virtual void visit() override;
 private:
 	bool HitTest(const Vec2& point) const;
+
+	virtual Value serialization() override;
+
 private:
 	SpriteFrame* image;
 	MouseListener* listener;

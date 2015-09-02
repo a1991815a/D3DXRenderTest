@@ -10,16 +10,25 @@
 */
 
 typedef unsigned int limitState;
-typedef std::function<void(void*)> LimitStateFunc;
+typedef std::function<void(long, void*)> LimitStateFunc;
 
 class LimitStateMachine{
 private:
-	std::unordered_map<limitState, LimitStateFunc> m_funcList;
+	struct StateNode {
+		StateNode(LimitStateFunc func = nullptr, long param = 0, void* data = nullptr)
+			:func(func), param(param), data(data)
+		{};
+		LimitStateFunc func;
+		long param;
+		void* data;
+	};
+private:
+	std::unordered_map<limitState, StateNode> m_funcList;
 	limitState m_State;
-	LimitStateFunc* m_curFunc;
+	StateNode* m_curStateNode;
 public:
 	inline LimitStateMachine()
-		:m_State(0), m_curFunc(nullptr)
+		:m_State(0), m_curStateNode(nullptr)
 	{};
 
 	inline virtual ~LimitStateMachine(){};
@@ -28,28 +37,33 @@ public:
 		auto itor = m_funcList.find(state);
 		GBASSERT(itor != m_funcList.end());
 		m_State = state;
-		m_curFunc = (LimitStateFunc*)(&itor->second);
+		m_curStateNode = (StateNode*)(&itor->second);
 	};
 
 	inline limitState getState() const{
 		return m_State;
 	};
 
-	void registerState(limitState _State, LimitStateFunc func){
+	inline void registerState(limitState _State, LimitStateFunc func, long param = 0, void* data = nullptr){
 		GBASSERT(m_funcList.find(_State) == m_funcList.end());
 		m_funcList.insert(
-			std::unordered_map<limitState, LimitStateFunc>::value_type(_State, func)
-			);
+			std::unordered_map<limitState, StateNode>::value_type(
+				_State,
+				StateNode(func, param, data)
+			));
 	}
 
-	void unregisterState(limitState _State){
+	inline void unregisterState(limitState _State){
 		GBASSERT(m_funcList.find(_State) != m_funcList.end());
 		m_funcList.erase(_State);
 	}
 
-	inline void RunStateFunc(void* data){
-		GBASSERT(m_curFunc != nullptr);
-		(*m_curFunc)(data);
+	inline void RunStateFunc(){
+		GBASSERT(m_curStateNode != nullptr);
+		m_curStateNode->func(
+			m_curStateNode->param,
+			m_curStateNode->data
+			);
 	}
 };
 #endif

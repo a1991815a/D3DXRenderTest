@@ -11,6 +11,12 @@ ActionInstant::ActionInstant()
 
 void ActionInstant::update()
 {
-	if(!getPause())
-		this->_update();
+	GBASSERT(isInit);
+	this->_update();
+}
+
+void ActionInstant::init(Node* node)
+{
+	Action::init(node);
+	isInit = true;
 }

@@ -12,6 +12,7 @@ private:
 public:
 	CREATE_FUNC(Sprite);
 	static Sprite* createBySpriteFrame(const GString& key);
+	static Sprite* createByKey(const char* key_1, ...);
 public:
 	Sprite();
 	~Sprite();
@@ -20,8 +21,10 @@ public:
 	
 	bool init();
 	void setFrame(SpriteFrame* frame);
-	
+	void setFrameByName(const GString& name);
 private:
 	void bindAnimate();
+
+	virtual Value serialization() override;
 };
 #endif

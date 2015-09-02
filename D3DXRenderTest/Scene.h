@@ -6,8 +6,7 @@ class Scene: public Node{
 private:
 	
 public:
-	CREATE_FUNC(Scene);
-	bool init();
+	static Scene* create();
 
 	virtual void visit() override;
 };

@@ -1,5 +1,6 @@
 #include "CoordUtils.h"
 #include <assert.h>
+#include "Director.h"
 
 Vec2 WorldToNode(const Node* node, const Vec2& point)
 {
@@ -11,8 +12,10 @@ Vec2 WorldToNode(const Node* node, const Vec2& point)
 	D3DXVec2TransformCoord(
 		ret.getD3DXVector(),
 		ret.getD3DXVector(),
-		&matrix);
-
+		&matrix
+		);
+	ret.x += node->getPosition().x / _director->getWindowSize().x * 15;
+	ret.y += node->getPosition().y / _director->getWindowSize().y * 30;
 	return ret;
 }
 
